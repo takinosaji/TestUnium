@@ -7,6 +7,7 @@ using TestUnium.Instantiation.Prioritizing;
 
 namespace TestUnium.Settings
 {
+    [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.Settings)]
     [AttributeUsage(AttributeTargets.Class)]
     public class SettingsAttribute : CustomizationAttribute, ICustomizationAttribute<SettingsDrivenTest>
@@ -28,7 +29,7 @@ namespace TestUnium.Settings
             _createFileIfNotExist = createFileIfNotExist;
         }  
 
-        public void Customize(SettingsDrivenTest context)
+        public virtual void Customize(SettingsDrivenTest context)
         {
             context.Settings = (SettingsBase)Activator.CreateInstance(_settingsType);
 

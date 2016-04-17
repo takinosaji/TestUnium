@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using TestUnium.Common;
 
 namespace TestUnium.Core
 {

@@ -12,7 +12,7 @@ namespace TestUnium.Instantiation.WebDriving
     public class WebDriverAttribute : CustomizationAttribute, ICustomizationAttribute<WebDriverDrivenTest>
     {
         public WebDriverAttribute() : base(typeof(WebDriverDrivenTest)) { }
-        public void Customize(WebDriverDrivenTest context)
+        public virtual void Customize(WebDriverDrivenTest context)
         {
             switch (context.Browser)
             {

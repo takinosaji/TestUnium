@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using TestUnium.Common;
 using TestUnium.Core;
 using TestUnium.Stepping;
 

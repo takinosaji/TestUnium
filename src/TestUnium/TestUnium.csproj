@@ -63,7 +63,7 @@
     <Compile Include="Common\CustomizationAttributePriorities.cs" />
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="Common\CommandLineArgsConstants.cs" />
-    <Compile Include="Core\InjectionHelper.cs" />
+    <Compile Include="Common\InjectionHelper.cs" />
     <Compile Include="Core\KernelDrivenTest.cs" />
     <Compile Include="Customization\IncorrectCustomizationTargetTypeException.cs" />
     <Compile Include="Paging\LazyAttribute.cs" />
