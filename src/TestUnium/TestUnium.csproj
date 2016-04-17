@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{620F1519-35FC-484C-8243-AD0280EDF8C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestUnium</RootNamespace>
+    <AssemblyName>TestUnium</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebDriver, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrapping\Resolver.cs" />
+    <Compile Include="Bootstrapping\Get.cs" />
+    <Compile Include="Common\CustomizationAttributePriorities.cs" />
+    <Compile Include="Common\Singleton.cs" />
+    <Compile Include="Common\CommandLineArgsConstants.cs" />
+    <Compile Include="Core\InjectionHelper.cs" />
+    <Compile Include="Core\KernelDrivenTest.cs" />
+    <Compile Include="Customization\IncorrectCustomizationTargetTypeException.cs" />
+    <Compile Include="Paging\LazyAttribute.cs" />
+    <Compile Include="Paging\MarkerAttribute.cs" />
+    <Compile Include="Paging\NameAttribute.cs" />
+    <Compile Include="Paging\PageMarkerNotProvidedException.cs" />
+    <Compile Include="Paging\PageObjectNotFoundException.cs" />
+    <Compile Include="Paging\StickyElement.cs" />
+    <Compile Include="Instantiation\WebDriving\WebDriverContainer.cs" />
+    <Compile Include="Customization\CustomizationAttribute.cs" />
+    <Compile Include="Customization\CustomizationAttributeFamily.cs" />
+    <Compile Include="Customization\ICancellable.cs" />
+    <Compile Include="Customization\ICustomizationAttribute.cs" />
+    <Compile Include="Customization\ICustomizationSource.cs" />
+    <Compile Include="Customization\ICustomizationTarget.cs" />
+    <Compile Include="Customization\IncorrectCustomizationSourceTypeException.cs" />
+    <Compile Include="Extensions\DriverExtensions.cs" />
+    <Compile Include="Instantiation\Browsing\AllowedBrowsersAttribute.cs" />
+    <Compile Include="Instantiation\Browsing\Browser.cs" />
+    <Compile Include="Instantiation\Browsing\BrowserNotAllowedException.cs" />
+    <Compile Include="Instantiation\Browsing\DefaultBrowserAttribute.cs" />
+    <Compile Include="Instantiation\Browsing\DetectBrowserAttribute.cs" />
+    <Compile Include="Instantiation\Browsing\ForbiddenBrowsersAttribute.cs" />
+    <Compile Include="Instantiation\Browsing\NoAllowedBrowsersException.cs" />
+    <Compile Include="Instantiation\WebDriving\WebDriverAttribute.cs" />
+    <Compile Include="Instantiation\WebDriving\WebDriverHasNotBeenProperlyInitializedException.cs" />
+    <Compile Include="Instantiation\WebDriving\WebDriverDrivenTest.cs" />
+    <Compile Include="Instantiation\Prioritizing\AbsentPriorityException.cs" />
+    <Compile Include="Customization\CustomizationAttributeDrivenTest.cs" />
+    <Compile Include="Instantiation\Prioritizing\ICustomizationFamily.cs" />
+    <Compile Include="Instantiation\Prioritizing\InvalidPriorityException.cs" />
+    <Compile Include="Instantiation\Prioritizing\ICustomizationAttributeDrivenTest.cs" />
+    <Compile Include="Instantiation\Prioritizing\PriorityAttribute.cs" />
+    <Compile Include="Instantiation\WebDriving\IWebDriverDrivenTest.cs" />
+    <Compile Include="Paging\IPageObject.cs" />
+    <Compile Include="Paging\PageObject.cs" />
+    <Compile Include="Sessioning\SessionDrivenTest.cs" />
+    <Compile Include="Sessioning\ContextStepSession.cs" />
+    <Compile Include="Sessioning\ISessionContext.cs" />
+    <Compile Include="Settings\ISettingsDrivenTest.cs" />
+    <Compile Include="Stepping\IStepDrivenTest.cs" />
+    <Compile Include="Stepping\IStepRunner.cs" />
+    <Compile Include="Stepping\Modules\Logging\ConsoleLogger.cs" />
+    <Compile Include="Stepping\Modules\Logging\ILogger.cs" />
+    <Compile Include="Stepping\Steps\FakeStep.cs" />
+    <Compile Include="Stepping\Steps\FakeStepAttribute.cs" />
+    <Compile Include="Stepping\Steps\FakeStepWithReturnValue.cs" />
+    <Compile Include="Stepping\Steps\IStep.cs" />
+    <Compile Include="Stepping\Modules\IStepModule.cs" />
+    <Compile Include="Stepping\StepRunner.cs" />
+    <Compile Include="Stepping\StepDrivenTest.cs" />
+    <Compile Include="Stepping\Steps\WebDriverBaseStep.cs" />
+    <Compile Include="Stepping\StepExecutionResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\ISettingsSource.cs" />
+    <Compile Include="Settings\NoSettingsAttribute.cs" />
+    <Compile Include="Settings\SettingsAttribute.cs" />
+    <Compile Include="Settings\SettingsBase.cs" />
+    <Compile Include="Settings\SettingsDrivenTest.cs" />
+    <Compile Include="Stepping\Steps\IExecutableStep.cs" />
+    <Compile Include="Stepping\Steps\WebDriverStep.cs" />
+    <Compile Include="Stepping\Steps\ExecutableStep.cs" />
+    <Compile Include="Stepping\StepState.cs" />
+    <Compile Include="UniumCore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
