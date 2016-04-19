@@ -42,7 +42,7 @@ namespace TestUnium.Customization
             {
                 if (invList.Any(i => i == a.GetType()) ||
                     hidList.Any(i => i == a.GetType())) return;
-                if (a.CheckCancellationClause(invList)) return;
+                if (a.HasToBeCanceled(invList)) return;
                 var attrType = a.GetType();
                 var method = attrType.GetMethod("Customize");
                 if(method == null) throw new NullReferenceException($"Couldn't find Customize method in {attrType.FullName}");

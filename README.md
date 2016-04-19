@@ -1,5 +1,5 @@
 # TestUnium
 
-.NET library based on Selenium Web Driver for testing.
+Framework for scalable and productive automated testing.
 
 Built on .NET Framework 4.6.

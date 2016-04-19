@@ -5,6 +5,6 @@ namespace TestUnium.Customization
 {
     public interface ICancellable
     {
-        Boolean CheckCancellationClause(IEnumerable<Type> invocationList);
+        Boolean HasToBeCanceled(IEnumerable<Type> invocationList);
     }
 }

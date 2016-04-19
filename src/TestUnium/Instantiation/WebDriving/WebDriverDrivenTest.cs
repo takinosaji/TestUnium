@@ -37,22 +37,11 @@ namespace TestUnium.Instantiation.WebDriving
             }, Kernel, Resolver.Instance.Kernel);
         }
 
-        //public void LaunchWebDriver()
-        //{
-        //    var attribute = (WebDriverAttribute)GetType().GetCustomAttribute(typeof(WebDriverAttribute));
-        //    if (attribute == null) throw new WebDriverHasNotBeenProperlyInitializedException();
-        //    attribute.Customize(this);
-        //}
-
-        public void ShutDownWebDriver(Boolean testFailed = false)
+        public void ShutDownWebDriver()
         {
-            if (testFailed)
-            {
-                MakeScreenshot();
-            }
             Driver?.Close();
         }
-        protected void MakeScreenshot()
+        public void MakeScreenshot()
         {
             if (Driver == null) throw new WebDriverHasNotBeenProperlyInitializedException();
             var ss = ((ITakesScreenshot)Driver).GetScreenshot();

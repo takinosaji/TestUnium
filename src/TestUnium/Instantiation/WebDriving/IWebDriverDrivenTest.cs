@@ -4,6 +4,7 @@ namespace TestUnium.Instantiation.WebDriving
 {
     public interface IWebDriverDrivenTest
     {
-        void ShutDownWebDriver(Boolean testFailed);
+        void MakeScreenshot();
+        void ShutDownWebDriver();
     }
 }

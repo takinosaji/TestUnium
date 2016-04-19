@@ -12,7 +12,7 @@ namespace TestUnium.Customization
         private readonly Type _targetType;
         public UInt16 Priority { get; set; }
         public Boolean Visible { get; set; }
-        public IEnumerable<Type> CancellationList { get; set; }
+        public List<Type> CancellationList { get; set; }
 
         protected CustomizationAttribute(Type targetType, UInt16 priority = 0) : this(targetType, new List<Type>(), priority) { }
 
@@ -20,7 +20,7 @@ namespace TestUnium.Customization
         {
             _targetType = targetType;
             Visible = true;        
-            CancellationList = cancellationCollection;
+            CancellationList = cancellationCollection.ToList();
             var attr = GetType().GetCustomAttribute(typeof(PriorityAttribute)) as PriorityAttribute;
             if (attr != null)
             {
@@ -30,15 +30,14 @@ namespace TestUnium.Customization
             Priority = priority;
         }
 
-        public Boolean CheckCancellationClause(IEnumerable<Type> invocationList)
+        public Boolean HasToBeCanceled(IEnumerable<Type> invocationList)
         {
             var result = false;
-            var types = CancellationList as List<Type>;
-            types?.ForEach(cancelItem =>
+            CancellationList.ForEach(cancelItem =>
             {
                 if (invocationList.Any(invItem => cancelItem.Name.Equals(invItem.Name)))
                 {
-                    result = false;
+                    result = true;
                 }
             });
             return result;
