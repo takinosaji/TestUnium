@@ -16,9 +16,6 @@ namespace TestUnium.Sessioning
             Kernel.Bind<SessionDrivenTest>().ToConstant(this);
         }
 
-        public ContextStepSession Session(params ISessionContext[] contexts)
-        {
-            return SessionKernel.Get<ContextStepSession>();
-        }
+        public ContextSession Session => SessionKernel.Get<ContextSession>();
     }
 }

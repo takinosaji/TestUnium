@@ -7,14 +7,14 @@ using TestUnium.Stepping.Modules;
 
 namespace TestUnium.Sessioning
 {
-    public class ContextStepSession
+    public class Session: ISession
     {
         private readonly IKernel _kernel;
         private readonly IStepRunner _runner;
         private ISessionContext[] _contexts;
         private IStepModule[] _stepModules;
 
-        public ContextStepSession(IKernel kernel, IStepRunner runner)
+        public Session(IKernel kernel, IStepRunner runner)
         {
             _kernel = kernel;
             _runner = runner;
@@ -27,7 +27,7 @@ namespace TestUnium.Sessioning
             var contextList = _contexts.ToList();
             foreach (var context in contexts)
             {
-                context.AddSessionBindings(_kernel);
+                context.OnStart(_kernel);
                 contextList.Add(context);
             }
             _contexts = contextList.ToArray();
@@ -53,22 +53,22 @@ namespace TestUnium.Sessioning
         }
 
         #region Contexts
-        public ContextStepSession Using(params ISessionContext[] contexts)
+        public Session Using(params ISessionContext[] contexts)
         {
             AddContexts(contexts); return this;
         }
-        public ContextStepSession Using(IEnumerable<ISessionContext> contexts)
+        public Session Using(IEnumerable<ISessionContext> contexts)
         {
             AddContexts(contexts); return this;
         }
         #endregion
 
         #region StepModules
-        public ContextStepSession Include(params IStepModule[] modules)
+        public Session Include(params IStepModule[] modules)
         {
             AddModules(modules); return this;
         }
-        public ContextStepSession Include(IEnumerable<IStepModule> modules)
+        public Session Include(IEnumerable<IStepModule> modules)
         {
             AddModules(modules); return this;
         }
@@ -78,7 +78,7 @@ namespace TestUnium.Sessioning
             var contextList = _contexts.ToList();
             foreach (var context in contextList)
             {
-                context.RemoveSessionBindings(_kernel);
+                context.OnEnd(_kernel);
 
             }
             _contexts = contextList.ToArray();

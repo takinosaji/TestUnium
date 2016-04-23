@@ -32,14 +32,14 @@ namespace TestUnium.Extensions
             return wait.Timeout.TotalSeconds <= 0 ? driver.FindElements(@by) : wait.Until(drv => drv.FindElements(@by));
         }
 
-        public static IWebElement FindStickyElement(this IWebDriver driver, By by, Double timeoutInSeconds = 0)
-        {
-            return driver.FindStickyElement(by, new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds)));
-        }
-
         public static IWebElement FindStickyElement(this IWebDriver driver, By by, IWait<IWebDriver> wait)
         {
             return wait.Timeout.TotalSeconds <= 0 ? new StickyElement(driver, by) : new StickyElement(driver, by, wait);
+        }
+
+        public static IWebElement FindStickyElement(this IWebDriver driver, By by, Double timeoutInSeconds = 0)
+        {
+            return driver.FindStickyElement(by, new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds)));
         }
 
         public static ReadOnlyCollection<StickyElement> FindStickyElements(this IWebDriver driver, By by, Double timeoutInSeconds)
@@ -53,6 +53,21 @@ namespace TestUnium.Extensions
             var stickyCollection = new ReadOnlyCollection<StickyElement>(elements.Select(e => new StickyElement(driver, by, wait, e)).ToList());
             return stickyCollection;
         }
+
+
+
+        //public static IWebElement FindElement<TElement>(this IWebDriver driver, By by, IWait<IWebDriver> wait)
+        //    where TElement : IWebElement, new()
+        //{
+        //    return wait.Timeout.TotalSeconds <= 0 ? new TElement(driver, by) : new StickyElement(driver, by, wait);
+        //}
+        //public static IWebElement FindElement<TElement>(this IWebDriver driver, By by, Double timeoutInSeconds = 0)
+        //    where TElement : IWebElement
+        //{
+        //    return driver.FindElement<TElement>(by, new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds)));
+        //}
+
+
 
         public static TPageObject GetPageObject<TPageObject>(this IWebDriver driver) where TPageObject : PageObject
         {

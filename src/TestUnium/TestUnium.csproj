@@ -101,7 +101,7 @@
     <Compile Include="Paging\IPageObject.cs" />
     <Compile Include="Paging\PageObject.cs" />
     <Compile Include="Sessioning\SessionDrivenTest.cs" />
-    <Compile Include="Sessioning\ContextStepSession.cs" />
+    <Compile Include="Sessioning\ContextSession.cs" />
     <Compile Include="Sessioning\ISessionContext.cs" />
     <Compile Include="Settings\ISettingsDrivenTest.cs" />
     <Compile Include="Stepping\IStepDrivenTest.cs" />

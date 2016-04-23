@@ -2,10 +2,10 @@
 
 namespace TestUnium.Sessioning
 {
-    public interface ISessionContext
+    public interface ISessionContext выбрать другое имя
     {
-        void AddSessionBindings(IKernel kernel);
+        void OnStart(IKernel kernel); а сюда принимать контекст в котором не только ядро будет
 
-        void RemoveSessionBindings(IKernel kernel);
+        void OnEnd(IKernel kernel);
     }
 }
