@@ -1,4 +1,7 @@
-﻿using Ninject;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Threading;
+using Ninject;
 using TestUnium.Common;
 using TestUnium.Core;
 using TestUnium.Stepping;
@@ -7,15 +10,24 @@ namespace TestUnium.Sessioning
 {
     public class SessionDrivenTest : StepDrivenTest
     {
+        private ConcurrentDictionary<String, Session> _sessions; 
         protected IKernel SessionKernel;
         protected SessionDrivenTest()
         {
             SessionKernel = InjectionHelper.CreateKernel();
-            SessionKernel.Bind<IKernel>().ToConstant(SessionKernel);            
-            SessionKernel.Bind<IStepRunner>().ToConstant(StepRunner);            
+            SessionKernel.Bind<ISessionContext>().To(взять тпи из атрибута);            
+            SessionKernel.Bind<IStepRunner>().ToConstant(StepRunner);     //This is should be fixed die       
             Kernel.Bind<SessionDrivenTest>().ToConstant(this);
         }
 
-        public ContextSession Session => SessionKernel.Get<ContextSession>();
+        public Session Session
+        {
+            get
+            {
+                var session = SessionKernel.Get<Session>();
+                var c = Thread.CurrentContext;
+                return session;
+            }
+        }
     }
 }

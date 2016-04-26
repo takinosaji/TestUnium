@@ -6,7 +6,7 @@ namespace TestUnium.Stepping
 {
     public interface IStepDrivenTest
     {
-        void RegisterStepModule<TStepModule>() where TStepModule : IStepModule;
+        void RegisterStepModule<TStepModule>(Boolean isReusable = true) where TStepModule : IStepModule;
         void UnregisterStepModule<TStepModule>() where TStepModule : IStepModule;
         void Do<TStep>(Action<TStep> action) where TStep : IExecutableStep;
         TResult Do<TStep, TResult>(Action<TStep> action) where TStep : IExecutableStep<TResult>;

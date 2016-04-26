@@ -9,30 +9,28 @@ namespace TestUnium.Sessioning
 {
     public class Session: ISession
     {
-        private readonly IKernel _kernel;
-        private readonly IStepRunner _runner;
-        private ISessionContext[] _contexts;
+        private readonly ISessionContext _context;
+        private ISessionPlugin[] _plugins;
         private IStepModule[] _stepModules;
 
-        public Session(IKernel kernel, IStepRunner runner)
+        public Session(ISessionContext context)
         {
-            _kernel = kernel;
-            _runner = runner;
-            _contexts = new ISessionContext[0];
+            _plugins = new ISessionPlugin[0];
             _stepModules = new IStepModule[0];
+            _context = context;
         }
 
-        private void AddContexts(params ISessionContext[] contexts)
+        private void AddContexts(params ISessionPlugin[] plugins)
         {
-            var contextList = _contexts.ToList();
-            foreach (var context in contexts)
+            var pluginList = _plugins.ToList();
+            foreach (var plugin in plugins)
             {
-                context.OnStart(_kernel);
-                contextList.Add(context);
+                plugin.OnStart(_context);
+                pluginList.Add(plugin);
             }
-            _contexts = contextList.ToArray();
+            _plugins = pluginList.ToArray();
         }
-        private void AddContexts(IEnumerable<ISessionContext> contexts)
+        private void AddContexts(IEnumerable<ISessionPlugin> contexts)
         {
             AddContexts(contexts.ToArray());
         }
@@ -47,17 +45,17 @@ namespace TestUnium.Sessioning
             _stepModules = modules.ToArray();
         }
 
-        public void Start(Action operations)
+        public void Start(Action<ISessionContext> operations)
         {
-            try { operations(); } finally { Dispose(); }
+            try { operations(_context); } finally { Dispose(); }
         }
 
         #region Contexts
-        public Session Using(params ISessionContext[] contexts)
+        public Session Using(params ISessionPlugin[] plugins)
         {
-            AddContexts(contexts); return this;
+            AddContexts(plugins); return this;
         }
-        public Session Using(IEnumerable<ISessionContext> contexts)
+        public Session Using(IEnumerable<ISessionPlugin> contexts)
         {
             AddContexts(contexts); return this;
         }
@@ -75,13 +73,13 @@ namespace TestUnium.Sessioning
         #endregion
         private void Dispose()
         {
-            var contextList = _contexts.ToList();
-            foreach (var context in contextList)
+            var pluginList = _plugins.ToList();
+            foreach (var plugin in pluginList)
             {
-                context.OnEnd(_kernel);
+                _context.OnEnd(_context);
 
             }
-            _contexts = contextList.ToArray();
+            _plugins = pluginList.ToArray();
             _runner.UnregisterModules(_stepModules);
         }
     }

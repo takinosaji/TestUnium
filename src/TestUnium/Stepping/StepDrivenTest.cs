@@ -22,10 +22,21 @@ namespace TestUnium.Stepping
             Kernel.Bind<StepDrivenTest>().ToConstant(this);
         }
 
-        public void RegisterStepModule<T>() where T : IStepModule
+        //public void RegisterStepModule<T>() where T : IStepModule
+        //{
+        //    if (isReusable)
+        //    {
+        //        Kernel.Bind<IStepModule>().To<T>().InSingletonScope();
+        //        return;
+        //    }
+        //    Kernel.Bind<IStepModule>().To<T>();
+        //}
+
+        public void RegisterStepModule<TStepModule>(bool sd) where TStepModule : IStepModule
         {
-            Kernel.Bind<IStepModule>().To<T>();
+            throw new NotImplementedException();
         }
+
 
         public void UnregisterStepModule<T>() where T : IStepModule
         {

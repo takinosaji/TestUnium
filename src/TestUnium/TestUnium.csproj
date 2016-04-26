@@ -100,9 +100,12 @@
     <Compile Include="Instantiation\WebDriving\IWebDriverDrivenTest.cs" />
     <Compile Include="Paging\IPageObject.cs" />
     <Compile Include="Paging\PageObject.cs" />
-    <Compile Include="Sessioning\SessionDrivenTest.cs" />
-    <Compile Include="Sessioning\ContextSession.cs" />
+    <Compile Include="Sessioning\BaseContext.cs" />
     <Compile Include="Sessioning\ISessionContext.cs" />
+    <Compile Include="Sessioning\ISession.cs" />
+    <Compile Include="Sessioning\SessionDrivenTest.cs" />
+    <Compile Include="Sessioning\Session.cs" />
+    <Compile Include="Sessioning\ISessionPlugin.cs" />
     <Compile Include="Settings\ISettingsDrivenTest.cs" />
     <Compile Include="Stepping\IStepDrivenTest.cs" />
     <Compile Include="Stepping\IStepRunner.cs" />
