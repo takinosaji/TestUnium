@@ -2,11 +2,11 @@
 
 namespace TestUnium.Sessioning
 {
-    public class BaseContext : ISessionContext
+    public class ContextBase : ISessionContext
     {
         public IKernel Kernel { get; set; }
 
-        public BaseContext(IKernel kernel)
+        public ContextBase(IKernel kernel)
         {
             Kernel = kernel;
         }

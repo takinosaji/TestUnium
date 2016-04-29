@@ -73,7 +73,7 @@
     <Compile Include="Paging\PageObjectNotFoundException.cs" />
     <Compile Include="Paging\StickyElement.cs" />
     <Compile Include="Instantiation\WebDriving\WebDriverContainer.cs" />
-    <Compile Include="Customization\CustomizationAttribute.cs" />
+    <Compile Include="Customization\CustomizationBase.cs" />
     <Compile Include="Customization\CustomizationAttributeFamily.cs" />
     <Compile Include="Customization\ICancellable.cs" />
     <Compile Include="Customization\ICustomizationAttribute.cs" />
@@ -100,12 +100,14 @@
     <Compile Include="Instantiation\WebDriving\IWebDriverDrivenTest.cs" />
     <Compile Include="Paging\IPageObject.cs" />
     <Compile Include="Paging\PageObject.cs" />
-    <Compile Include="Sessioning\BaseContext.cs" />
+    <Compile Include="Sessioning\ContextBase.cs" />
     <Compile Include="Sessioning\ISessionContext.cs" />
     <Compile Include="Sessioning\ISession.cs" />
+    <Compile Include="Sessioning\ISessionDrivenTest.cs" />
     <Compile Include="Sessioning\SessionDrivenTest.cs" />
-    <Compile Include="Sessioning\Session.cs" />
+    <Compile Include="Sessioning\SessionBase.cs" />
     <Compile Include="Sessioning\ISessionPlugin.cs" />
+    <Compile Include="Sessioning\SessionAttribute.cs" />
     <Compile Include="Settings\ISettingsDrivenTest.cs" />
     <Compile Include="Stepping\IStepDrivenTest.cs" />
     <Compile Include="Stepping\IStepRunner.cs" />

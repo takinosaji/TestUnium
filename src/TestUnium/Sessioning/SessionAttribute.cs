@@ -4,32 +4,28 @@ using Newtonsoft.Json;
 using TestUnium.Common;
 using TestUnium.Customization;
 using TestUnium.Instantiation.Prioritizing;
+using TestUnium.Sessioning;
 
 namespace TestUnium.Settings
 {
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.Settings)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class SettingsAttribute : CustomizationBase, ICustomizationAttribute<SettingsDrivenTest>
+    public class SessionAttribute : CustomizationBase, ICustomizationAttribute<SessionDrivenTest>
     {
-        private readonly Type _settingsType;
-        private readonly Boolean _loadFromFile;
-        private readonly Boolean _createFileIfNotExist;
+        private readonly Type _sessionType;
+        private readonly Type _sessionContextType;
 
-        public SettingsAttribute(Type settingsType, Boolean loadFromFile = true, Boolean createFileIfNotExist = true) 
-            : base(typeof(SettingsDrivenTest), new []
-            {
-                typeof(NoSettingsAttribute)
-            })
+        public SessionAttribute(Type sessionType, Type sessionContextType) 
         {
-            if (!typeof(ISettingsSource).IsAssignableFrom(settingsType))
+            if (!typeof(ISettingsSource).IsAssignableFrom(sessionType) || !typeof(ISessionContext).IsAssignableFrom(sessionType))
                 throw new IncorrectCustomizationSourceTypeException(settingsType.Name, nameof(SettingsBase));
             _settingsType = settingsType;
             _loadFromFile = loadFromFile;
             _createFileIfNotExist = createFileIfNotExist;
         }  
 
-        public virtual void Customize(SettingsDrivenTest context)
+        public virtual void Customize(SessionDrivenTest context)
         {
             context.Settings = (SettingsBase)Activator.CreateInstance(_settingsType);
 

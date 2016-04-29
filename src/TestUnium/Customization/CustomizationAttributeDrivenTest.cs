@@ -4,13 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using TestUnium.Bootstrapping;
+using TestUnium.Core;
 using TestUnium.Instantiation.Prioritizing;
 using TestUnium.Instantiation.WebDriving;
 using TestUnium.Stepping;
 
 namespace TestUnium.Customization
 {
-    public class CustomizationAttributeDrivenTest : StepDrivenTest, ICustomizationAttributeDrivenTest
+    public class CustomizationAttributeDrivenTest : KernelDrivenTest, ICustomizationAttributeDrivenTest
     {
         protected readonly IEnumerable<Type> InvokedAttributes;
         private readonly IEnumerable<Type> _hiddenAttributes;
@@ -33,8 +34,8 @@ namespace TestUnium.Customization
             var frame = new StackFrame(1);
             var callingMethod = frame.GetMethod();
             var targetType = callingMethod.DeclaringType ?? GetType();
-            var attributeList = new List<CustomizationAttribute>(GetType().GetCustomAttributes(typeof(CustomizationAttribute))
-                .Select(a => a as CustomizationAttribute)
+            var attributeList = new List<CustomizationBase>(GetType().GetCustomAttributes(typeof(CustomizationBase))
+                .Select(a => a as CustomizationBase)
                     .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizationAttribute<>)))
                         .Where(a => a.GetCustomizationTargetType() == targetType || targetType.IsSubclassOf(a.GetCustomizationTargetType())));
             attributeList.Sort((f, s) => f.CompareTo(s));

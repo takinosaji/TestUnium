@@ -9,7 +9,7 @@ using TestUnium.Instantiation.Browsing;
 namespace TestUnium.Instantiation.WebDriving
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class WebDriverAttribute : CustomizationAttribute, ICustomizationAttribute<WebDriverDrivenTest>
+    public class WebDriverAttribute : CustomizationBase, ICustomizationAttribute<WebDriverDrivenTest>
     {
         public WebDriverAttribute() : base(typeof(WebDriverDrivenTest)) { }
         public virtual void Customize(WebDriverDrivenTest context)

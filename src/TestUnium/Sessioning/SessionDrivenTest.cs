@@ -8,23 +8,24 @@ using TestUnium.Stepping;
 
 namespace TestUnium.Sessioning
 {
-    public class SessionDrivenTest : StepDrivenTest
+    [ContextBase]
+    public class SessionDrivenTest : StepDrivenTest, ISessionDrivenTest
     {
-        private ConcurrentDictionary<String, Session> _sessions; 
+        private ConcurrentDictionary<String, ISession> _sessions;
         protected IKernel SessionKernel;
         protected SessionDrivenTest()
         {
             SessionKernel = InjectionHelper.CreateKernel();
-            SessionKernel.Bind<ISessionContext>().To(взять тпи из атрибута);            
-            SessionKernel.Bind<IStepRunner>().ToConstant(StepRunner);     //This is should be fixed die       
+            Kernel.Bind<ISessionContext>().To(взять тпи из атрибута);
+            //SessionKernel.Bind<IStepRunner>().ToConstant(StepRunner);     //This is should be fixed die       
             Kernel.Bind<SessionDrivenTest>().ToConstant(this);
         }
 
-        public Session Session
+        public ISession Session
         {
             get
             {
-                var session = SessionKernel.Get<Session>();
+                var session = Kernel.Get<ISession>();
                 var c = Thread.CurrentContext;
                 return session;
             }
