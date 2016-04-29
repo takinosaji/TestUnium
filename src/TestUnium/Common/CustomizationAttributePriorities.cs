@@ -2,11 +2,12 @@
 {
     enum CustomizationAttributePriorities
     {
+        Session = 1,
         NoSettings = 1,
-        Settings = 2,
-        DetectBrowser = 3,
-        DefaultBrowser = 4,
-        ForbiddenBrowsers = 5,
-        AllowedBrowsers = 6
+        Settings = 1,
+        DetectBrowser = 1,
+        DefaultBrowser = 1,
+        ForbiddenBrowsers = 1,
+        AllowedBrowsers = 1
     }
 }

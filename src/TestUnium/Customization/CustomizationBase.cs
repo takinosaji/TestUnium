@@ -14,7 +14,9 @@ namespace TestUnium.Customization
         public Boolean Visible { get; set; }
         public List<Type> CancellationList { get; set; }
 
-        protected CustomizationBase(Type targetType, IEnumerable<Type> cancellationCollection = null, UInt16 priority = 0)
+        protected CustomizationBase(Type targetType, UInt16 priority = 0) : this(targetType, null, priority) {}
+
+        protected CustomizationBase(Type targetType, IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
             if (cancellationCollection == null)
             {
