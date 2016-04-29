@@ -28,33 +28,8 @@ namespace TestUnium.Settings
 
         public virtual void Customize(SessionDrivenTest context)
         {
-            context.Settings = (SettingsBase)Activator.CreateInstance(_settingsType);
-
-            var args = Environment.GetCommandLineArgs();
-            var pos = Array.IndexOf(args, CommandLineArgsConstants.SettingsCmdArg);
-            var settingsFilePath = (pos != -1 && pos < args.Length - 1) ? args[pos + 1] : "settings.json";
-
-
-            if (File.Exists(settingsFilePath))
-            {
-                if (_loadFromFile)
-                {
-                    context.Settings =
-                        (SettingsBase) JsonConvert.DeserializeObject(File.ReadAllText(settingsFilePath), _settingsType);
-                }
-            }
-            else
-            {
-                if (_createFileIfNotExist)
-                {
-                    context.Settings = (SettingsBase) Activator.CreateInstance(context.Settings.GetType());
-                    File.WriteAllText(settingsFilePath,
-                        JsonConvert.SerializeObject(context.Settings, Formatting.Indented));
-                }
-            }
-
-
-            context.Settings.PostInitializationAction();
+            context.Kernel.Bind<ISessionContext>(); 
+            context.Kernel.Bind<SessionDrivenTest>().ToConstant(context);
         }
     }
 }

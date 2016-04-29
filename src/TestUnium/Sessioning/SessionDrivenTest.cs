@@ -15,9 +15,7 @@ namespace TestUnium.Sessioning
         private ConcurrentDictionary<String, ISession> _sessions;
         protected SessionDrivenTest()
         {
-            Kernel.Bind<ISessionContext>().To(взять тпи из атрибута);
-            //SessionKernel.Bind<IStepRunner>().ToConstant(StepRunner);     //This is should be fixed die       
-            Kernel.Bind<SessionDrivenTest>().ToConstant(this);
+            ApplyCustomization();
         }
 
         public ISession Session

@@ -7,7 +7,7 @@ using TestUnium.Stepping.Modules;
 
 namespace TestUnium.Sessioning
 {
-    public class SessionBase: ISession
+    public class SessionBase: ISession<ContextBase>
     {
         private readonly ISessionContext _context;
         private ISessionPlugin[] _plugins;

@@ -5,7 +5,7 @@ namespace TestUnium.Core
 {
     public class KernelDrivenTest
     {
-        protected IKernel Kernel;
+        public IKernel Kernel;
         protected KernelDrivenTest()
         {
             Kernel = InjectionHelper.CreateKernel();
