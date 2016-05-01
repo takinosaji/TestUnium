@@ -7,16 +7,17 @@ using TestUnium.Instantiation.Prioritizing;
 namespace TestUnium.Customization
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public abstract class CustomizationBase : Attribute, IComparable<CustomizationBase>, ICancellable, ICustomizationAttribute
+    public abstract class CustomizationAttribute : Attribute, IComparable<CustomizationAttribute>, ICancellable, ICustomizationAttribute
     {
         private readonly Type _targetType;
         public UInt16 Priority { get; set; }
         public Boolean Visible { get; set; }
+        public Boolean TheOnly { get; set; }
         public List<Type> CancellationList { get; set; }
 
-        protected CustomizationBase(Type targetType, UInt16 priority = 0) : this(targetType, null, priority) {}
+        protected CustomizationAttribute(Type targetType, UInt16 priority = 0) : this(targetType, null, priority) {}
 
-        protected CustomizationBase(Type targetType, IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
+        protected CustomizationAttribute(Type targetType, IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
             if (cancellationCollection == null)
             {
@@ -25,7 +26,7 @@ namespace TestUnium.Customization
             _targetType = targetType;
             Visible = true;        
             CancellationList = cancellationCollection.ToList();
-            var attr = GetType().GetCustomAttribute(typeof(PriorityAttribute)) as PriorityAttribute;
+            var attr = GetType().GetCustomAttribute<PriorityAttribute>();
             if (attr != null)
             {
                 Priority = attr.Value;
@@ -52,7 +53,7 @@ namespace TestUnium.Customization
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public int CompareTo(CustomizationBase other)
+        public int CompareTo(CustomizationAttribute other)
         {
             var mineTargetType = GetCustomizationTargetType();
             var othersTargetType = other.GetCustomizationTargetType();

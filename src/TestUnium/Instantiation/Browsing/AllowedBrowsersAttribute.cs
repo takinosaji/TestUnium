@@ -9,7 +9,7 @@ namespace TestUnium.Instantiation.Browsing
 {
     [Priority((UInt16)CustomizationAttributePriorities.AllowedBrowsers)]
     [AttributeUsage(AttributeTargets.Class)]
-    class AllowedBrowsersAttribute : CustomizationBase, ICustomizationAttribute<WebDriverDrivenTest>
+    class AllowedBrowsersAttribute : CustomizationAttribute, ICustomizationAttribute<WebDriverDrivenTest>
     {
     private readonly Browser[] _browsers;
         public AllowedBrowsersAttribute(params Browser[] browsers) : base(typeof(WebDriverDrivenTest))

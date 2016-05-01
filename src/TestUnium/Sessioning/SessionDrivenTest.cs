@@ -15,6 +15,7 @@ namespace TestUnium.Sessioning
         private ConcurrentDictionary<String, ISession> _sessions;
         protected SessionDrivenTest()
         {
+            Kernel.Bind<SessionDrivenTest>().ToConstant(this);
             ApplyCustomization();
         }
 

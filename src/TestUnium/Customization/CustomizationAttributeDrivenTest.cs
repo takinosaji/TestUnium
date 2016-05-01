@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using TestUnium.Bootstrapping;
 using TestUnium.Core;
 using TestUnium.Instantiation.Prioritizing;
-using TestUnium.Instantiation.WebDriving;
-using TestUnium.Stepping;
 
 namespace TestUnium.Customization
 {
     public class CustomizationAttributeDrivenTest : KernelDrivenTest, ICustomizationAttributeDrivenTest
     {
-        protected readonly IEnumerable<Type> InvokedAttributes;
-        private readonly IEnumerable<Type> _hiddenAttributes;
+        //Improve algorithm of avoiding initialization of customization attributes second and next times.
+        private readonly List<Type> _invokedAttributes;
+        private readonly List<Type> _hiddenAttributes;
 
         protected CustomizationAttributeDrivenTest()
         {
             _hiddenAttributes = new List<Type>();
-            InvokedAttributes = new List<Type>();
+            _invokedAttributes = new List<Type>();
             Kernel.Bind<CustomizationAttributeDrivenTest>().ToConstant(this);
         }
 
@@ -29,32 +27,50 @@ namespace TestUnium.Customization
         /// </summary>
         public void ApplyCustomization()
         {
-            var invList = (List<Type>)InvokedAttributes;
-            var hidList = (List<Type>)_hiddenAttributes;
             var frame = new StackFrame(1);
             var callingMethod = frame.GetMethod();
             var targetType = callingMethod.DeclaringType ?? GetType();
-            var attributeList = new List<CustomizationBase>(GetType().GetCustomAttributes(typeof(CustomizationBase))
-                .Select(a => a as CustomizationBase)
-                    .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizationAttribute<>)))
-                        .Where(a => a.GetCustomizationTargetType() == targetType || targetType.IsSubclassOf(a.GetCustomizationTargetType())));
+            var attributeList = new List<CustomizationAttribute>(GetType().GetCustomAttributes<CustomizationAttribute>()
+                .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizationAttribute<>)))
+                    .Where(a => a.GetCustomizationTargetType() == targetType || targetType.IsSubclassOf(a.GetCustomizationTargetType())));
             attributeList.Sort((f, s) => f.CompareTo(s));
+            attributeList = ApplyTheOnlyPolicy(attributeList);
             attributeList.ForEach(a =>
             {
-                if (invList.Any(i => i == a.GetType()) ||
-                    hidList.Any(i => i == a.GetType())) return;
-                if (a.HasToBeCanceled(invList)) return;
+                if (_invokedAttributes.Any(i => i == a.GetType()) ||
+                    _hiddenAttributes.Any(i => i == a.GetType())) return;
+                if (a.HasToBeCanceled(_invokedAttributes)) return;
                 var attrType = a.GetType();
                 var method = attrType.GetMethod("Customize");
                 if(method == null) throw new NullReferenceException($"Couldn't find Customize method in {attrType.FullName}");
                 method.Invoke(a, new object[]{ this });
-                if (a.Visible)
+                var visibilityAttr = a.GetType().GetCustomAttribute<VisibilityAttribute>();
+                if (visibilityAttr != null && visibilityAttr.Visible)
                 {
-                    invList.Add(a.GetType());
+                    _invokedAttributes.Add(a.GetType());
                     return;
                 }
-                hidList.Add(a.GetType());
+                _hiddenAttributes.Add(a.GetType());
             });
         }
+
+        public List<CustomizationAttribute> ApplyTheOnlyPolicy(IEnumerable<CustomizationAttribute> customizationAttributes)
+        {
+            var attributeList = customizationAttributes.ToList();
+            var theOnlys = attributeList.Where(attr => attr.GetType().GetCustomAttribute<TheOnlyAttribute>() != null).ToList();
+            var theOnyLasts = theOnlys.GroupBy(t => t).Select(grp => grp.Last()).ToList();
+            for (var i = attributeList.Count; i >= 0 ; i--)
+            {
+                var attr = attributeList[i];
+                if (theOnlys.Contains(attr) && !theOnyLasts.Contains(attr))
+                {
+                    attributeList.Remove(attr);
+                }
+            }
+
+            return attributeList;
+        }
+
+        public List<Type> GetAppliedCustomizations() => _hiddenAttributes; 
     }
 }

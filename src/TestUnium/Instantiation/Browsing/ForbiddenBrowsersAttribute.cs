@@ -9,7 +9,7 @@ namespace TestUnium.Instantiation.Browsing
 {
     [Priority((UInt16)CustomizationAttributePriorities.ForbiddenBrowsers)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class ForbiddenBrowsersAttribute : CustomizationBase, ICustomizationAttribute<WebDriverDrivenTest>
+    public class ForbiddenBrowsersAttribute : CustomizationAttribute, ICustomizationAttribute<WebDriverDrivenTest>
     {
         private readonly Browser[] _browsers;
         public ForbiddenBrowsersAttribute(params Browser[] browsers) : base(typeof(WebDriverDrivenTest))

@@ -66,6 +66,8 @@
     <Compile Include="Common\InjectionHelper.cs" />
     <Compile Include="Core\KernelDrivenTest.cs" />
     <Compile Include="Customization\IncorrectCustomizationTargetTypeException.cs" />
+    <Compile Include="Customization\VisibilityAttribute.cs" />
+    <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Paging\LazyAttribute.cs" />
     <Compile Include="Paging\MarkerAttribute.cs" />
     <Compile Include="Paging\NameAttribute.cs" />
@@ -73,7 +75,7 @@
     <Compile Include="Paging\PageObjectNotFoundException.cs" />
     <Compile Include="Paging\StickyElement.cs" />
     <Compile Include="Instantiation\WebDriving\WebDriverContainer.cs" />
-    <Compile Include="Customization\CustomizationBase.cs" />
+    <Compile Include="Customization\CustomizationAttribute.cs" />
     <Compile Include="Customization\CustomizationAttributeFamily.cs" />
     <Compile Include="Customization\ICancellable.cs" />
     <Compile Include="Customization\ICustomizationAttribute.cs" />

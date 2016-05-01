@@ -12,14 +12,14 @@ namespace TestUnium.Settings
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.Session)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class SessionAttribute : CustomizationBase, ICustomizationAttribute<SessionDrivenTest>
+    public class SessionAttribute : CustomizationAttribute, ICustomizationAttribute<SessionDrivenTest>
     {
         private readonly Type _sessionType;
         private readonly Type _sessionContextType;
 
         public SessionAttribute(Type sessionType, Type sessionContextType) : base(typeof(SessionDrivenTest))
         {
-            if (!typeof(ISettingsSource).IsAssignableFrom(sessionType) || !typeof(ISessionContext).IsAssignableFrom(sessionType))
+            if (!typeof(ISettingsSource).IsAssignableFrom(sessionContextType) || !typeof(ISessionContext).IsAssignableFrom(sessionType))
                 throw new IncorrectCustomizationSourceTypeException(new List<String> { sessionType.Name, sessionContextType.Name },
                     new List<String> { nameof(ISession), nameof(ISessionContext)});
             _sessionType = sessionType;
@@ -28,8 +28,8 @@ namespace TestUnium.Settings
 
         public virtual void Customize(SessionDrivenTest context)
         {
-            context.Kernel.Bind<ISessionContext>(); 
-            context.Kernel.Bind<SessionDrivenTest>().ToConstant(context);
+            context.Kernel.Bind<ISession>().To(_sessionType); 
+            context.Kernel.Bind<ISessionContext>().To(_sessionContextType); 
         }
     }
 }
