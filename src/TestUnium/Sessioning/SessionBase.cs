@@ -22,7 +22,7 @@ namespace TestUnium.Sessioning
 
         public void AddContexts(params ISessionPlugin[] plugins)
         {
-            _context.Kernel.GetAll()
+           // _context.Kernel.GetAll()
             var pluginList = _plugins.ToList();
             foreach (var plugin in plugins)
             {
@@ -31,27 +31,12 @@ namespace TestUnium.Sessioning
             }
             _plugins = pluginList.ToArray();
         }
+
+        #region Contexts
         public void AddContexts(IEnumerable<ISessionPlugin> contexts)
         {
             AddContexts(contexts.ToArray());
         }
-
-        public void AddModules(params IStepModule[] modules)
-        {
-            _stepModules = modules;
-        }
-
-        public void AddModules(IEnumerable<IStepModule> modules)
-        {
-            _stepModules = modules.ToArray();
-        }
-
-        public void Start(Action<ISessionContext> operations)
-        {
-            try { operations(_context); } finally { End(); }
-        }
-
-        #region Contexts
         public ISession Using(params ISessionPlugin[] plugins)
         {
             AddContexts(plugins); return this;
@@ -63,6 +48,14 @@ namespace TestUnium.Sessioning
         #endregion
 
         #region StepModules
+        public void AddModules(IEnumerable<IStepModule> modules)
+        {
+            _stepModules = modules.ToArray();
+        }
+        public void AddModules(params IStepModule[] modules)
+        {
+            _stepModules = modules;
+        }       
         public ISession Include(params IStepModule[] modules)
         {
             AddModules(modules); return this;
@@ -70,6 +63,10 @@ namespace TestUnium.Sessioning
         public ISession Include(IEnumerable<IStepModule> modules)
         {
             AddModules(modules); return this;
+        }
+        public void Start(Action<ISessionContext> operations)
+        {
+            try { operations(_context); } finally { End(); }
         }
         #endregion
         public void End()

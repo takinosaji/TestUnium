@@ -12,7 +12,7 @@ namespace TestUnium.Sessioning
     [SessionContext(typeof(ContextBase))]
     public class SessionDrivenTest : StepDrivenTest, ISessionDrivenTest
     {
-        private ConcurrentDictionary<String, ISession> _sessions;
+        private ConcurrentDictionary<Int32, ISession> _sessions;
         protected SessionDrivenTest()
         {
             Kernel.Bind<SessionDrivenTest>().ToConstant(this);
@@ -24,7 +24,7 @@ namespace TestUnium.Sessioning
             get
             {
                 var session = Kernel.Get<ISession>();
-                var c = Thread.CurrentContext;
+                var  = Thread.CurrentContext;
                 return session;
             }
         }
