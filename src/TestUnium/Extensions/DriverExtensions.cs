@@ -69,6 +69,7 @@ namespace TestUnium.Extensions
 
 
 
+        //We have to resolve an issue when test will be executed in several threads
         public static TPageObject GetPageObject<TPageObject>(this IWebDriver driver) where TPageObject : PageObject
         {
             var page = Resolver.Instance.Kernel.Get<TPageObject>();

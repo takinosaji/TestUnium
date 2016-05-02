@@ -9,7 +9,7 @@ using TestUnium.Stepping;
 
 namespace TestUnium.Sessioning
 {
-    [Session(typeof(SessionBase), typeof(ContextBase))]
+    [SessionContext(typeof(ContextBase))]
     public class SessionDrivenTest : StepDrivenTest, ISessionDrivenTest
     {
         private ConcurrentDictionary<String, ISession> _sessions;

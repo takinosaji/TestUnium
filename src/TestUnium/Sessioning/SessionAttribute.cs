@@ -1,35 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
 using TestUnium.Common;
 using TestUnium.Customization;
 using TestUnium.Instantiation.Prioritizing;
-using TestUnium.Sessioning;
+using TestUnium.Settings;
 
-namespace TestUnium.Settings
+namespace TestUnium.Sessioning
 {
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.Session)]
     [AttributeUsage(AttributeTargets.Class)]
     public class SessionAttribute : CustomizationAttribute, ICustomizationAttribute<SessionDrivenTest>
     {
-        private readonly Type _sessionType;
-        private readonly Type _sessionContextType;
+        protected readonly Type SessionType;
+        protected readonly Type SessionContextType;
 
         public SessionAttribute(Type sessionType, Type sessionContextType) : base(typeof(SessionDrivenTest))
         {
             if (!typeof(ISettingsSource).IsAssignableFrom(sessionContextType) || !typeof(ISessionContext).IsAssignableFrom(sessionType))
                 throw new IncorrectCustomizationSourceTypeException(new List<String> { sessionType.Name, sessionContextType.Name },
                     new List<String> { nameof(ISession), nameof(ISessionContext)});
-            _sessionType = sessionType;
-            _sessionContextType = sessionContextType;
+            SessionType = sessionType;
+            SessionContextType = sessionContextType;
         }  
 
         public virtual void Customize(SessionDrivenTest context)
         {
-            context.Kernel.Bind<ISession>().To(_sessionType); 
-            context.Kernel.Bind<ISessionContext>().To(_sessionContextType); 
+            context.Kernel.Bind<ISession>().To(SessionType); 
+            context.Kernel.Bind<ISessionContext>().To(SessionContextType); 
         }
     }
 }

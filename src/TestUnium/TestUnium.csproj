@@ -106,6 +106,7 @@
     <Compile Include="Sessioning\ISessionContext.cs" />
     <Compile Include="Sessioning\ISession.cs" />
     <Compile Include="Sessioning\ISessionDrivenTest.cs" />
+    <Compile Include="Sessioning\SessionContextAttribute.cs" />
     <Compile Include="Sessioning\SessionDrivenTest.cs" />
     <Compile Include="Sessioning\SessionBase.cs" />
     <Compile Include="Sessioning\ISessionPlugin.cs" />

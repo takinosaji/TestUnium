@@ -20,12 +20,12 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
         [Fact]
         public void OpenGitHubTestCase()
         {
-            //Driver.Navigate().GoToUrl("http://github.com");
-            //var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
-            //var stickyButton = gitHubPage.StikySignUpBtn();
-            //stickyButton.Click();
-            //Driver.Navigate().GoToUrl("http://github.com");
-            //stickyButton.Click();
+            Driver.Navigate().GoToUrl("http://github.com");
+            var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
+            var stickyButton = gitHubPage.StikySignUpBtn();
+            stickyButton.Click();
+            Driver.Navigate().GoToUrl("http://github.com");
+            stickyButton.Click();
         }
     }
 
