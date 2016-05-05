@@ -13,12 +13,18 @@ namespace TestUnium.Common
             }
         }
 
-        public static StandardKernel CreateKernel()
+        public static StandardKernel CreateKernel(Boolean selfBindable = false)
         {
-            return new StandardKernel(new NinjectSettings
+            var kernel = new StandardKernel(new NinjectSettings
             {
                 InjectNonPublic = true
             });
+            if (selfBindable)
+            {
+                kernel.Bind<IKernel>().ToConstant(kernel);
+            }
+
+            return kernel;
         }
     }
 }

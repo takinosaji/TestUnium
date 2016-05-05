@@ -117,6 +117,7 @@
     <Compile Include="Stepping\Modules\Logging\ConsoleLogger.cs" />
     <Compile Include="Stepping\Modules\Logging\ILogger.cs" />
     <Compile Include="Stepping\Steps\FakeStep.cs" />
+    <Compile Include="Stepping\Steps\ReusableAttribute.cs" />
     <Compile Include="Stepping\Steps\FakeStepAttribute.cs" />
     <Compile Include="Stepping\Steps\FakeStepWithReturnValue.cs" />
     <Compile Include="Stepping\Steps\IStep.cs" />

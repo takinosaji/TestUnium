@@ -20,7 +20,7 @@ namespace TestUnium.Sessioning
             _context = context;
         }
 
-        public void AddContexts(params ISessionPlugin[] plugins)
+        public void AddPlugins(params ISessionPlugin[] plugins)
         {
            // _context.Kernel.GetAll()
             var pluginList = _plugins.ToList();
@@ -33,17 +33,17 @@ namespace TestUnium.Sessioning
         }
 
         #region Contexts
-        public void AddContexts(IEnumerable<ISessionPlugin> contexts)
+        public void AddPlugins(IEnumerable<ISessionPlugin> plugins)
         {
-            AddContexts(contexts.ToArray());
+            AddPlugins(plugins.ToArray());
         }
         public ISession Using(params ISessionPlugin[] plugins)
         {
-            AddContexts(plugins); return this;
+            AddPlugins(plugins); return this;
         }
-        public ISession Using(IEnumerable<ISessionPlugin> contexts)
+        public ISession Using(IEnumerable<ISessionPlugin> plugins)
         {
-            AddContexts(contexts); return this;
+            AddPlugins(plugins); return this;
         }
         #endregion
 

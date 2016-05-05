@@ -8,8 +8,8 @@ namespace TestUnium.Sessioning
     public interface ISession
     {
         #region Contexts
-        void AddContexts(params ISessionPlugin[] plugins);
-        void AddContexts(IEnumerable<ISessionPlugin> contexts);
+        void AddPlugins(params ISessionPlugin[] plugins);
+        void AddPlugins(IEnumerable<ISessionPlugin> contexts);
         ISession Using(params ISessionPlugin[] plugins);
         ISession Using(IEnumerable<ISessionPlugin> contexts);
         #endregion
