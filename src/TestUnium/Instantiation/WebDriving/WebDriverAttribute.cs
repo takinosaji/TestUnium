@@ -3,8 +3,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
-using TestUnium.Customization;
 using TestUnium.Instantiation.Browsing;
+using TestUnium.Instantiation.Customization;
 
 namespace TestUnium.Instantiation.WebDriving
 {

@@ -4,7 +4,7 @@ using PageObjects;
 using TestUnium.Bootstrapping;
 using TestUnium.Extensions;
 using TestUnium.Instantiation.Browsing;
-using TestUnium.Settings;
+using TestUnium.Instantiation.Settings;
 using Xunit;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests

@@ -7,10 +7,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Bootstrapping;
 using TestUnium.Common;
-using TestUnium.Core;
 using TestUnium.Instantiation.Browsing;
-using TestUnium.Settings;
-using TestUnium.Stepping;
+using TestUnium.Instantiation.Settings;
 
 namespace TestUnium.Instantiation.WebDriving
 {

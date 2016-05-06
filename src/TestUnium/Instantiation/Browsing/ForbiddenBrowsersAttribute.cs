@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using TestUnium.Common;
-using TestUnium.Customization;
-using TestUnium.Instantiation.Prioritizing;
+using TestUnium.Instantiation.Customization;
+using TestUnium.Instantiation.Customization.Prioritizing;
 using TestUnium.Instantiation.WebDriving;
 
 namespace TestUnium.Instantiation.Browsing

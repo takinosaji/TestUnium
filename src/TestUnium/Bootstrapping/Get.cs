@@ -1,9 +1,8 @@
 ﻿using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using TestUnium.Customization;
+using TestUnium.Instantiation.Settings;
 using TestUnium.Paging;
-using TestUnium.Settings;
 
 namespace TestUnium.Bootstrapping
 {

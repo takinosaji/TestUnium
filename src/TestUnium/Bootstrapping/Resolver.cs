@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Threading;
 using Ninject;
 using TestUnium.Common;
-using TestUnium.Sessioning;
 
 namespace TestUnium.Bootstrapping
 {
