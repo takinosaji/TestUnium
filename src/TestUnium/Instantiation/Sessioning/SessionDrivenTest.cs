@@ -3,12 +3,13 @@ using System.Collections.Concurrent;
 using System.Threading;
 using Ninject;
 using TestUnium.Common;
+using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Stepping;
 
 namespace TestUnium.Instantiation.Sessioning
 {
     [SessionContext(typeof(ContextBase))]
-    public class SessionDrivenTest : StepDrivenTest, ISessionDrivenTest
+    public class SessionDrivenTest : CustomizationAttributeDrivenTest, ISessionDrivenTest
     {
         private readonly ConcurrentDictionary<Int32, ISession> _sessions;
         protected SessionDrivenTest()

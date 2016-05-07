@@ -8,12 +8,13 @@ using Ninject.Parameters;
 using Ninject.Planning;
 using Ninject.Planning.Bindings;
 using TestUnium.Instantiation.Customization;
+using TestUnium.Instantiation.Sessioning;
 using TestUnium.Instantiation.Stepping.Modules;
 using TestUnium.Instantiation.Stepping.Steps;
 
 namespace TestUnium.Instantiation.Stepping
 {
-    public abstract class StepDrivenTest : CustomizationAttributeDrivenTest, IStepDrivenTest
+    public abstract class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
     {
         protected StepRunner StepRunner;
 

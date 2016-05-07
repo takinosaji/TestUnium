@@ -53,7 +53,7 @@ namespace TestUnium.Instantiation.Sessioning
         {
             _stepModules = modules;
         }       
-        public ISession Include(Boolean areReusable = true, params IStepModule[] modules)
+        public ISession Include(params IStepModule[] modules)
         {
             AddModules(modules); return this;
         }

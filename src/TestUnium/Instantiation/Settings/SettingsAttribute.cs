@@ -23,7 +23,7 @@ namespace TestUnium.Instantiation.Settings
             })
         {
             if (!typeof(ISettingsSource).IsAssignableFrom(settingsType))
-                throw new IncorrectCustomizationSourceTypeException(settingsType.Name, nameof(SettingsBase));
+                throw new IncorrectInheritanceException(new[] { settingsType.Name }, new [] { nameof(SettingsBase)});
             _settingsType = settingsType;
             _loadFromFile = loadFromFile;
             _createFileIfNotExist = createFileIfNotExist;

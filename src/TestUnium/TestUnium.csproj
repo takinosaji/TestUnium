@@ -65,7 +65,6 @@
     <Compile Include="Common\CommandLineArgsConstants.cs" />
     <Compile Include="Common\InjectionHelper.cs" />
     <Compile Include="Instantiation\Core\KernelDrivenTest.cs" />
-    <Compile Include="Instantiation\Customization\IncorrectCustomizationTargetTypeException.cs" />
     <Compile Include="Instantiation\Customization\VisibilityAttribute.cs" />
     <Compile Include="Instantiation\Customization\TheOnlyAttribute.cs" />
     <Compile Include="Paging\LazyAttribute.cs" />
@@ -81,7 +80,7 @@
     <Compile Include="Instantiation\Customization\ICustomizationAttribute.cs" />
     <Compile Include="Instantiation\Customization\ICustomizationSource.cs" />
     <Compile Include="Instantiation\Customization\ICustomizationTarget.cs" />
-    <Compile Include="Instantiation\Customization\IncorrectCustomizationSourceTypeException.cs" />
+    <Compile Include="Instantiation\IncorrectInheritanceException.cs" />
     <Compile Include="Extensions\DriverExtensions.cs" />
     <Compile Include="Instantiation\Browsing\AllowedBrowsersAttribute.cs" />
     <Compile Include="Instantiation\Browsing\Browser.cs" />
