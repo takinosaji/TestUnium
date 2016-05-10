@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestUnium.Instantiation.Stepping;
 using TestUnium.Instantiation.Stepping.Modules;
 
 namespace TestUnium.Instantiation.Sessioning
 {
     public class SessionBase: ISession
     {
+        public ISessionDrivenTest TestContext { get; set; }
         private readonly ISessionContext _context;
         private ISessionPlugin[] _plugins;
         private IStepModule[] _stepModules;
 
-        public SessionBase(ISessionContext context)
+        public SessionBase(ISessionContext context, ISessionDrivenTest testContext)
         {
             _plugins = new ISessionPlugin[0];
             _stepModules = new IStepModule[0];
             _context = context;
+            TestContext = testContext;
         }
 
         #region Plugins
@@ -45,19 +48,19 @@ namespace TestUnium.Instantiation.Sessioning
         #endregion
 
         #region StepModules
-        public void AddModules(IEnumerable<IStepModule> modules)
+        public void AddModules(Boolean reusable, IEnumerable<Type> modules)
         {
             _stepModules = modules.ToArray();
         }
-        public void AddModules(params IStepModule[] modules)
+        public void AddModules(Boolean reusable, params IStepModule[] modules)
         {
             _stepModules = modules;
         }       
-        public ISession Include(params IStepModule[] modules)
+        public ISession Include(Boolean reusable, params IStepModule[] modules)
         {
             AddModules(modules); return this;
         }
-        public ISession Include(IEnumerable<IStepModule> modules)
+        public ISession Include(Boolean reusable, IEnumerable<IStepModule> modules)
         {
             AddModules(modules); return this;
         }
@@ -75,7 +78,7 @@ namespace TestUnium.Instantiation.Sessioning
 
             }
             _plugins = pluginList.ToArray();
-            _runner.UnregisterModules(_stepModules);
+            TestContext.UnregisterModules(_stepModules);
         }
     }
 }

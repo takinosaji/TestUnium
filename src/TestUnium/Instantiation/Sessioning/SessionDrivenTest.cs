@@ -9,13 +9,13 @@ using TestUnium.Instantiation.Stepping;
 namespace TestUnium.Instantiation.Sessioning
 {
     [SessionContext(typeof(ContextBase))]
-    public class SessionDrivenTest : CustomizationAttributeDrivenTest, ISessionDrivenTest
+    public class SessionDrivenTest : StepDrivenTest, ISessionDrivenTest
     {
-        private readonly ConcurrentDictionary<Int32, ISession> _sessions;
+        public ConcurrentDictionary<Int32, ISession> Sessions { get; set; }
         protected SessionDrivenTest()
         {
-            _sessions = new ConcurrentDictionary<int, ISession>();
-            Kernel.Bind<SessionDrivenTest>().ToConstant(this);
+            Sessions = new ConcurrentDictionary<int, ISession>();
+            Kernel.Bind<ISessionDrivenTest>().ToConstant(this);
             ApplyCustomization();
         }
 
@@ -25,7 +25,7 @@ namespace TestUnium.Instantiation.Sessioning
             {
                 var session = InjectionHelper.CreateKernel(selfBindable: true).Get<ISession>();
                 var id = Thread.CurrentThread.ManagedThreadId;
-                _sessions.AddOrUpdate(id, session, (i, s) => session);
+                Sessions.AddOrUpdate(id, session, (i, s) => session);
                 return session;
             }
         }

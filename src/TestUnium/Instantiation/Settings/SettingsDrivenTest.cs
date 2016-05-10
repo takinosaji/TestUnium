@@ -7,7 +7,7 @@ using TestUnium.Instantiation.Stepping;
 namespace TestUnium.Instantiation.Settings
 {
     [Settings(typeof(SettingsBase))]
-    public class SettingsDrivenTest : StepDrivenTest, ISettingsDrivenTest
+    public class SettingsDrivenTest : SessionDrivenTest, ISettingsDrivenTest
     {
         public SettingsBase Settings { get; set; }
 

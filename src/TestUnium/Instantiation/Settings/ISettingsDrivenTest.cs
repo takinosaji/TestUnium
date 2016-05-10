@@ -1,6 +1,9 @@
-﻿namespace TestUnium.Instantiation.Settings
+﻿using TestUnium.Instantiation.Sessioning;
+using TestUnium.Instantiation.Stepping;
+
+namespace TestUnium.Instantiation.Settings
 {
-    public interface ISettingsDrivenTest
+    public interface ISettingsDrivenTest : ISessionDrivenTest
     {
          
     }

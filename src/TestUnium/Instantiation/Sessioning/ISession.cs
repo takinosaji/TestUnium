@@ -6,6 +6,7 @@ namespace TestUnium.Instantiation.Sessioning
 {
     public interface ISession
     {
+        ISessionDrivenTest TestContext { get; set; }
         #region Contexts
         void AddPlugins(params ISessionPlugin[] plugins);
         void AddPlugins(IEnumerable<ISessionPlugin> contexts);

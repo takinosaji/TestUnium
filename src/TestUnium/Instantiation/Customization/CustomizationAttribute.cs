@@ -18,6 +18,8 @@ namespace TestUnium.Instantiation.Customization
 
         protected CustomizationAttribute(Type targetType, IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
+            if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(targetType))
+                throw new IncorrectInheritanceException(new[] { targetType.Name }, new[] { nameof(ICustomizationAttributeDrivenTest) });
             if (cancellationCollection == null)
             {
                 cancellationCollection = new List<Type>();
@@ -55,11 +57,7 @@ namespace TestUnium.Instantiation.Customization
         public int CompareTo(CustomizationAttribute other)
         {
             var mineTargetType = GetCustomizationTargetType();
-            var othersTargetType = other.GetCustomizationTargetType();
-            if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(mineTargetType))
-                throw new IncorrectCustomizationTargetTypeException(mineTargetType.Name);
-            if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(othersTargetType))
-                throw new IncorrectCustomizationTargetTypeException(othersTargetType.Name);
+            var othersTargetType = other.GetCustomizationTargetType();           
             if (mineTargetType.IsSubclassOf(othersTargetType)) return 1;
             if (othersTargetType.IsSubclassOf(mineTargetType)) return -1;
             return Priority == 0 ? 1 : other.Priority == 0 ? - 1 : Priority - other.Priority;

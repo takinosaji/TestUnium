@@ -14,7 +14,7 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace TestUnium.Instantiation.Stepping
 {
-    public abstract class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
+    public abstract class StepDrivenTest : CustomizationAttributeDrivenTest, IStepDrivenTest
     {
         protected StepRunner StepRunner;
 
