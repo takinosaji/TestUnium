@@ -61,6 +61,7 @@
     <Compile Include="Bootstrapping\Resolver.cs" />
     <Compile Include="Bootstrapping\Get.cs" />
     <Compile Include="Common\CustomizationAttributePriorities.cs" />
+    <Compile Include="Common\DubKeyDictionary.cs" />
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="Common\CommandLineArgsConstants.cs" />
     <Compile Include="Common\InjectionHelper.cs" />
@@ -115,7 +116,7 @@
     <Compile Include="Instantiation\Stepping\Modules\Logging\ConsoleLogger.cs" />
     <Compile Include="Instantiation\Stepping\Modules\Logging\ILogger.cs" />
     <Compile Include="Instantiation\Stepping\Steps\FakeStep.cs" />
-    <Compile Include="Instantiation\Stepping\Steps\ReusableAttribute.cs" />
+    <Compile Include="Instantiation\Stepping\Modules\ReusableAttribute.cs" />
     <Compile Include="Instantiation\Stepping\Steps\FakeStepAttribute.cs" />
     <Compile Include="Instantiation\Stepping\Steps\FakeStepWithReturnValue.cs" />
     <Compile Include="Instantiation\Stepping\Steps\IStep.cs" />

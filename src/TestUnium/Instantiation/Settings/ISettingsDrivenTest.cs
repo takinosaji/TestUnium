@@ -3,7 +3,7 @@ using TestUnium.Instantiation.Stepping;
 
 namespace TestUnium.Instantiation.Settings
 {
-    public interface ISettingsDrivenTest : ISessionDrivenTest
+    public interface ISettingsDrivenTest
     {
          
     }

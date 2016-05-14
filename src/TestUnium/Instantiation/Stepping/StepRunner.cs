@@ -44,11 +44,6 @@ namespace TestUnium.Instantiation.Stepping
             }
         }
 
-        public void Run(Action operations)
-        {
-            Run(new FakeStep(operations));
-        }
-
         public TResult RunWithReturnValue<TResult>(IExecutableStep<TResult> step)
         {
             BeforeExecution(step);
@@ -62,11 +57,6 @@ namespace TestUnium.Instantiation.Stepping
             {
                 AfterExecution(step, StepExecutionResult.Failure);
             }
-        }
-
-        public TResult RunWithReturnValue<TResult>(Func<TResult> operationsWithReturnValue)
-        {
-            return RunWithReturnValue(new FakeStepWithReturnValue<TResult>(operationsWithReturnValue));          
         }
 
         public void RegisterModules(params IStepModule[] modules)

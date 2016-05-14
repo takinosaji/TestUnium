@@ -3,7 +3,7 @@ using TestUnium.Instantiation.Settings;
 
 namespace TestUnium.Instantiation.WebDriving
 {
-    public interface IWebDriverDrivenTest : ISettingsDrivenTest
+    public interface IWebDriverDrivenTest
     {
         void MakeScreenshot();
         void ShutDownWebDriver();

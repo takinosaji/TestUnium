@@ -6,7 +6,6 @@ namespace TestUnium.Instantiation.Sessioning
 {
     public interface ISession
     {
-        ISessionDrivenTest TestContext { get; set; }
         #region Contexts
         void AddPlugins(params ISessionPlugin[] plugins);
         void AddPlugins(IEnumerable<ISessionPlugin> contexts);
@@ -14,10 +13,11 @@ namespace TestUnium.Instantiation.Sessioning
         ISession Using(IEnumerable<ISessionPlugin> contexts);
         #endregion
         #region StepModules
-        void AddModules(params IStepModule[] modules);
-        void AddModules(IEnumerable<IStepModule> modules);
-        ISession Include(params IStepModule[] modules);
-        ISession Include(IEnumerable<IStepModule> modules);
+        void AddModules(Boolean reusable, params Type[] modules);
+        void AddModules(IEnumerable<Type> modules, Boolean reusable);
+        ISession Include(Boolean reusable, params Type[] modules);
+        ISession Include(IEnumerable<Type> modules, Boolean reusable);
+        ISession Include<TStepModule>(Boolean reusable) where TStepModule : IStepModule;
         #endregion
         void Start(Action<ISessionContext> operations);
         void End();

@@ -5,7 +5,7 @@ using TestUnium.Instantiation.Stepping;
 
 namespace TestUnium.Instantiation.Sessioning
 {
-    public interface ISessionDrivenTest : IStepDrivenTest
+    public interface ISessionDrivenTest
     {
         ConcurrentDictionary<Int32, ISession> Sessions { get; set; }
     }

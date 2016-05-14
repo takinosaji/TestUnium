@@ -9,7 +9,7 @@ using TestUnium.Instantiation.Stepping;
 namespace TestUnium.Instantiation.Sessioning
 {
     [SessionContext(typeof(ContextBase))]
-    public class SessionDrivenTest : StepDrivenTest, ISessionDrivenTest
+    public class SessionDrivenTest : CustomizationAttributeDrivenTest, ISessionDrivenTest
     {
         public ConcurrentDictionary<Int32, ISession> Sessions { get; set; }
         protected SessionDrivenTest()

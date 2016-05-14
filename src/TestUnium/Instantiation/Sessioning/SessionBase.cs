@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestUnium.Common;
 using TestUnium.Instantiation.Stepping;
 using TestUnium.Instantiation.Stepping.Modules;
 
@@ -8,17 +9,15 @@ namespace TestUnium.Instantiation.Sessioning
 {
     public class SessionBase: ISession
     {
-        public ISessionDrivenTest TestContext { get; set; }
         private readonly ISessionContext _context;
         private ISessionPlugin[] _plugins;
-        private IStepModule[] _stepModules;
+        private readonly DubKeyDictionary<Type, Boolean> _stepModules;
 
         public SessionBase(ISessionContext context, ISessionDrivenTest testContext)
         {
             _plugins = new ISessionPlugin[0];
-            _stepModules = new IStepModule[0];
+            _stepModules = new DubKeyDictionary<Type, Boolean>();
             _context = context;
-            TestContext = testContext;
         }
 
         #region Plugins
@@ -48,21 +47,24 @@ namespace TestUnium.Instantiation.Sessioning
         #endregion
 
         #region StepModules
-        public void AddModules(Boolean reusable, IEnumerable<Type> modules)
+        public void AddModules(Boolean reusable = false, params Type[] moduleTypes)
         {
-            _stepModules = modules.ToArray();
+            foreach (var moduleType in moduleTypes)
+            {
+                _stepModules.Add(moduleType, reusable);
+            }
         }
-        public void AddModules(Boolean reusable, params IStepModule[] modules)
+        public void AddModules(IEnumerable<Type> moduleTypes, Boolean reusable = false)
         {
-            _stepModules = modules;
-        }       
-        public ISession Include(Boolean reusable, params IStepModule[] modules)
-        {
-            AddModules(modules); return this;
+            AddModules(reusable, moduleTypes.ToArray());
         }
-        public ISession Include(Boolean reusable, IEnumerable<IStepModule> modules)
+        public ISession Include(Boolean reusable = false, params Type[] moduleTypes)
         {
-            AddModules(modules); return this;
+            AddModules(reusable, moduleTypes); return this;
+        }
+        public ISession Include(IEnumerable<Type> moduleTypes, Boolean reusable = false)
+        {
+            AddModules(moduleTypes, reusable); return this;
         }
         public void Start(Action<ISessionContext> operations)
         {
@@ -78,7 +80,6 @@ namespace TestUnium.Instantiation.Sessioning
 
             }
             _plugins = pluginList.ToArray();
-            TestContext.UnregisterModules(_stepModules);
         }
     }
 }
