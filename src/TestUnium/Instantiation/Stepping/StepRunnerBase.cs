@@ -5,11 +5,11 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace TestUnium.Instantiation.Stepping
 {
-    public class StepRunner : IStepRunner
+    public class StepRunnerBase : IStepRunner
     {
         private IStepModule[] _modules;
 
-        public StepRunner(IStepModule[] modules)
+        public StepRunnerBase(IStepModule[] modules)
         {
             _modules = modules;
         }

@@ -123,7 +123,7 @@
     <Compile Include="Instantiation\Stepping\Steps\FakeStepWithReturnValue.cs" />
     <Compile Include="Instantiation\Stepping\Steps\IStep.cs" />
     <Compile Include="Instantiation\Stepping\Modules\IStepModule.cs" />
-    <Compile Include="Instantiation\Stepping\StepRunner.cs" />
+    <Compile Include="Instantiation\Stepping\StepRunnerBase.cs" />
     <Compile Include="Instantiation\Stepping\StepDrivenTest.cs" />
     <Compile Include="Instantiation\Stepping\Steps\WebDriverBaseStep.cs" />
     <Compile Include="Instantiation\Stepping\StepExecutionResult.cs" />

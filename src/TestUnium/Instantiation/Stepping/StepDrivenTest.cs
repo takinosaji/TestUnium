@@ -14,14 +14,12 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace TestUnium.Instantiation.Stepping
 {
-
+    [StepRunner(typeof(StepRunnerBase))]
     public abstract class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
     {
         protected StepDrivenTest()
         {
             Kernel.Bind<IStepDrivenTest>().ToConstant(this);
-            Kernel.Bind<IStepRunner>().To<StepRunner>(); //In future we can provide an oportunity to inject user customized step runner.
-            //Kernel.Bind<FakeStep>().ToConstructor(c => new FakeStep());
         }
 
         public void RegisterStepModule<T>(Boolean isReusable = false) where T : IStepModule
