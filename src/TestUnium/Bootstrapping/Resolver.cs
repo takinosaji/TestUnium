@@ -14,7 +14,7 @@ namespace TestUnium.Bootstrapping
         {
             get
             {
-                return _kernels[Thread.CurrentThread.ManagedThreadId];
+                return _kernels.GetOrAdd(Thread.CurrentThread.ManagedThreadId, InjectionHelper.CreateKernel());
             }
             set
             {

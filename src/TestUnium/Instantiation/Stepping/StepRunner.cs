@@ -36,27 +36,31 @@ namespace TestUnium.Instantiation.Stepping
             try
             {
                 step.Execute();
-                AfterExecution(step, StepExecutionResult.Success);
             }
-            finally
+            catch
             {
                 AfterExecution(step, StepExecutionResult.Failure);
+                return;
             }
+            
+            AfterExecution(step, StepExecutionResult.Success);
         }
 
         public TResult RunWithReturnValue<TResult>(IExecutableStep<TResult> step)
         {
+            TResult value = default(TResult);
             BeforeExecution(step);
             try
             {
-                var value = step.Execute();
-                AfterExecution(step, StepExecutionResult.Success);
-                return value;
+                value = step.Execute();
             }
-            finally 
+            catch 
             {
                 AfterExecution(step, StepExecutionResult.Failure);
+                return value;
             }
+            AfterExecution(step, StepExecutionResult.Success);
+            return value;
         }
 
         public void RegisterModules(params IStepModule[] modules)

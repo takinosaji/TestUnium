@@ -2,6 +2,6 @@
 
 namespace TestUnium.Instantiation.Stepping.Modules
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Parameter)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class ReusableAttribute : Attribute { }
 }

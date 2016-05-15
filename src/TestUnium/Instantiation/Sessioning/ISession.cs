@@ -11,6 +11,7 @@ namespace TestUnium.Instantiation.Sessioning
         void AddPlugins(IEnumerable<ISessionPlugin> contexts);
         ISession Using(params ISessionPlugin[] plugins);
         ISession Using(IEnumerable<ISessionPlugin> contexts);
+        ISession Using<TPlugin>() where TPlugin : ISessionPlugin, new();
         #endregion
         #region StepModules
         void AddModules(Boolean reusable, params Type[] modules);

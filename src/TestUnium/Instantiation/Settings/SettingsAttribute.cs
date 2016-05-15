@@ -22,7 +22,7 @@ namespace TestUnium.Instantiation.Settings
                 typeof(NoSettingsAttribute)
             })
         {
-            if (!typeof(ISettingsSource).IsAssignableFrom(settingsType))
+            if (!typeof(ISettings).IsAssignableFrom(settingsType))
                 throw new IncorrectInheritanceException(new[] { settingsType.Name }, new [] { nameof(SettingsBase)});
             _settingsType = settingsType;
             _loadFromFile = loadFromFile;
@@ -31,12 +31,11 @@ namespace TestUnium.Instantiation.Settings
 
         public virtual void Customize(SettingsDrivenTest context)
         {
-            context.Settings = (SettingsBase)Activator.CreateInstance(_settingsType);
+            context.Settings = (ISettings)Activator.CreateInstance(_settingsType);
 
             var args = Environment.GetCommandLineArgs();
             var pos = Array.IndexOf(args, CommandLineArgsConstants.SettingsCmdArg);
             var settingsFilePath = (pos != -1 && pos < args.Length - 1) ? args[pos + 1] : "settings.json";
-
 
             if (File.Exists(settingsFilePath))
             {
@@ -55,7 +54,6 @@ namespace TestUnium.Instantiation.Settings
                         JsonConvert.SerializeObject(context.Settings, Formatting.Indented));
                 }
             }
-
 
             context.Settings.PostInitializationAction();
         }

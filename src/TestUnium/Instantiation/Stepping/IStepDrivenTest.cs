@@ -16,6 +16,8 @@ namespace TestUnium.Instantiation.Stepping
         void UnregisterStepModules(params Type[] moduleTypes);
         void Do<TStep>(Action<TStep> action) where TStep : IExecutableStep;
         TResult Do<TStep, TResult>(Action<TStep> action) where TStep : IExecutableStep<TResult>;
+        void Do(Action outOfStepOperations);
+        TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue);
         TStep Fill<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep;
     }
 }

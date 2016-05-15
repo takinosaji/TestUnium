@@ -95,6 +95,14 @@
       <Project>{FEDEE2F8-4BEA-4732-B963-6A756D3CB21B}</Project>
       <Name>PageObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StepModules\StepModules.csproj">
+      <Project>{E5527575-6EEA-4462-8D55-7F6A9FD49EED}</Project>
+      <Name>StepModules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Steps\Steps.csproj">
+      <Project>{F563092E-F423-44C4-B00C-68B0D194857D}</Project>
+      <Name>Steps</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

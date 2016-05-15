@@ -7,11 +7,11 @@
         void OnEnd(ISessionContext context);
     }
 
-    public interface ISessionPlugin<in TSessionContext>
-        where TSessionContext : ISessionContext
-    {
-        void OnStart(TSessionContext context);
+    //public interface ISessionPlugin<in TSessionContext>
+    //    where TSessionContext : ISessionContext
+    //{
+    //    void OnStart(TSessionContext context);
 
-        void OnEnd(TSessionContext context);
-    }
+    //    void OnEnd(TSessionContext context);
+    //}
 }

@@ -14,13 +14,14 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace TestUnium.Instantiation.Stepping
 {
+
     public abstract class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
     {
-        protected StepRunner StepRunner;
-
         protected StepDrivenTest()
         {
-            Kernel.Bind<StepDrivenTest>().ToConstant(this);
+            Kernel.Bind<IStepDrivenTest>().ToConstant(this);
+            Kernel.Bind<IStepRunner>().To<StepRunner>(); //In future we can provide an oportunity to inject user customized step runner.
+            //Kernel.Bind<FakeStep>().ToConstructor(c => new FakeStep());
         }
 
         public void RegisterStepModule<T>(Boolean isReusable = false) where T : IStepModule
@@ -88,31 +89,35 @@ namespace TestUnium.Instantiation.Stepping
 
         public void Do<TStep>(Action<TStep> setSetUpAction = null) where TStep : IExecutableStep
         {
+            var runner = Kernel.Get<IStepRunner>();
             var step = Kernel.Get<TStep>();
             setSetUpAction?.Invoke(step);
-            StepRunner.Run(step);
+            runner.Run(step);
         }
             
         public TResult Do<TStep, TResult>(Action<TStep> setSetUpAction = null) 
             where TStep : IExecutableStep<TResult>
         {
+            var runner = Kernel.Get<IStepRunner>();
             var step = Kernel.Get<TStep>();
             setSetUpAction?.Invoke(step);                        
-            return StepRunner.RunWithReturnValue(step);
+            return runner.RunWithReturnValue(step);
         }
 
         public void Do(Action outOfStepOperations)
         {
+            var runner = Kernel.Get<IStepRunner>();
             var step = Kernel.Get<FakeStep>();
             step.Operations = outOfStepOperations;
-            StepRunner.Run(step);
+            runner.Run(step);
         }
 
         public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue)
         {
+            var runner = Kernel.Get<IStepRunner>();
             var step = Kernel.Get<FakeStepWithReturnValue<TResult>>();
             step.OperationsWithReturnValue = outOfStepFuncWithReturnValue;
-            return StepRunner.RunWithReturnValue(step);
+            return runner.RunWithReturnValue(step);
         }
 
         public TStep Fill<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep

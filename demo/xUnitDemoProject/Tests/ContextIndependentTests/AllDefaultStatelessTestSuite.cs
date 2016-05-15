@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PageObjects;
+using StepModules;
+using Steps;
 using TestUnium.Extensions;
 using Xunit;
 
@@ -17,15 +19,30 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
     //[ForbiddenBrowsers(Browser.InternetExplorer)] // Filling up forbidden browsers for this test suite. If you try to run tests with forbidden browser, exception will be arised.  
     public class AllDefaultStatelessTestSuite : TestBase
     {
+        public AllDefaultStatelessTestSuite()
+        {
+            RegisterStepModule<ThrowsExceptionModule>();
+            UnregisterStepModule<ThrowsExceptionModule>();
+        }
         [Fact]
         public void OpenGitHubTestCase()
         {
-            Driver.Navigate().GoToUrl("http://github.com");
-            var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
-            var stickyButton = gitHubPage.StikySignUpBtn();
-            stickyButton.Click();
-            Driver.Navigate().GoToUrl("http://github.com");
-            stickyButton.Click();
+            Session.Start(context =>
+            {
+                Do(() =>
+                {
+                    Driver.Navigate().GoToUrl("http://github.com");
+                    var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
+                    var stickyButton = gitHubPage.StikySignUpBtn();
+                    stickyButton.Click();
+                    Driver.Navigate().GoToUrl("http://github.com");
+                    stickyButton.Click();
+                });
+                //Do<GoToUrlStep>(s =>
+                //{
+                //    s.Url = "github.com/takinosaji";
+                //});
+            });
         }
     }
 }

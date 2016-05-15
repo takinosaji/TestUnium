@@ -11,9 +11,11 @@ namespace TestUnium.Instantiation.Stepping.Steps
         {
             Operations = operations;
         }
+        public FakeStep()  { }
 
         public void Execute()
         {
+            //Operations?.Invoke();
             Operations();
         }
     }

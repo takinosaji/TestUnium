@@ -65,9 +65,11 @@
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="Common\CommandLineArgsConstants.cs" />
     <Compile Include="Common\InjectionHelper.cs" />
+    <Compile Include="Instantiation\Core\IKernelDrivenTest.cs" />
     <Compile Include="Instantiation\Core\KernelDrivenTest.cs" />
     <Compile Include="Instantiation\Customization\VisibilityAttribute.cs" />
     <Compile Include="Instantiation\Customization\TheOnlyAttribute.cs" />
+    <Compile Include="Instantiation\Stepping\Steps\StepRunnerAttribute.cs" />
     <Compile Include="Paging\LazyAttribute.cs" />
     <Compile Include="Paging\MarkerAttribute.cs" />
     <Compile Include="Paging\NameAttribute.cs" />
@@ -126,7 +128,7 @@
     <Compile Include="Instantiation\Stepping\Steps\WebDriverBaseStep.cs" />
     <Compile Include="Instantiation\Stepping\StepExecutionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Instantiation\Settings\ISettingsSource.cs" />
+    <Compile Include="Instantiation\Settings\ISettings.cs" />
     <Compile Include="Instantiation\Settings\NoSettingsAttribute.cs" />
     <Compile Include="Instantiation\Settings\SettingsAttribute.cs" />
     <Compile Include="Instantiation\Settings\SettingsBase.cs" />

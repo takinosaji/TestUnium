@@ -10,32 +10,21 @@ namespace TestUnium.Instantiation.Sessioning
     public class SessionBase: ISession
     {
         private readonly ISessionContext _context;
-        private ISessionPlugin[] _plugins;
-        private readonly DubKeyDictionary<Type, Boolean> _stepModules;
+        private readonly List<ISessionPlugin> _plugins;
+        public readonly DubKeyDictionary<Type, Boolean> StepModules;
 
-        public SessionBase(ISessionContext context, ISessionDrivenTest testContext)
+        public SessionBase(ISessionContext context)
         {
-            _plugins = new ISessionPlugin[0];
-            _stepModules = new DubKeyDictionary<Type, Boolean>();
+            _plugins = new List<ISessionPlugin>();
+            StepModules = new DubKeyDictionary<Type, Boolean>();
             _context = context;
         }
 
         #region Plugins
-        public void AddPlugins(params ISessionPlugin[] plugins)
-        {
-            // _context.Kernel.GetAll()
-            var pluginList = _plugins.ToList();
-            foreach (var plugin in plugins)
-            {
-                plugin.OnStart(_context);
-                pluginList.Add(plugin);
-            }
-            _plugins = pluginList.ToArray();
-        }
-        public void AddPlugins(IEnumerable<ISessionPlugin> plugins)
-        {
-            AddPlugins(plugins.ToArray());
-        }
+        public void AddPlugins(params ISessionPlugin[] plugins) 
+            => AddPlugins(plugins.ToList());
+        public void AddPlugins(IEnumerable<ISessionPlugin> plugins) 
+            => _plugins.AddRange(plugins);
         public ISession Using(params ISessionPlugin[] plugins)
         {
             AddPlugins(plugins); return this;
@@ -44,20 +33,20 @@ namespace TestUnium.Instantiation.Sessioning
         {
             AddPlugins(plugins); return this;
         }
+
+        public ISession Using<TPlugin>()
+            where TPlugin : ISessionPlugin, new()
+        {
+            AddPlugins(Activator.CreateInstance<TPlugin>());
+            return this;
+        }
         #endregion
 
         #region StepModules
-        public void AddModules(Boolean reusable = false, params Type[] moduleTypes)
-        {
-            foreach (var moduleType in moduleTypes)
-            {
-                _stepModules.Add(moduleType, reusable);
-            }
-        }
-        public void AddModules(IEnumerable<Type> moduleTypes, Boolean reusable = false)
-        {
-            AddModules(reusable, moduleTypes.ToArray());
-        }
+        public void AddModules(Boolean reusable = false, params Type[] moduleTypes) 
+            => StepModules.AddRange(moduleTypes.Select(mt => new KeyValuePair<Type, Boolean>(mt, reusable)));
+        public void AddModules(IEnumerable<Type> moduleTypes, Boolean reusable = false) 
+            => AddModules(reusable, moduleTypes.ToArray());
         public ISession Include(Boolean reusable = false, params Type[] moduleTypes)
         {
             AddModules(reusable, moduleTypes); return this;
@@ -66,20 +55,25 @@ namespace TestUnium.Instantiation.Sessioning
         {
             AddModules(moduleTypes, reusable); return this;
         }
+
+        public ISession Include<TStepModule>(Boolean reusable = false) where TStepModule : IStepModule
+        {
+            AddModules(reusable, typeof(TStepModule)); return this;
+        }
+
         public void Start(Action<ISessionContext> operations)
         {
-            try { operations(_context); } finally { End(); }
+            try
+            {
+                _plugins.ForEach(sp => sp.OnStart(_context));
+                operations(_context);
+            }
+            finally
+            {
+                End();
+            }
         }
         #endregion
-        public void End()
-        {
-            var pluginList = _plugins.ToList();
-            foreach (var plugin in pluginList)
-            {
-                plugin.OnEnd(_context);
-
-            }
-            _plugins = pluginList.ToArray();
-        }
+        public void End() => _plugins.ForEach(sp => sp.OnEnd(_context));
     }
 }

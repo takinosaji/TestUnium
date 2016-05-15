@@ -3,7 +3,7 @@
 namespace TestUnium.Instantiation.Settings
 {
     [Serializable]
-    public class SettingsBase : ISettingsSource
+    public class SettingsBase : ISettings
     {
         public String MainUrl { get; set; }
         public Boolean MakeScreenshotOnError { get; set; }
@@ -29,8 +29,8 @@ namespace TestUnium.Instantiation.Settings
             LogUrlPath = String.Empty;
             LogFolderCapacity = 50;
             WebAppUrl = "localhost";
-            ChromeDriverPath = @"drivers\chromedriver.exe";
-            IeDriverPath = @"drivers\IEDriverServer.exe";
+            ChromeDriverPath = @"drivers";
+            IeDriverPath = @"drivers";
         }
 
         /// <summary>

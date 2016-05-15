@@ -17,7 +17,7 @@ namespace TestUnium.Instantiation.Customization
         {
             _hiddenAttributes = new List<Type>();
             _invokedAttributes = new List<Type>();
-            Kernel.Bind<CustomizationAttributeDrivenTest>().ToConstant(this);
+            Kernel.Bind<ICustomizationAttributeDrivenTest>().ToConstant(this);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace TestUnium.Instantiation.Customization
                 if(method == null) throw new NullReferenceException($"Couldn't find Customize method in {attrType.FullName}");
                 method.Invoke(a, new object[]{ this });
                 var visibilityAttr = a.GetType().GetCustomAttribute<VisibilityAttribute>();
-                if (visibilityAttr != null && visibilityAttr.Visible)
+                if (visibilityAttr == null || visibilityAttr.Visible || a.Visible)
                 {
                     _invokedAttributes.Add(a.GetType());
                     return;
@@ -58,7 +58,7 @@ namespace TestUnium.Instantiation.Customization
             var attributeList = customizationAttributes.ToList();
             var theOnlys = attributeList.Where(attr => attr.GetType().GetCustomAttribute<TheOnlyAttribute>() != null).ToList();
             var theOnyLasts = theOnlys.GroupBy(t => t).Select(grp => grp.Last()).ToList();
-            for (var i = attributeList.Count; i >= 0 ; i--)
+            for (var i = attributeList.Count - 1; i >= 0 ; i--)
             {
                 var attr = attributeList[i];
                 if (theOnlys.Contains(attr) && !theOnyLasts.Contains(attr))

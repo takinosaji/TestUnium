@@ -23,11 +23,12 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
             GitHubRepoSegment = "/takinosaji/testunium";
         }
         /// <summary>
-        /// Overriding some default settings values. Note that values filled up within a code in this method.
+        /// Overriding some settings values set by default and loaded from file. 
+        /// Note that changes made by following code dont affect settigns file content.
         /// </summary>
         public override void PostInitializationAction()
         {
-            ChromeDriverPath = @"drivers";
+            ChromeDriverPath = "drivers";
         }
     }
 }

@@ -8,9 +8,9 @@ namespace TestUnium.Bootstrapping
 {
     public static class Get
     {
-        public static TSettingsBase Settings<TSettingsBase>() where TSettingsBase : ISettingsSource
+        public static TSettingsBase Settings<TSettingsBase>() where TSettingsBase : ISettings
         {
-            return (TSettingsBase)Resolver.Instance.Kernel.Get<ISettingsSource>();
+            return (TSettingsBase)Resolver.Instance.Kernel.Get<ISettings>();
         }
 
         //public static TTest TestClassInstance<TTest>() where TTest : ICustomizationTarget

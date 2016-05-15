@@ -9,6 +9,7 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace StepModules
 {
+    [Reusable]
     public class ThrowsExceptionModule : IStepModule
     {
         public void BeforeExecution(IStep step)

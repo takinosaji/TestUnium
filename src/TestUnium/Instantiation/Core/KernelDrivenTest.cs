@@ -3,14 +3,13 @@ using TestUnium.Common;
 
 namespace TestUnium.Instantiation.Core
 {
-    public class KernelDrivenTest
+    public class KernelDrivenTest : IKernelDrivenTest
     {
-        public IKernel Kernel;
+        public IKernel Kernel { get; set; }
         protected KernelDrivenTest()
         {
             Kernel = InjectionHelper.CreateKernel();
-            Kernel.Bind<IKernel>().ToConstant(Kernel);
-            Kernel.Bind<KernelDrivenTest>().ToConstant(this);
+            Kernel.Bind<IKernelDrivenTest>().ToConstant(this);
         }
     }
 }

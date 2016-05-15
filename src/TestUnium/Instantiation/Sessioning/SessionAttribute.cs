@@ -17,7 +17,7 @@ namespace TestUnium.Instantiation.Sessioning
 
         public SessionAttribute(Type sessionType, Type sessionContextType) : base(typeof(SessionDrivenTest))
         {
-            if (!typeof(ISettingsSource).IsAssignableFrom(sessionContextType) || !typeof(ISessionContext).IsAssignableFrom(sessionType))
+            if (!typeof(ISession).IsAssignableFrom(sessionType) || !typeof(ISessionContext).IsAssignableFrom(sessionContextType))
                 throw new IncorrectInheritanceException(new List<String> { sessionType.Name, sessionContextType.Name },
                     new List<String> { nameof(ISession), nameof(ISessionContext)});
             SessionType = sessionType;

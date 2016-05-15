@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TestUnium.Common
 {
-    class DubKeyDictionary<TKey, TValue> : List<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue> {
+    public class DubKeyDictionary<TKey, TValue> : List<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>
+    {
         public Boolean ContainsKey(TKey key)
         {
             return this.Any(kvp => kvp.Key.GetHashCode() == key.GetHashCode());

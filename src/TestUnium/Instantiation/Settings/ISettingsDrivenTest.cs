@@ -5,6 +5,6 @@ namespace TestUnium.Instantiation.Settings
 {
     public interface ISettingsDrivenTest
     {
-         
+        TSettingsBase SettingsOfType<TSettingsBase>() where TSettingsBase : ISettings;
     }
 }
