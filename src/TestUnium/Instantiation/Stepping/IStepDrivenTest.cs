@@ -8,9 +8,9 @@ namespace TestUnium.Instantiation.Stepping
 {
     public interface IStepDrivenTest
     {
-        void RegisterStepModule<TStepModule>(Boolean isReusable) where TStepModule : IStepModule;
-        void RegisterStepModule(Type moduleType, Boolean isReusable);
-        void RegisterStepModules(Boolean isReusable, params Type[] moduleTypes);
+        void RegisterStepModule<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule;
+        void RegisterStepModule(Type moduleType, Boolean makeReusable);
+        void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes);
         void UnregisterStepModule<TStepModule>() where TStepModule : IStepModule;
         void UnregisterStepModule(Type moduleType);
         void UnregisterStepModules(params Type[] moduleTypes);

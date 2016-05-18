@@ -9,16 +9,19 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace StepModules
 {
-    public class ThrowsExceptionModule : IStepModule
+    [Reusable]
+    public class ReusableCounterModule : IStepModule
     {
+        private Int32 PositiveCounter { get; set; }
+        private Int32 NegativeCounter { get; set; }
         public void BeforeExecution(IStep step)
         {
-            throw new InvalidOperationException();
+            PositiveCounter += 1;
         }
 
         public void AfterExecution(IStep step, StepExecutionResult result)
         {
-            throw new InvalidOperationException();
+            NegativeCounter = -1;
         }
     }
 }

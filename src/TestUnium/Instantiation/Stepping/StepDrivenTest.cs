@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using Ninject;
 using Ninject.Activation;
 using Ninject.Activation.Caching;
@@ -15,23 +17,24 @@ using TestUnium.Instantiation.Stepping.Steps;
 namespace TestUnium.Instantiation.Stepping
 {
     [StepRunner(typeof(StepRunnerBase))]
-    public abstract class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
+    public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
     {
-        protected StepDrivenTest()
+        private List<>
+        public StepDrivenTest()
         {
             Kernel.Bind<IStepDrivenTest>().ToConstant(this);
         }
 
-        public void RegisterStepModule<T>(Boolean isReusable = false) where T : IStepModule
+        public void RegisterStepModule<T>(Boolean makeReusable = false) where T : IStepModule
         {
             RegisterStepModule(typeof(T));
         }
 
-        public void RegisterStepModule(Type moduleType, Boolean isReusable = false)
+        public void RegisterStepModule(Type moduleType, Boolean makeReusable = false)
         {
             if (!typeof(IStepModule).IsAssignableFrom(moduleType))
                 throw new IncorrectInheritanceException(new[] { moduleType.Name }, new[] { nameof(IStepModule) });
-            if (isReusable || moduleType.GetCustomAttribute<ReusableAttribute>() != null)
+            if (makeReusable || moduleType.GetCustomAttribute<ReusableAttribute>() != null)
             {
                 Kernel.Bind<IStepModule>().To(moduleType).InSingletonScope();
                 return;
@@ -39,7 +42,7 @@ namespace TestUnium.Instantiation.Stepping
             Kernel.Bind<IStepModule>().To(moduleType);
         }
 
-        public void RegisterStepModules(bool isReusable = false, params Type[] moduleTypes)
+        public void RegisterStepModules(bool makeReusable = false, params Type[] moduleTypes)
         {
             foreach (var moduleType in moduleTypes)
             {
@@ -88,6 +91,8 @@ namespace TestUnium.Instantiation.Stepping
         public void Do<TStep>(Action<TStep> setSetUpAction = null) where TStep : IExecutableStep
         {
             var runner = Kernel.Get<IStepRunner>();
+
+            runner.RegisterModules();
             var step = Kernel.Get<TStep>();
             setSetUpAction?.Invoke(step);
             runner.Run(step);

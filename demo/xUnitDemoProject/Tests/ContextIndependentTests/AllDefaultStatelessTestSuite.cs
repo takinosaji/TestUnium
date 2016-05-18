@@ -23,12 +23,18 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
         {
             RegisterStepModule<ThrowsExceptionModule>();
             UnregisterStepModule<ThrowsExceptionModule>();
+
+            RegisterStepModule<ReusableCounterModule>();
         }
         [Fact]
         public void OpenGitHubTestCase()
         {
             Session.Start(context =>
             {
+                Do<GoToUrlStep>(s =>
+                {
+                    s.Url = "http://github.com/takinosaji";
+                });
                 Do(() =>
                 {
                     Driver.Navigate().GoToUrl("http://github.com");
@@ -38,10 +44,6 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
                     Driver.Navigate().GoToUrl("http://github.com");
                     stickyButton.Click();
                 });
-                //Do<GoToUrlStep>(s =>
-                //{
-                //    s.Url = "github.com/takinosaji";
-                //});
             });
         }
     }

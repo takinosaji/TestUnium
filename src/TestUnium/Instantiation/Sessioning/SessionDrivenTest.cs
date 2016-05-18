@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 using Ninject;
 using TestUnium.Common;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Stepping;
+using TestUnium.Instantiation.Stepping.Modules;
 
 namespace TestUnium.Instantiation.Sessioning
 {
