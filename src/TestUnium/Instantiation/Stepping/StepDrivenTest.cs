@@ -19,7 +19,6 @@ namespace TestUnium.Instantiation.Stepping
     [StepRunner(typeof(StepRunnerBase))]
     public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
     {
-        private List<>
         public StepDrivenTest()
         {
             Kernel.Bind<IStepDrivenTest>().ToConstant(this);
