@@ -8,12 +8,11 @@ namespace TestUnium.Instantiation.Sessioning
     {
         #region Contexts
         ISession Using(params ISessionPlugin[] plugins);
-        ISession Using(IEnumerable<ISessionPlugin> contexts);
         ISession Using<TPlugin>() where TPlugin : ISessionPlugin, new();
         #endregion
         #region StepModules
-        ISession Include(IEnumerable<Type> modules, Boolean reusable);
-        ISession Include<TStepModule>(Boolean reusable) where TStepModule : IStepModule;
+        ISession Include(Boolean makeReusable, params Type[] moduleTypes);
+        ISession Include<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule;
         #endregion
         ISessionDrivenTest GetTestContext();
         void Start(Action<ISessionContext> operations);

@@ -8,17 +8,21 @@ using TestUnium.Instantiation.Stepping.Modules;
 
 namespace TestUnium.Instantiation.Sessioning
 {
-    public class SessionBase: ISession
+    public class SessionBase: ISession, IStepModuleRegistrator
     {
         private readonly ISessionDrivenTest _testContext;
         private readonly ISessionContext _context;
         private readonly List<ISessionPlugin> _plugins;
-        public readonly DubKeyDictionary<Type, Boolean> StepModules;
+        private List<IStepModule> _reusableStepModules;
+        private List<Type> _nonreusableStepModules;
+        //public readonly DubKeyDictionary<Type, Boolean> StepModules;
 
         public SessionBase(ISessionDrivenTest testContext, ISessionContext context)
         {
             _plugins = new List<ISessionPlugin>();
-            StepModules = new DubKeyDictionary<Type, Boolean>();
+            //StepModules = new DubKeyDictionary<Type, Boolean>();
+            _reusableStepModules = new List<IStepModule>();
+            _nonreusableStepModules = new List<Type>();
             _testContext = testContext;
             _context = context;
         }
@@ -32,10 +36,6 @@ namespace TestUnium.Instantiation.Sessioning
         {
             AddPlugins(plugins); return this;
         }
-        public ISession Using(IEnumerable<ISessionPlugin> plugins)
-        {
-            AddPlugins(plugins); return this;
-        }
 
         public ISession Using<TPlugin>()
             where TPlugin : ISessionPlugin, new()
@@ -46,22 +46,16 @@ namespace TestUnium.Instantiation.Sessioning
         #endregion
 
         #region StepModules
-        protected virtual void AddModules(Boolean reusable = false, params Type[] moduleTypes) 
-            => StepModules.AddRange(moduleTypes.Select(mt => new KeyValuePair<Type, Boolean>(mt, reusable)));
-        protected virtual void AddModules(IEnumerable<Type> moduleTypes, Boolean reusable = false) 
-            => AddModules(reusable, moduleTypes.ToArray());
-        public ISession Include(Boolean reusable = false, params Type[] moduleTypes)
+
+       
+        public ISession Include(Boolean makeReusable = false, params Type[] moduleTypes)
         {
-            AddModules(reusable, moduleTypes); return this;
-        }
-        public ISession Include(IEnumerable<Type> moduleTypes, Boolean reusable = false)
-        {
-            AddModules(moduleTypes, reusable); return this;
+            RegisterStepModules(makeReusable, moduleTypes); return this;
         }
 
-        public ISession Include<TStepModule>(Boolean reusable = false) where TStepModule : IStepModule
+        public ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            AddModules(reusable, typeof(TStepModule)); return this;
+            RegisterStepModule<TStepModule>(makeReusable); return this;
         }
 
         public ISessionDrivenTest GetTestContext()
@@ -88,6 +82,31 @@ namespace TestUnium.Instantiation.Sessioning
             _plugins.ForEach(sp => sp.OnEnd(_context));
             ISession session;
             _testContext.Sessions.TryRemove(Thread.CurrentThread.ManagedThreadId, out session);
-        } 
+        }
+
+        public void RegisterStepModule<TStepModule>(bool makeReusable) where TStepModule : IStepModule
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStepModule(Type moduleType, bool makeReusable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStepModules(bool makeReusable, params Type[] moduleTypes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnregisterStepModule<TStepModule>() where TStepModule : IStepModule
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnregisterStepModules(params Type[] moduleTypes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

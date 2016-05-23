@@ -26,64 +26,54 @@ namespace TestUnium.Instantiation.Stepping
 
         public void RegisterStepModule<T>(Boolean makeReusable = false) where T : IStepModule
         {
-            RegisterStepModule(typeof(T));
+            RegisterStepModules(makeReusable, this.GetType());
         }
 
-        public void RegisterStepModule(Type moduleType, Boolean makeReusable = false)
-        {
-            if (!typeof(IStepModule).IsAssignableFrom(moduleType))
-                throw new IncorrectInheritanceException(new[] { moduleType.Name }, new[] { nameof(IStepModule) });
-            if (makeReusable || moduleType.GetCustomAttribute<ReusableAttribute>() != null)
-            {
-                Kernel.Bind<IStepModule>().To(moduleType).InSingletonScope();
-                return;
-            }
-            Kernel.Bind<IStepModule>().To(moduleType);
-        }
-
-        public void RegisterStepModules(bool makeReusable = false, params Type[] moduleTypes)
+        public void RegisterStepModules(Boolean makeReusable = false, params Type[] moduleTypes)
         {
             foreach (var moduleType in moduleTypes)
             {
-                RegisterStepModule(moduleType);
+                if (!typeof(IStepModule).IsAssignableFrom(moduleType))
+                    throw new IncorrectInheritanceException(new[] { moduleType.Name }, new[] { nameof(IStepModule) });
+                if (makeReusable || moduleType.GetCustomAttribute<ReusableAttribute>() != null)
+                {
+                    Kernel.Bind<IStepModule>().To(moduleType).InSingletonScope();
+                    return;
+                }
+                Kernel.Bind<IStepModule>().To(moduleType);
             }
         }
 
         public void UnregisterStepModule<T>() where T : IStepModule
         {
-            UnregisterStepModule(typeof(T));
-        }
-
-        public void UnregisterStepModule(Type moduleType)
-        {
-            IBinding targetBinding = null;
-            Kernel.GetBindings(typeof(IStepModule))
-                .ToList()
-                .ForEach(
-                    binding =>
-                    {
-                        if (binding.Target != BindingTarget.Type || binding.Target == BindingTarget.Self) return;
-                        var req = Kernel.CreateRequest(moduleType, metadata => true, new IParameter[0], true, false);
-                        var cache = Kernel.Components.Get<ICache>();
-                        var planner = Kernel.Components.Get<IPlanner>();
-                        var pipeline = Kernel.Components.Get<IPipeline>();
-                        var provider = binding.GetProvider(new Context(Kernel, req, binding, cache, planner, pipeline));
-                        if (provider.Type == moduleType)
-                        {
-                            targetBinding = binding;
-                        }
-                    });
-            if (targetBinding != null)
-            {
-                Kernel.RemoveBinding(targetBinding);
-            }
+            UnregisterStepModules(typeof(T));
         }
 
         public void UnregisterStepModules(params Type[] moduleTypes)
         {
             foreach (var moduleType in moduleTypes)
             {
-                UnregisterStepModule(moduleType);
+                IBinding targetBinding = null;
+                Kernel.GetBindings(typeof(IStepModule))
+                    .ToList()
+                    .ForEach(
+                        binding =>
+                        {
+                            if (binding.Target != BindingTarget.Type || binding.Target == BindingTarget.Self) return;
+                            var req = Kernel.CreateRequest(moduleType, metadata => true, new IParameter[0], true, false);
+                            var cache = Kernel.Components.Get<ICache>();
+                            var planner = Kernel.Components.Get<IPlanner>();
+                            var pipeline = Kernel.Components.Get<IPipeline>();
+                            var provider = binding.GetProvider(new Context(Kernel, req, binding, cache, planner, pipeline));
+                            if (provider.Type == moduleType)
+                            {
+                                targetBinding = binding;
+                            }
+                        });
+                if (targetBinding != null)
+                {
+                    Kernel.RemoveBinding(targetBinding);
+                }
             }
         }
 
