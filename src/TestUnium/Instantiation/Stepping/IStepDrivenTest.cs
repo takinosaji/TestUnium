@@ -6,7 +6,7 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace TestUnium.Instantiation.Stepping
 {
-    public interface IStepDrivenTest : IStepModuleRegistrator
+    public interface IStepDrivenTest
     {
         void Do<TStep>(Action<TStep> action) where TStep : IExecutableStep;
         TResult Do<TStep, TResult>(Action<TStep> action) where TStep : IExecutableStep<TResult>;

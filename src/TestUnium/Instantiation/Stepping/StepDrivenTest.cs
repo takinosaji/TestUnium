@@ -17,7 +17,7 @@ using TestUnium.Instantiation.Stepping.Steps;
 namespace TestUnium.Instantiation.Stepping
 {
     [StepRunner(typeof(StepRunnerBase))]
-    public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
+    public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest, IStepModuleRegistrator
     {
         public StepDrivenTest()
         {
@@ -29,7 +29,11 @@ namespace TestUnium.Instantiation.Stepping
             RegisterStepModules(makeReusable, this.GetType());
         }
 
-        public void RegisterStepModules(Boolean makeReusable = false, params Type[] moduleTypes)
+        public void RegisterStepModules(params Type[] moduleTypes)
+        {
+          RegisterStepModules(false, moduleTypes);
+        }
+        public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes)
         {
             foreach (var moduleType in moduleTypes)
             {

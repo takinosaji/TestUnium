@@ -46,44 +46,18 @@ namespace TestUnium.Instantiation.Sessioning
         #endregion
 
         #region StepModules
-
-       
-        public ISession Include(Boolean makeReusable = false, params Type[] moduleTypes)
+        public ISession Include(params Type[] moduleTypes)
+        {
+            RegisterStepModules(false, moduleTypes); return this;
+        }
+        public ISession Include(Boolean makeReusable, params Type[] moduleTypes)
         {
             RegisterStepModules(makeReusable, moduleTypes); return this;
         }
-
         public ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
         {
             RegisterStepModule<TStepModule>(makeReusable); return this;
         }
-
-        public ISessionDrivenTest GetTestContext()
-        {
-            return _testContext;
-        }
-
-        public void Start(Action<ISessionContext> operations)
-        {
-            try
-            {
-                _plugins.ForEach(sp => sp.OnStart(_context));
-                operations(_context);
-            }
-            finally
-            {
-                End();
-            }
-        }
-        #endregion
-
-        public void End()
-        {
-            _plugins.ForEach(sp => sp.OnEnd(_context));
-            ISession session;
-            _testContext.Sessions.TryRemove(Thread.CurrentThread.ManagedThreadId, out session);
-        }
-
         public void RegisterStepModule<TStepModule>(bool makeReusable) where TStepModule : IStepModule
         {
             throw new NotImplementedException();
@@ -107,6 +81,32 @@ namespace TestUnium.Instantiation.Sessioning
         public void UnregisterStepModules(params Type[] moduleTypes)
         {
             throw new NotImplementedException();
+        }
+        #endregion
+        //public ISessionDrivenTest GetTestContext()
+        //{
+        //    return _testContext;
+        //}
+
+        public void Start(Action<ISessionContext> operations)
+        {
+            try
+            {
+                _plugins.ForEach(sp => sp.OnStart(_context));
+                operations(_context);
+            }
+            finally
+            {
+                End();
+            }
+        }
+       
+
+        public void End()
+        {
+            _plugins.ForEach(sp => sp.OnEnd(_context));
+            ISession session;
+            _testContext.Sessions.TryRemove(Thread.CurrentThread.ManagedThreadId, out session);
         }
     }
 }
