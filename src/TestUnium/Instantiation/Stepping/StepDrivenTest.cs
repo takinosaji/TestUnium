@@ -24,9 +24,9 @@ namespace TestUnium.Instantiation.Stepping
             Kernel.Bind<IStepDrivenTest>().ToConstant(this);
         }
 
-        public void RegisterStepModule<T>(Boolean makeReusable = false) where T : IStepModule
+        public void RegisterStepModule<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            RegisterStepModules(makeReusable, this.GetType());
+            RegisterStepModules(makeReusable, typeof(TStepModule));
         }
 
         public void RegisterStepModules(params Type[] moduleTypes)
@@ -83,9 +83,8 @@ namespace TestUnium.Instantiation.Stepping
 
         public void Do<TStep>(Action<TStep> setSetUpAction = null) where TStep : IExecutableStep
         {
+            RegisterSessionStepModules();
             var runner = Kernel.Get<IStepRunner>();
-
-            runner.RegisterModules();
             var step = Kernel.Get<TStep>();
             setSetUpAction?.Invoke(step);
             runner.Run(step);
@@ -94,6 +93,7 @@ namespace TestUnium.Instantiation.Stepping
         public TResult Do<TStep, TResult>(Action<TStep> setSetUpAction = null) 
             where TStep : IExecutableStep<TResult>
         {
+            RegisterSessionStepModules();
             var runner = Kernel.Get<IStepRunner>();
             var step = Kernel.Get<TStep>();
             setSetUpAction?.Invoke(step);                        
@@ -102,6 +102,7 @@ namespace TestUnium.Instantiation.Stepping
 
         public void Do(Action outOfStepOperations)
         {
+            RegisterSessionStepModules();
             var runner = Kernel.Get<IStepRunner>();
             var step = Kernel.Get<FakeStep>();
             step.Operations = outOfStepOperations;
@@ -110,6 +111,7 @@ namespace TestUnium.Instantiation.Stepping
 
         public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue)
         {
+            RegisterSessionStepModules();
             var runner = Kernel.Get<IStepRunner>();
             var step = Kernel.Get<FakeStepWithReturnValue<TResult>>();
             step.OperationsWithReturnValue = outOfStepFuncWithReturnValue;
@@ -121,6 +123,13 @@ namespace TestUnium.Instantiation.Stepping
             var step = Kernel.Get<TStep>();
             stepSetupAction?.Invoke(step);
             return step;
+        }
+
+        private void RegisterSessionStepModules()
+        {
+            ISession currentSession;
+            if (Sessions.TryGetValue(Thread.CurrentThread.ManagedThreadId, out currentSession))
+                currentSession.StepModules.ForEach(sm => { RegisterStepModules(sm.Value, sm.Key); });
         }
     }
 }

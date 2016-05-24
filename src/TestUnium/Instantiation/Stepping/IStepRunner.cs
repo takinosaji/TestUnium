@@ -10,7 +10,7 @@ namespace TestUnium.Instantiation.Stepping
         TResult RunWithReturnValue<TResult>(IExecutableStep<TResult> step);
         void BeforeExecution(IStep step);
         void AfterExecution(IStep step, StepExecutionResult result);
-        void RegisterModules(params IStepModule[] modules);
-        void UnregisterModules(params IStepModule[] modules);
+        void AddModules(params IStepModule[] modules);
+        void RemoveModules(params IStepModule[] modules);
     }
 }

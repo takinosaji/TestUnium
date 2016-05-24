@@ -21,10 +21,9 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
     {
         public AllDefaultStatelessTestSuite()
         {
+            // Registration and cancelling specific step modules
             RegisterStepModule<ThrowsExceptionModule>();
             UnregisterStepModule<ThrowsExceptionModule>();
-
-            RegisterStepModule<ReusableCounterModule>();
         }
         [Fact]
         public void OpenGitHubTestCase()

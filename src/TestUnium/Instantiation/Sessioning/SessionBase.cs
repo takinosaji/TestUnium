@@ -13,16 +13,12 @@ namespace TestUnium.Instantiation.Sessioning
         private readonly ISessionDrivenTest _testContext;
         private readonly ISessionContext _context;
         private readonly List<ISessionPlugin> _plugins;
-        private List<IStepModule> _reusableStepModules;
-        private List<Type> _nonreusableStepModules;
-        //public readonly DubKeyDictionary<Type, Boolean> StepModules;
+        public DubKeyDictionary<Type, Boolean> StepModules { get; set; }
 
         public SessionBase(ISessionDrivenTest testContext, ISessionContext context)
         {
             _plugins = new List<ISessionPlugin>();
-            //StepModules = new DubKeyDictionary<Type, Boolean>();
-            _reusableStepModules = new List<IStepModule>();
-            _nonreusableStepModules = new List<Type>();
+            StepModules = new DubKeyDictionary<Type, Boolean>();
             _testContext = testContext;
             _context = context;
         }
@@ -58,35 +54,32 @@ namespace TestUnium.Instantiation.Sessioning
         {
             RegisterStepModule<TStepModule>(makeReusable); return this;
         }
-        public void RegisterStepModule<TStepModule>(bool makeReusable) where TStepModule : IStepModule
+        public void RegisterStepModule<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule
         {
-            throw new NotImplementedException();
+            RegisterStepModules(makeReusable, typeof(TStepModule));
         }
-
-        public void RegisterStepModule(Type moduleType, bool makeReusable)
+        public void RegisterStepModules(params Type[] moduleTypes)
         {
-            throw new NotImplementedException();
+            RegisterStepModules(false, moduleTypes);
         }
-
-        public void RegisterStepModules(bool makeReusable, params Type[] moduleTypes)
+        public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes)
         {
-            throw new NotImplementedException();
+            moduleTypes.ToList().ForEach(mt => StepModules.Add(mt, makeReusable));
         }
 
         public void UnregisterStepModule<TStepModule>() where TStepModule : IStepModule
         {
-            throw new NotImplementedException();
+            UnregisterStepModules(typeof(TStepModule));
         }
 
         public void UnregisterStepModules(params Type[] moduleTypes)
         {
-            throw new NotImplementedException();
+            foreach (var moduleType in moduleTypes)
+            {
+                StepModules.Remove(moduleType);
+            }
         }
         #endregion
-        //public ISessionDrivenTest GetTestContext()
-        //{
-        //    return _testContext;
-        //}
 
         public void Start(Action<ISessionContext> operations)
         {
@@ -101,7 +94,6 @@ namespace TestUnium.Instantiation.Sessioning
             }
         }
        
-
         public void End()
         {
             _plugins.ForEach(sp => sp.OnEnd(_context));

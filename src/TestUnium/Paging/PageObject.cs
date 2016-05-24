@@ -17,7 +17,7 @@ namespace TestUnium.Paging
         {
             var nameAttr = (NameAttribute) GetType().GetCustomAttribute(typeof(NameAttribute));
             var lazyAttr = (LazyAttribute) GetType().GetCustomAttribute(typeof(LazyAttribute));
-            Name = nameAttr?.Name ?? "Unnamed PageObject";
+            Name = nameAttr?.Name ?? GetType().Name;
             if (lazyAttr != null) return;
             CheckMarker();
         }

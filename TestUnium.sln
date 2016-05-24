@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StepModules", "demo\StepMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steps", "demo\Steps\Steps.csproj", "{F563092E-F423-44C4-B00C-68B0D194857D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionPlugins", "demo\SessionPlugins\SessionPlugins.csproj", "{0537C217-A09F-4885-B8D7-693C54589077}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{F563092E-F423-44C4-B00C-68B0D194857D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F563092E-F423-44C4-B00C-68B0D194857D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F563092E-F423-44C4-B00C-68B0D194857D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0537C217-A09F-4885-B8D7-693C54589077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0537C217-A09F-4885-B8D7-693C54589077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0537C217-A09F-4885-B8D7-693C54589077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0537C217-A09F-4885-B8D7-693C54589077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,5 +80,6 @@ Global
 		{FEDEE2F8-4BEA-4732-B963-6A756D3CB21B} = {E6CC603B-253A-48A5-8984-47A87AE2F4FE}
 		{E5527575-6EEA-4462-8D55-7F6A9FD49EED} = {E6CC603B-253A-48A5-8984-47A87AE2F4FE}
 		{F563092E-F423-44C4-B00C-68B0D194857D} = {E6CC603B-253A-48A5-8984-47A87AE2F4FE}
+		{0537C217-A09F-4885-B8D7-693C54589077} = {E6CC603B-253A-48A5-8984-47A87AE2F4FE}
 	EndGlobalSection
 EndGlobal

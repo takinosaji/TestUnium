@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using TestUnium.Common;
 using TestUnium.Instantiation.Stepping.Modules;
 
 namespace TestUnium.Instantiation.Sessioning
 {
     public interface ISession
     {
+        DubKeyDictionary<Type, Boolean> StepModules { get; set; }
         #region Contexts
         ISession Using(params ISessionPlugin[] plugins);
         ISession Using<TPlugin>() where TPlugin : ISessionPlugin, new();

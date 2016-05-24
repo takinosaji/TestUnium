@@ -63,7 +63,7 @@ namespace TestUnium.Instantiation.Stepping
             return value;
         }
 
-        public void RegisterModules(params IStepModule[] modules)
+        public void AddModules(params IStepModule[] modules)
         {
             if (modules == null || modules.Length <= 0) return;
             var modulesList = _modules.ToList();
@@ -71,7 +71,7 @@ namespace TestUnium.Instantiation.Stepping
             _modules = modulesList.ToArray();
         }
 
-        public void UnregisterModules(params IStepModule[] modules)
+        public void RemoveModules(params IStepModule[] modules)
         {
             if (modules == null || modules.Length <= 0) return;
             var modulesList = _modules.ToList();
