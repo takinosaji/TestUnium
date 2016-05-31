@@ -132,10 +132,9 @@ namespace TestUnium.Instantiation.Stepping
             {
                 currentSession.StepModuleInfos.ForEach(smi =>
                 {
-                    if (!smi.IsRegistered)
-                    {
-                        RegisterStepModules(smi.IsReusable, smi.ModuleType);
-                    }
+                    if (smi.IsRegistered) return;
+                    smi.IsRegistered = true;
+                    RegisterStepModules(smi.IsReusable, smi.ModuleType);
                 });
             }
         }
