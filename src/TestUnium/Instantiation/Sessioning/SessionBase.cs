@@ -13,12 +13,12 @@ namespace TestUnium.Instantiation.Sessioning
         private readonly ISessionDrivenTest _testContext;
         private readonly ISessionContext _context;
         private readonly List<ISessionPlugin> _plugins;
-        public DubKeyDictionary<Type, Boolean> StepModules { get; set; }
+        public List<StepModuleInfo> StepModuleInfos { get; set; }
 
         public SessionBase(ISessionDrivenTest testContext, ISessionContext context)
         {
             _plugins = new List<ISessionPlugin>();
-            StepModules = new DubKeyDictionary<Type, Boolean>();
+            StepModuleInfos = new List<StepModuleInfo>();
             _testContext = testContext;
             _context = context;
         }
@@ -28,6 +28,8 @@ namespace TestUnium.Instantiation.Sessioning
             => AddPlugins(plugins.ToList());
         protected virtual void AddPlugins(IEnumerable<ISessionPlugin> plugins) 
             => _plugins.AddRange(plugins);
+
+
         public ISession Using(params ISessionPlugin[] plugins)
         {
             AddPlugins(plugins); return this;
@@ -64,7 +66,7 @@ namespace TestUnium.Instantiation.Sessioning
         }
         public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes)
         {
-            moduleTypes.ToList().ForEach(mt => StepModules.Add(mt, makeReusable));
+            moduleTypes.ToList().ForEach(mt => StepModuleInfos.Add(new StepModuleInfo(mt, makeReusable, Thread.CurrentThread.ManagedThreadId)));
         }
 
         public void UnregisterStepModule<TStepModule>() where TStepModule : IStepModule
@@ -76,7 +78,7 @@ namespace TestUnium.Instantiation.Sessioning
         {
             foreach (var moduleType in moduleTypes)
             {
-                StepModules.Remove(moduleType);
+                StepModuleInfos.Remove(StepModuleInfos.Find(sm => sm.ModuleType == moduleType));
             }
         }
         #endregion

@@ -129,7 +129,15 @@ namespace TestUnium.Instantiation.Stepping
         {
             ISession currentSession;
             if (Sessions.TryGetValue(Thread.CurrentThread.ManagedThreadId, out currentSession))
-                currentSession.StepModules.ForEach(sm => { RegisterStepModules(sm.Value, sm.Key); });
+            {
+                currentSession.StepModuleInfos.ForEach(smi =>
+                {
+                    if (!smi.IsRegistered)
+                    {
+                        RegisterStepModules(smi.IsReusable, smi.ModuleType);
+                    }
+                });
+            }
         }
     }
 }
