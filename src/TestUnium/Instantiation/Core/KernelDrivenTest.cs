@@ -1,5 +1,6 @@
 ﻿using Ninject;
 using TestUnium.Common;
+using TestUnium.Instantiation.Stepping;
 
 namespace TestUnium.Instantiation.Core
 {
@@ -10,6 +11,7 @@ namespace TestUnium.Instantiation.Core
         {
             Kernel = InjectionHelper.CreateKernel();
             Kernel.Bind<IKernelDrivenTest>().ToConstant(this);
+            Kernel.Bind<IStepModuleRegistrationStrategy>().To<BasicStepModuleRegistrationStrategy>();
         }
     }
 }

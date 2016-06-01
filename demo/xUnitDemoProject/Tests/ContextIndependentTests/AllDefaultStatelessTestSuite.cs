@@ -28,7 +28,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
         [Fact]
         public void OpenGitHubTestCase()
         {
-            Session.Start(context =>
+            Session.Include<UreusableSessionStepModule>(false).Start(context =>
             {
                 Do<GoToUrlStep>(s =>
                 {
@@ -43,6 +43,10 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
                     Driver.Navigate().GoToUrl("http://github.com");
                     stickyButton.Click();
                 });
+            });
+            Do<GoToUrlStep>(s =>
+            {
+                s.Url = "http://github.com/redheadTriss";
             });
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Ninject;
+using Ninject.Extensions.ChildKernel;
 
 namespace TestUnium.Common
 {
@@ -13,9 +14,19 @@ namespace TestUnium.Common
             }
         }
 
-        public static StandardKernel CreateKernel()
+        public static IKernel CreateKernel()
         {
             var kernel = new StandardKernel(new NinjectSettings
+            {
+                InjectNonPublic = true
+            });
+
+            return kernel;
+        }
+
+        public static IKernel CreateChildKernel(IKernel parentKernel)
+        {
+            var kernel = new ChildKernel(parentKernel, new NinjectSettings
             {
                 InjectNonPublic = true
             });

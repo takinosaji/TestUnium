@@ -2,25 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Ninject;
 using TestUnium.Common;
 using TestUnium.Instantiation.Stepping;
 using TestUnium.Instantiation.Stepping.Modules;
 
 namespace TestUnium.Instantiation.Sessioning
 {
-    public class SessionBase: ISession, IStepModuleRegistrator
+    public class SessionBase: ISession
     {
+        private readonly IStepModuleRegistrationStrategy _moduleRegistrationStrategy;
         private readonly ISessionDrivenTest _testContext;
         private readonly ISessionContext _context;
+        private readonly IKernel _kernel;
         private readonly List<ISessionPlugin> _plugins;
-        public List<StepModuleInfo> StepModuleInfos { get; set; }
 
-        public SessionBase(ISessionDrivenTest testContext, ISessionContext context)
+        public SessionBase(ISessionDrivenTest testContext, ISessionContext context, IKernel kernel,
+            IStepModuleRegistrationStrategy moduleRegistrationStrategy)
         {
+            _moduleRegistrationStrategy = moduleRegistrationStrategy;
             _plugins = new List<ISessionPlugin>();
-            StepModuleInfos = new List<StepModuleInfo>();
             _testContext = testContext;
             _context = context;
+            _kernel = kernel;
         }
 
         #region Plugins
@@ -41,45 +45,26 @@ namespace TestUnium.Instantiation.Sessioning
             AddPlugins(Activator.CreateInstance<TPlugin>());
             return this;
         }
+
+        public IKernel GetSessionKernel()
+        {
+            return _kernel;
+        }
+
         #endregion
 
         #region StepModules
         public ISession Include(params Type[] moduleTypes)
         {
-            RegisterStepModules(false, moduleTypes); return this;
+            _moduleRegistrationStrategy.RegisterStepModules(_kernel, false, moduleTypes); return this;
         }
         public ISession Include(Boolean makeReusable, params Type[] moduleTypes)
         {
-            RegisterStepModules(makeReusable, moduleTypes); return this;
+            _moduleRegistrationStrategy.RegisterStepModules(_kernel, makeReusable, moduleTypes); return this;
         }
         public ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            RegisterStepModule<TStepModule>(makeReusable); return this;
-        }
-        public void RegisterStepModule<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule
-        {
-            RegisterStepModules(makeReusable, typeof(TStepModule));
-        }
-        public void RegisterStepModules(params Type[] moduleTypes)
-        {
-            RegisterStepModules(false, moduleTypes);
-        }
-        public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes)
-        {
-            moduleTypes.ToList().ForEach(mt => StepModuleInfos.Add(new StepModuleInfo(mt, makeReusable, Thread.CurrentThread.ManagedThreadId)));
-        }
-
-        public void UnregisterStepModule<TStepModule>() where TStepModule : IStepModule
-        {
-            UnregisterStepModules(typeof(TStepModule));
-        }
-
-        public void UnregisterStepModules(params Type[] moduleTypes)
-        {
-            foreach (var moduleType in moduleTypes)
-            {
-                StepModuleInfos.Remove(StepModuleInfos.Find(sm => sm.ModuleType == moduleType));
-            }
+            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_kernel, makeReusable); return this;
         }
         #endregion
 

@@ -73,7 +73,8 @@
     <Compile Include="Instantiation\Core\KernelDrivenTest.cs" />
     <Compile Include="Instantiation\Customization\VisibilityAttribute.cs" />
     <Compile Include="Instantiation\Customization\TheOnlyAttribute.cs" />
-    <Compile Include="Instantiation\Stepping\StepModuleInfo.cs" />
+    <Compile Include="Instantiation\Stepping\IStepModuleRegistrationStrategy.cs" />
+    <Compile Include="Instantiation\Stepping\BasicStepModuleRegistrationStrategy.cs" />
     <Compile Include="Instantiation\Stepping\IStepModuleRegistrator.cs" />
     <Compile Include="Instantiation\Stepping\Steps\StepRunnerAttribute.cs" />
     <Compile Include="Paging\LazyAttribute.cs" />
