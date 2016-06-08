@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using TestUnium.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace TestUnium.Paging
+namespace TestUnium.Extensions
 {
     public class StickyElement : IWebElement
     {

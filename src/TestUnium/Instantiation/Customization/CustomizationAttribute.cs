@@ -6,7 +6,7 @@ using TestUnium.Instantiation.Customization.Prioritizing;
 
 namespace TestUnium.Instantiation.Customization
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public abstract class CustomizationAttribute : Attribute, IComparable<CustomizationAttribute>, ICancellable, ICustomizationAttribute
     {
         private readonly Type _targetType;

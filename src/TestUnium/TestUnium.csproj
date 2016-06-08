@@ -78,7 +78,7 @@
     <Compile Include="Paging\NameAttribute.cs" />
     <Compile Include="Paging\PageMarkerNotProvidedException.cs" />
     <Compile Include="Paging\PageObjectNotFoundException.cs" />
-    <Compile Include="Paging\StickyElement.cs" />
+    <Compile Include="Extensions\StickyElement.cs" />
     <Compile Include="Instantiation\WebDriving\WebDriverContainer.cs" />
     <Compile Include="Instantiation\Customization\CustomizationAttribute.cs" />
     <Compile Include="Instantiation\Customization\CustomizationAttributeFamily.cs" />

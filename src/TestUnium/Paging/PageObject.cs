@@ -11,12 +11,16 @@ namespace TestUnium.Paging
     public class PageObject : WebDriverContainer, IPageObject
     {
         public String Name { get; set; }
-        protected IWebElement Marker { get; private set; }
+        private readonly By _markerBy;
+        private IWebElement _marker;
 
-        public PageObject(IWebDriver driver, IWait<IWebDriver>[] waits) : base(driver, waits)
+        public PageObject(IWebDriver driver, IWait<IWebDriver>[] waits) : this(null, driver, waits) {}
+
+        public PageObject(By markerBy, IWebDriver driver, IWait<IWebDriver>[] waits) : base(driver, waits)
         {
-            var nameAttr = (NameAttribute) GetType().GetCustomAttribute(typeof(NameAttribute));
-            var lazyAttr = (LazyAttribute) GetType().GetCustomAttribute(typeof(LazyAttribute));
+            _markerBy = markerBy;
+            var nameAttr = (NameAttribute)GetType().GetCustomAttribute(typeof(NameAttribute));
+            var lazyAttr = (LazyAttribute)GetType().GetCustomAttribute(typeof(LazyAttribute));
             Name = nameAttr?.Name ?? GetType().Name;
             if (lazyAttr != null) return;
             CheckMarker();
@@ -26,10 +30,15 @@ namespace TestUnium.Paging
         {
             try
             {
+                if (_markerBy != null)
+                {
+                    _marker = Driver.FindElement(_markerBy, LongWait);
+                    return;
+                }
                 var markerAttr = (MarkerAttribute)GetType().GetCustomAttribute(typeof(MarkerAttribute));
                 if (markerAttr == null)
                     throw new PageMarkerNotProvidedException(Name);
-                Marker = Driver.FindElement(markerAttr.GetBy(), LongWait);
+                _marker = Driver.FindElement(markerAttr.GetBy(), LongWait);
             }
             catch(Exception excp)
             {
