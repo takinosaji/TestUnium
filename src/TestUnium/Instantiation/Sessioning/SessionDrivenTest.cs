@@ -20,19 +20,19 @@ namespace TestUnium.Instantiation.Sessioning
             Kernel.Bind<ISessionDrivenTest>().ToConstant(this);
         }
 
-        //public ISession Session
-        //{
-        //    get
-        //    {
-        //        var kernel = InjectionHelper.CreateKernel();
-        //        //kernel.Bind<ISession>().To(Kernel.Get<ISession>().GetType());
-        //        //kernel.Bind<ISessionContext>().To(Kernel.Get<ISessionContext>().GetType());
-        //        //kernel.Bind<ISessionDrivenTest>().ToConstant(Kernel.Get<ISessionDrivenTest>());
-        //        var session = kernel.Get<ISession>();
-        //        var id = Thread.CurrentThread.ManagedThreadId;
-        //        Sessions.AddOrUpdate(id, session, (i, s) => session);
-        //        return session;
-        //    }
-        //}
+        public ISession Session
+        {
+            get
+            {
+                var kernel = InjectionHelper.CreateKernel();
+                //kernel.Bind<ISession>().To(Kernel.Get<ISession>().GetType());
+                //kernel.Bind<ISessionContext>().To(Kernel.Get<ISessionContext>().GetType());
+                //kernel.Bind<ISessionDrivenTest>().ToConstant(Kernel.Get<ISessionDrivenTest>());
+                var session = kernel.Get<ISession>();
+                var id = Thread.CurrentThread.ManagedThreadId;
+                Sessions.AddOrUpdate(id, session, (i, s) => session);
+                return session;
+            }
+        }
     }
 }

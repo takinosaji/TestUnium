@@ -2,5 +2,5 @@
 
 namespace TestUnium
 {
-    public class UniumCore : WebDriverDrivenTest { }
+    public class TestCore : WebDriverDrivenTest { }
 }

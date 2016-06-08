@@ -8,7 +8,7 @@ using TestUnium;
 
 namespace xUnitDemoProject.Tests
 {
-    public class TestBase : UniumCore, IDisposable
+    public class TestBase : TestCore, IDisposable
     {
         public TestBase()
         {

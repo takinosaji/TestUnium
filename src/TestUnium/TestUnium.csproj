@@ -140,7 +140,7 @@
     <Compile Include="Instantiation\Stepping\Steps\WebDriverStep.cs" />
     <Compile Include="Instantiation\Stepping\Steps\ExecutableStep.cs" />
     <Compile Include="Instantiation\Stepping\StepState.cs" />
-    <Compile Include="UniumCore.cs" />
+    <Compile Include="TestCore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
