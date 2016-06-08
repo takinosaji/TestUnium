@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CoreUnium")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("TestUnium")]
+[assembly: AssemblyDescription("Framework for scalable and productive automated web UI testing.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CoreUnium")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("EXDEV LAB")]
+[assembly: AssemblyProduct("TestUnium")]
+[assembly: AssemblyCopyright("EXDEV LAB ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
