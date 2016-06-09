@@ -10,7 +10,7 @@ namespace TestUnium.Instantiation.Sessioning
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.Session)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class SessionAttribute : CustomizationAttribute, ICustomizationAttribute<SessionDrivenTest>
+    public class SessionAttribute : CustomizationAttribute, ICustomizer<SessionDrivenTest>
     {
         protected readonly Type SessionType;
         protected readonly Type SessionContextType;

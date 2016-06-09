@@ -14,9 +14,9 @@ namespace TestUnium.Paging
         private readonly By _markerBy;
         private IWebElement _marker;
 
-        public PageObject(IWebDriver driver, IWait<IWebDriver>[] waits) : this(null, driver, waits) {}
+        public PageObject() : this(null) {}
 
-        public PageObject(By markerBy, IWebDriver driver, IWait<IWebDriver>[] waits) : base(driver, waits)
+        public PageObject(By markerBy)
         {
             _markerBy = markerBy;
             var nameAttr = (NameAttribute)GetType().GetCustomAttribute(typeof(NameAttribute));

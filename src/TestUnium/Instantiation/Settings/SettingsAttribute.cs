@@ -10,7 +10,7 @@ namespace TestUnium.Instantiation.Settings
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.Settings)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class SettingsAttribute : CustomizationAttribute, ICustomizationAttribute<SettingsDrivenTest>
+    public class SettingsAttribute : CustomizationAttribute, ICustomizer<SettingsDrivenTest>
     {
         private readonly Type _settingsType;
         private readonly Boolean _loadFromFile;

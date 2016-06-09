@@ -1,4 +1,5 @@
 ﻿using System;
+using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -6,14 +7,11 @@ namespace TestUnium.Instantiation.WebDriving
 {
     public class WebDriverContainer
     {
-        private IWait<IWebDriver>[] _waits;
-        public IWebDriver Driver { get; set; }
+        [Inject]
+        public IWait<IWebDriver>[] Waits { get; set; }
 
-        public WebDriverContainer(IWebDriver driver, IWait<IWebDriver>[] waits)
-        {
-            Driver = driver;
-            _waits = waits;
-        }
+        [Inject]
+        public IWebDriver Driver { get; set; }
 
         public IWait<IWebDriver> SmallWait
         {
@@ -35,25 +33,25 @@ namespace TestUnium.Instantiation.WebDriving
 
         private IWait<IWebDriver> GetWait(Int16 index)
         {
-            return (_waits.Length < index) ? null : _waits[index];
+            return (Waits.Length < index) ? null : Waits[index];
         }
 
         private void SetWait(Int16 index, IWait<IWebDriver> wait)
         {
-            if (_waits == null)
+            if (Waits == null)
             {
-                _waits = new IWait<IWebDriver>[3];
+                Waits = new IWait<IWebDriver>[3];
             }
-            if (_waits.Length - 1 < index)
+            if (Waits.Length - 1 < index)
             {
-                for (var i = _waits.Length; i <= index; i++)
+                for (var i = Waits.Length; i <= index; i++)
                 {
-                    _waits[i] = i == index ? wait : null;
+                    Waits[i] = i == index ? wait : null;
                 }
                 return;
             }
 
-            _waits[index] = wait;
+            Waits[index] = wait;
         }
     }
 }

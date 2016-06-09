@@ -30,7 +30,7 @@ namespace TestUnium.Instantiation.Customization
             var callingMethod = frame.GetMethod();
             var targetType = callingMethod.DeclaringType ?? GetType();
             var attributeList = new List<CustomizationAttribute>(GetType().GetCustomAttributes<CustomizationAttribute>()
-                .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizationAttribute<>)))
+                .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizer<>)))
                     .Where(a => targetType == a.GetCustomizationTargetType() || targetType.IsSubclassOf(a.GetCustomizationTargetType())));
             attributeList.Sort((f, s) => f.CompareTo(s));
             attributeList = ApplyTheOnlyPolicy(attributeList);

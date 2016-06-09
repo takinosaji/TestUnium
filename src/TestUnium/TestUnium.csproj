@@ -67,6 +67,7 @@
     <Compile Include="Common\InjectionHelper.cs" />
     <Compile Include="Instantiation\Core\IKernelDrivenTest.cs" />
     <Compile Include="Instantiation\Core\KernelDrivenTest.cs" />
+    <Compile Include="Instantiation\Customization\ICustomizationAttribute.cs" />
     <Compile Include="Instantiation\Customization\VisibilityAttribute.cs" />
     <Compile Include="Instantiation\Customization\TheOnlyAttribute.cs" />
     <Compile Include="Instantiation\Stepping\IStepModuleRegistrationStrategy.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="Instantiation\Customization\CustomizationAttribute.cs" />
     <Compile Include="Instantiation\Customization\CustomizationAttributeFamily.cs" />
     <Compile Include="Instantiation\Customization\ICancellable.cs" />
-    <Compile Include="Instantiation\Customization\ICustomizationAttribute.cs" />
+    <Compile Include="Instantiation\Customization\ICustomizer.cs" />
     <Compile Include="Instantiation\Customization\ICustomizationSource.cs" />
     <Compile Include="Instantiation\Customization\ICustomizationTarget.cs" />
     <Compile Include="Instantiation\IncorrectInheritanceException.cs" />

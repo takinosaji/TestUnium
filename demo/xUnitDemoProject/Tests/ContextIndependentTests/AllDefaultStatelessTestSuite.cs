@@ -28,26 +28,29 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
         [Fact]
         public void OpenGitHubTestCase()
         {
-            Session.Include<UreusableSessionStepModule>(false).Start(context =>
-            {
-                Do<GoToUrlStep>(s =>
-                {
-                    s.Url = "http://github.com/takinosaji";
-                });
-                Do(() =>
-                {
-                    Driver.Navigate().GoToUrl("http://github.com");
-                    var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
-                    var stickyButton = gitHubPage.StikySignUpBtn();
-                    stickyButton.Click();
-                    Driver.Navigate().GoToUrl("http://github.com");
-                    stickyButton.Click();
-                });
-            });
-            Do<GoToUrlStep>(s =>
-            {
-                s.Url = "http://github.com/redheadTriss";
-            });
+            Driver.Navigate().GoToUrl("http://github.com");
+            var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
+            var stickyButton = gitHubPage.StikySignUpBtn();
+            //Session.Include<UreusableSessionStepModule>(false).Start(context =>
+            //{
+            //    Do<GoToUrlStep>(s =>
+            //    {
+            //        s.Url = "http://github.com/takinosaji";
+            //    });
+            //    Do(() =>
+            //    {
+            //        Driver.Navigate().GoToUrl("http://github.com");
+            //        var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
+            //        var stickyButton = gitHubPage.StikySignUpBtn();
+            //        stickyButton.Click();
+            //        Driver.Navigate().GoToUrl("http://github.com");
+            //        stickyButton.Click();
+            //    });
+            //});
+            //Do<GoToUrlStep>(s =>
+            //{
+            //    s.Url = "http://github.com/redheadTriss";
+            //});
         }
     }
 }

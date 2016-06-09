@@ -16,8 +16,6 @@ namespace PageObjects
     [Marker(How = How.XPath, Pattern = "//*[text() = 'Sign up for GitHub']")]
     public class GitHubMainPage : PageObject
     {
-        public GitHubMainPage(IWebDriver driver, IWait<IWebDriver>[] waits) : base(driver, waits) { }
-
         [FindsBy(How = How.XPath, Using = "//*[text() = 'Sign up for GitHub']")]
         public IWebElement SignUpBtn { get; set; }
 

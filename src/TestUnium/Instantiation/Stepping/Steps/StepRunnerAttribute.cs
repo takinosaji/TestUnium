@@ -12,7 +12,7 @@ namespace TestUnium.Instantiation.Stepping.Steps
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.StepRunner)]
     [AttributeUsage(AttributeTargets.Class)]
-    class StepRunnerAttribute : CustomizationAttribute, ICustomizationAttribute<StepDrivenTest>
+    class StepRunnerAttribute : CustomizationAttribute, ICustomizer<StepDrivenTest>
     {
         protected readonly Type StepRunnerType;
 
