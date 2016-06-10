@@ -7,24 +7,24 @@ using TestUnium.Instantiation.Customization.Prioritizing;
 namespace TestUnium.Instantiation.Customization
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public abstract class CustomizationAttribute : Attribute, IComparable<CustomizationAttribute>, ICancellable, ICustomizationAttribute
+    public abstract class CustomizationAttribute : Attribute, IComparable<CustomizationAttribute>, ICancellable
     {
-        private readonly Type _targetType;
+        //private readonly Type _targetType;
         public UInt16 Priority { get; set; }
         public Boolean Visible { get; set; }
         public List<Type> CancellationList { get; set; }
 
-        protected CustomizationAttribute(Type targetType, UInt16 priority = 0) : this(targetType, null, priority) {}
+        protected CustomizationAttribute(UInt16 priority = 0) : this(null, priority) {}
 
-        protected CustomizationAttribute(Type targetType, IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
+        protected CustomizationAttribute(IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
-            if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(targetType))
-                throw new IncorrectInheritanceException(new[] { targetType.Name }, new[] { nameof(ICustomizationAttributeDrivenTest) });
+            //if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(targetType))
+            //    throw new IncorrectInheritanceException(new[] { targetType.Name }, new[] { nameof(ICustomizationAttributeDrivenTest) });
             if (cancellationCollection == null)
             {
                 cancellationCollection = new List<Type>();
             }
-            _targetType = targetType;
+ 
             Visible = true;        
             CancellationList = cancellationCollection.ToList();
             var attr = GetType().GetCustomAttribute<PriorityAttribute>();
@@ -63,6 +63,9 @@ namespace TestUnium.Instantiation.Customization
             return Priority == 0 ? 1 : other.Priority == 0 ? - 1 : Priority - other.Priority;
         }
 
-        public Type GetCustomizationTargetType() => _targetType;
+        public Type GetCustomizationTargetType()
+        {
+            return GetType().GetTypeInfo().GenericTypeArguments[0];
+        }
     }
 }

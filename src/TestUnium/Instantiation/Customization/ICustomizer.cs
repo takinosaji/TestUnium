@@ -6,5 +6,6 @@ namespace TestUnium.Instantiation.Customization
         where TCustomizationTarget : ICustomizationAttributeDrivenTest
     {
         void Customize(TCustomizationTarget context);
+        Type GetCustomizationTargetType();
     }
 }
