@@ -65,6 +65,8 @@ namespace TestUnium.Instantiation.Customization
 
         public Type GetCustomizationTargetType()
         {
+            if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(targetType))
+                throw new IncorrectInheritanceException(new[] { targetType.Name }, new[] { nameof(ICustomizationAttributeDrivenTest) });
             return GetType().GetTypeInfo().GenericTypeArguments[0];
         }
     }
