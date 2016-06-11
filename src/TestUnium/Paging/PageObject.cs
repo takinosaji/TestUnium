@@ -44,7 +44,7 @@ namespace TestUnium.Paging
             }
             catch(Exception excp)
             {
-                throw new PageObjectNotFoundException(Name);
+                throw new PageObjectNotFoundException(Name, excp);
             }
         }
     }
