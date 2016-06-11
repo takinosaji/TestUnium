@@ -10,9 +10,5 @@ namespace TestUnium.Instantiation.Settings
     public class NoSettingsAttribute : CustomizationAttribute, ICustomizer<SettingsDrivenTest>
     {       
         public void Customize(SettingsDrivenTest context) { }
-
-        public NoSettingsAttribute() : base(typeof(SettingsDrivenTest))
-        {
-        }
     }
 }

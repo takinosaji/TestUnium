@@ -68,6 +68,7 @@
     <Compile Include="Instantiation\Core\IKernelDrivenTest.cs" />
     <Compile Include="Instantiation\Core\KernelDrivenTest.cs" />
     <Compile Include="Instantiation\Customization\ICustomizationAttribute.cs" />
+    <Compile Include="Instantiation\Customization\IgnoreIfApplied.cs" />
     <Compile Include="Instantiation\Customization\VisibilityAttribute.cs" />
     <Compile Include="Instantiation\Customization\TheOnlyAttribute.cs" />
     <Compile Include="Instantiation\Stepping\IStepModuleRegistrationStrategy.cs" />

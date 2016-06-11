@@ -16,7 +16,7 @@ namespace TestUnium.Instantiation.Stepping.Steps
     {
         protected readonly Type StepRunnerType;
 
-        public StepRunnerAttribute(Type stepRunnerType) : base(typeof(StepDrivenTest))
+        public StepRunnerAttribute(Type stepRunnerType)
         {
             if (!typeof(IStepRunner).IsAssignableFrom(stepRunnerType))
                 throw new IncorrectInheritanceException(new List<String> { stepRunnerType.Name },

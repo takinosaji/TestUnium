@@ -65,9 +65,10 @@ namespace TestUnium.Instantiation.Customization
 
         public Type GetCustomizationTargetType()
         {
-            if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(targetType))
-                throw new IncorrectInheritanceException(new[] { targetType.Name }, new[] { nameof(ICustomizationAttributeDrivenTest) });
-            return GetType().GetTypeInfo().GenericTypeArguments[0];
+            var @interface = GetType().GetInterfaces().FirstOrDefault(i =>i.IsGenericType &&i.GetGenericTypeDefinition() == typeof(ICustomizer<>));
+            if (@interface == null)
+                throw new IncorrectInheritanceException(new[] { GetType().Name }, new[] { typeof(ICustomizer<>).Name });
+            return @interface.GetGenericArguments()[0];
         }
     }
 }

@@ -17,7 +17,7 @@ namespace TestUnium.Instantiation.Settings
         private readonly Boolean _createFileIfNotExist;
 
         public SettingsAttribute(Type settingsType, Boolean loadFromFile = true, Boolean createFileIfNotExist = true) 
-            : base(typeof(SettingsDrivenTest), new []
+            : base(new []
             {
                 typeof(NoSettingsAttribute)
             })
@@ -42,14 +42,14 @@ namespace TestUnium.Instantiation.Settings
                 if (_loadFromFile)
                 {
                     context.Settings =
-                        (SettingsBase) JsonConvert.DeserializeObject(File.ReadAllText(settingsFilePath), _settingsType);
+                        (ISettings) JsonConvert.DeserializeObject(File.ReadAllText(settingsFilePath), _settingsType);
                 }
             }
             else
             {
                 if (_createFileIfNotExist)
                 {
-                    context.Settings = (SettingsBase) Activator.CreateInstance(context.Settings.GetType());
+                    context.Settings = (ISettings) Activator.CreateInstance(context.Settings.GetType());
                     File.WriteAllText(settingsFilePath,
                         JsonConvert.SerializeObject(context.Settings, Formatting.Indented));
                 }

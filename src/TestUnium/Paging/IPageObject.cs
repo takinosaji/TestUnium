@@ -1,6 +1,6 @@
 ﻿namespace TestUnium.Paging
 {
-    interface IPageObject
+    public interface IPageObject
     {
         void CheckMarker();
     }

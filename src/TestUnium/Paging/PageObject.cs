@@ -10,10 +10,10 @@ namespace TestUnium.Paging
 {
     public class PageObject : WebDriverContainer, IPageObject
     {
-        public String Name { get; set; }
         private readonly By _markerBy;
         private IWebElement _marker;
 
+        public String Name { get; set; }
         public PageObject() : this(null) {}
 
         public PageObject(By markerBy)
@@ -30,14 +30,13 @@ namespace TestUnium.Paging
         {
             try
             {
-                if (_markerBy != null)
+                var markerAttr = (MarkerAttribute)GetType().GetCustomAttribute(typeof(MarkerAttribute));
+                if (markerAttr == null)
                 {
+                    if (_markerBy == null) throw new PageMarkerNotProvidedException(Name);
                     _marker = Driver.FindElement(_markerBy, LongWait);
                     return;
                 }
-                var markerAttr = (MarkerAttribute)GetType().GetCustomAttribute(typeof(MarkerAttribute));
-                if (markerAttr == null)
-                    throw new PageMarkerNotProvidedException(Name);
                 _marker = Driver.FindElement(markerAttr.GetBy(), LongWait);
             }
             catch(Exception excp)

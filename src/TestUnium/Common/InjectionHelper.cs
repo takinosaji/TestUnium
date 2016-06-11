@@ -17,7 +17,8 @@ namespace TestUnium.Common
         {
             var kernel = new StandardKernel(new NinjectSettings
             {
-                InjectNonPublic = true
+                InjectNonPublic = true,
+                InjectParentPrivateProperties = true
             });
 
             return kernel;

@@ -8,7 +8,7 @@ using TestUnium.Instantiation.Customization;
 
 namespace TestUnium.Instantiation.WebDriving
 {
-    [AttributeUsage(AttributeTargets.Class)]
+    [TheOnly]
     public class WebDriverAttribute : CustomizationAttribute, ICustomizer<WebDriverDrivenTest>
     {
         public virtual void Customize(WebDriverDrivenTest context)

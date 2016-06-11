@@ -9,9 +9,7 @@ namespace TestUnium.Instantiation.Browsing
     [Priority((UInt16)CustomizationAttributePriorities.DetectBrowser)]
     [AttributeUsage(AttributeTargets.Class)]
     class DetectBrowserAttribute : CustomizationAttribute, ICustomizer<WebDriverDrivenTest>
-    {
-        public DetectBrowserAttribute() : base(typeof(WebDriverDrivenTest)) { }
-        
+    {        
         public void Customize(WebDriverDrivenTest context)
         {
             var args = Environment.GetCommandLineArgs();

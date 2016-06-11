@@ -11,7 +11,7 @@ namespace TestUnium.Instantiation.Browsing
     public class DefaultBrowserAttribute : CustomizationAttribute, ICustomizer<WebDriverDrivenTest>
     {
         public Browser DefaultBrowser { get; set; }
-        public DefaultBrowserAttribute(Browser defaultBrowser) : base(typeof(WebDriverDrivenTest))
+        public DefaultBrowserAttribute(Browser defaultBrowser)
         {
             DefaultBrowser = defaultBrowser;
         }

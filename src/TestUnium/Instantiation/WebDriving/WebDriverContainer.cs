@@ -7,11 +7,9 @@ namespace TestUnium.Instantiation.WebDriving
 {
     public class WebDriverContainer
     {
-        [Inject]
-        public IWait<IWebDriver>[] Waits { get; set; }
+        [Inject] public IWebDriver Driver { get; set; }
 
-        [Inject]
-        public IWebDriver Driver { get; set; }
+        [Inject] public IWait<IWebDriver>[] Waits { get; set; }
 
         public IWait<IWebDriver> SmallWait
         {

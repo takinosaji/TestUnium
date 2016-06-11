@@ -24,13 +24,9 @@ namespace TestUnium.Instantiation.Sessioning
         {
             get
             {
-                var kernel = InjectionHelper.CreateKernel();
-                //kernel.Bind<ISession>().To(Kernel.Get<ISession>().GetType());
-                //kernel.Bind<ISessionContext>().To(Kernel.Get<ISessionContext>().GetType());
-                //kernel.Bind<ISessionDrivenTest>().ToConstant(Kernel.Get<ISessionDrivenTest>());
-                var session = kernel.Get<ISession>();
-                var id = Thread.CurrentThread.ManagedThreadId;
-                Sessions.AddOrUpdate(id, session, (i, s) => session);
+                var session = Kernel.Get<ISession>();
+                Sessions.AddOrUpdate(Thread.CurrentThread.ManagedThreadId, 
+                    session, (i, s) => session);
                 return session;
             }
         }
