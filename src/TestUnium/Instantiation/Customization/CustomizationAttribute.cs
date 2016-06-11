@@ -18,24 +18,17 @@ namespace TestUnium.Instantiation.Customization
 
         protected CustomizationAttribute(IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
+            CancellationList = new List<Type>();
             var cancellationAttr = GetType().GetCustomAttribute<CancelIfAppliedAttribute>();
-            if (cancellationAttr == null && cancellationCollection == null)
+            if (cancellationAttr != null)
             {
-                CancellationList = new List<Type>();
+                CancellationList.Add(cancellationAttr.GetCancelaltionType());
             }
-            else
+            else if(cancellationCollection != null)
             {
-                if (cancellationAttr != null)
-                {
-                    CancellationList.Add(cancellationAttr.GetCancelaltionType());
-                }
-                else
-                {
-                    CancellationList.AddRange(cancellationCollection);
-                }
+                CancellationList.AddRange(cancellationCollection);
             }
-         
- 
+
             Visible = true;        
             
             var attr = GetType().GetCustomAttribute<PriorityAttribute>();

@@ -40,7 +40,7 @@ namespace TestUnium.Instantiation.Stepping
             catch
             {
                 AfterExecution(step, StepExecutionResult.Failure);
-                return;
+                throw;
             }
             
             AfterExecution(step, StepExecutionResult.Success);
@@ -57,7 +57,7 @@ namespace TestUnium.Instantiation.Stepping
             catch 
             {
                 AfterExecution(step, StepExecutionResult.Failure);
-                return value;
+                throw;
             }
             AfterExecution(step, StepExecutionResult.Success);
             return value;
