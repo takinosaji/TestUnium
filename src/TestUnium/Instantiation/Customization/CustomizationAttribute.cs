@@ -18,15 +18,26 @@ namespace TestUnium.Instantiation.Customization
 
         protected CustomizationAttribute(IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
-            //if (!typeof(ICustomizationAttributeDrivenTest).IsAssignableFrom(targetType))
-            //    throw new IncorrectInheritanceException(new[] { targetType.Name }, new[] { nameof(ICustomizationAttributeDrivenTest) });
-            if (cancellationCollection == null)
+            var cancellationAttr = GetType().GetCustomAttribute<CancelIfAppliedAttribute>();
+            if (cancellationAttr == null && cancellationCollection == null)
             {
-                cancellationCollection = new List<Type>();
+                CancellationList = new List<Type>();
             }
+            else
+            {
+                if (cancellationAttr != null)
+                {
+                    CancellationList.Add(cancellationAttr.GetCancelaltionType());
+                }
+                else
+                {
+                    CancellationList.AddRange(cancellationCollection);
+                }
+            }
+         
  
             Visible = true;        
-            CancellationList = cancellationCollection.ToList();
+            
             var attr = GetType().GetCustomAttribute<PriorityAttribute>();
             if (attr != null)
             {

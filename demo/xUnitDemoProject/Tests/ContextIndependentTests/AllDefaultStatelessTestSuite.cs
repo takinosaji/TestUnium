@@ -37,7 +37,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
                 Do(() =>
                 {
                     Driver.Navigate().GoToUrl("http://github.com");
-                    var gitHubPage = Driver.GetPageObject<GitHubMainPage>();
+                    var gitHubPage = Driver.GetPage<GitHubMainPage>();
                     var stickyButton = gitHubPage.StikySignUpBtn();
                     stickyButton.Click();
                     Driver.Navigate().GoToUrl("http://github.com");
