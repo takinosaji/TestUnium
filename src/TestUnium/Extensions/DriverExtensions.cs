@@ -78,6 +78,7 @@ namespace TestUnium.Extensions
             }
             var page = Resolver.Instance.Kernel.Get<TPageObject>();
             PageFactory.InitElements(Resolver.Instance.Kernel.Get<IWebDriver>(), page);
+            if(page.CheckMarkerAfterInitialization()) page.CheckMarker();
             return page;
         }
     }

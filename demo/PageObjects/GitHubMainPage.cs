@@ -11,7 +11,7 @@ using TestUnium.Paging;
 
 namespace PageObjects
 {
-    //[Lazy]
+    [Lazy]
     [Name("GitHub main")]    
     [Marker(How = How.XPath, Pattern = "//*[text() = 'Sign up for GitHub']")]
     public class GitHubMainPage : PageObject

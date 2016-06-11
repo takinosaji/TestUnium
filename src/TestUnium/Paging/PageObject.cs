@@ -20,10 +20,13 @@ namespace TestUnium.Paging
         {
             _markerBy = markerBy;
             var nameAttr = (NameAttribute)GetType().GetCustomAttribute(typeof(NameAttribute));
-            var lazyAttr = (LazyAttribute)GetType().GetCustomAttribute(typeof(LazyAttribute));
+            
             Name = nameAttr?.Name ?? GetType().Name;
-            if (lazyAttr != null) return;
-            CheckMarker();
+        }
+
+        public bool CheckMarkerAfterInitialization()
+        {
+            return (LazyAttribute)GetType().GetCustomAttribute(typeof(LazyAttribute)) != null;
         }
 
         public void CheckMarker()
