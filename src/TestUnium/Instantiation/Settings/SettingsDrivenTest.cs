@@ -15,9 +15,9 @@ namespace TestUnium.Instantiation.Settings
         {
             InjectionHelper.Inject(kernel =>
             {
-                kernel.Bind<ISettings>().ToMethod((ctx) => Settings);
-            }, Resolver.Instance.Kernel, Kernel);
-            Kernel.Bind<SettingsDrivenTest>().ToConstant(this);
+                kernel.Bind<ISettings>().ToMethod(ctx => Settings);
+                Kernel.Bind<ISettingsDrivenTest>().ToConstant(this);
+            }, Kernel);
         }
 
         public TSettingsBase SettingsOfType<TSettingsBase>() where TSettingsBase : ISettings => (TSettingsBase)Kernel.Get<ISettings>(); 

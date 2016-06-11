@@ -1,4 +1,9 @@
-﻿namespace TestUnium.Instantiation.Stepping.Steps
+﻿using System;
+
+namespace TestUnium.Instantiation.Stepping.Steps
 {
-    public interface IStep { }
+    public interface IStep
+    {
+        Boolean IsFakeStep();
+    }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Instantiation\Stepping\BasicStepModuleRegistrationStrategy.cs" />
     <Compile Include="Instantiation\Stepping\IStepModuleRegistrator.cs" />
     <Compile Include="Instantiation\Stepping\Steps\StepRunnerAttribute.cs" />
+    <Compile Include="Instantiation\Stepping\Steps\SettingsBaseStep.cs" />
     <Compile Include="Paging\LazyAttribute.cs" />
     <Compile Include="Paging\MarkerAttribute.cs" />
     <Compile Include="Paging\NameAttribute.cs" />
@@ -130,7 +131,7 @@
     <Compile Include="Instantiation\Stepping\Modules\IStepModule.cs" />
     <Compile Include="Instantiation\Stepping\StepRunnerBase.cs" />
     <Compile Include="Instantiation\Stepping\StepDrivenTest.cs" />
-    <Compile Include="Instantiation\Stepping\Steps\WebDriverBaseStep.cs" />
+    <Compile Include="Instantiation\Stepping\Steps\WebDriverStepCore.cs" />
     <Compile Include="Instantiation\Stepping\StepExecutionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Instantiation\Settings\ISettings.cs" />

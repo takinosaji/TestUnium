@@ -18,19 +18,31 @@ namespace TestUnium.Instantiation.Customization
 
         protected CustomizationAttribute(IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
+            Visible = true;
+            CancellationCollectionInit(cancellationCollection);
+            PriorityInit(priority);
+
+        }
+
+        private void CancellationCollectionInit(IEnumerable<Type> cancellationCollection)
+        {
             CancellationList = new List<Type>();
-            var cancellationAttr = GetType().GetCustomAttribute<CancelIfAppliedAttribute>();
-            if (cancellationAttr != null)
+            var cancellationAttrs = GetType().GetCustomAttributes<CancelIfAppliedAttribute>();
+            if (cancellationAttrs != null)
             {
-                CancellationList.Add(cancellationAttr.GetCancelaltionType());
+                foreach (var cancellationAttr in cancellationAttrs)
+                {
+                    CancellationList.Add(cancellationAttr.GetCancelaltionType());
+                }
             }
-            else if(cancellationCollection != null)
+            else if (cancellationCollection != null)
             {
                 CancellationList.AddRange(cancellationCollection);
             }
+        }
 
-            Visible = true;        
-            
+        private void PriorityInit(UInt16 priority)
+        {
             var attr = GetType().GetCustomAttribute<PriorityAttribute>();
             if (attr != null)
             {
@@ -52,7 +64,7 @@ namespace TestUnium.Instantiation.Customization
             });
             return result;
         }
-
+    
         /// <summary>
         /// Customiation attributes with priority == 0 are being processed at last turn inside each family.
         /// </summary>

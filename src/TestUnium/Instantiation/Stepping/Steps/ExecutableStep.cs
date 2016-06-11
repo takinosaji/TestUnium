@@ -7,7 +7,7 @@ namespace TestUnium.Instantiation.Stepping.Steps
     {
         protected StepState State { get; set; }
 
-        private Boolean IsFakeStep => GetType().GetCustomAttribute(typeof (FakeStepAttribute)) != null;
+        public Boolean IsFakeStep() => GetType().GetCustomAttribute(typeof (FakeStepAttribute)) != null;
 
         protected ExecutableStep()
         {

@@ -37,6 +37,6 @@ namespace TestUnium.Instantiation.Settings
         /// Override this method for performing settings changing 
         /// without modifying current settings file on a hard drive.
         /// </summary>
-        public virtual void PostInitializationAction() { }
+        public virtual void PostDeserializationAction() { }
     }
 }

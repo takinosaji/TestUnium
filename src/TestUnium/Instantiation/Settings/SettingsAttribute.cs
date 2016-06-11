@@ -55,7 +55,7 @@ namespace TestUnium.Instantiation.Settings
                 }
             }
 
-            context.Settings.PostInitializationAction();
+            context.Settings.PostDeserializationAction();
         }
     }
 }
