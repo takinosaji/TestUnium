@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using Ninject.Parameters;
 using TestUnium.Bootstrapping;
 using TestUnium.Common;
 using TestUnium.Instantiation.Stepping;
@@ -15,6 +16,11 @@ namespace TestUnium.Instantiation.Core
 
             Kernel.Bind<IKernelDrivenTest>().ToConstant(this);
             Kernel.Bind<IStepModuleRegistrationStrategy>().To<BasicStepModuleRegistrationStrategy>();
+        }
+
+        public IParameter GetKernelConstructorArg()
+        {
+            return new ConstructorArgument("kernel", Kernel);
         }
     }
 }

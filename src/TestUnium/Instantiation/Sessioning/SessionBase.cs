@@ -14,17 +14,17 @@ namespace TestUnium.Instantiation.Sessioning
         private readonly IStepModuleRegistrationStrategy _moduleRegistrationStrategy;
         private readonly ISessionDrivenTest _testContext;
         private readonly ISessionContext _context;
-        private readonly IKernel _kernel;
         private readonly List<ISessionPlugin> _plugins;
+        private readonly Guid _guid;
 
-        public SessionBase(ISessionDrivenTest testContext, ISessionContext context, IKernel kernel,
+        public SessionBase(ISessionDrivenTest testContext, ISessionContext context,
             IStepModuleRegistrationStrategy moduleRegistrationStrategy)
         {
             _moduleRegistrationStrategy = moduleRegistrationStrategy;
             _plugins = new List<ISessionPlugin>();
             _testContext = testContext;
             _context = context;
-            _kernel = kernel;
+            _guid = Guid.NewGuid();
         }
 
         #region Plugins
@@ -48,23 +48,22 @@ namespace TestUnium.Instantiation.Sessioning
 
         public IKernel GetSessionKernel()
         {
-            return _kernel;
+            return _context.Kernel;
         }
-
         #endregion
 
         #region StepModules
         public ISession Include(params Type[] moduleTypes)
         {
-            _moduleRegistrationStrategy.RegisterStepModules(_kernel, false, moduleTypes); return this;
+            _moduleRegistrationStrategy.RegisterStepModules(_context.Kernel, _guid.ToString(), false, moduleTypes); return this;
         }
         public ISession Include(Boolean makeReusable, params Type[] moduleTypes)
         {
-            _moduleRegistrationStrategy.RegisterStepModules(_kernel, makeReusable, moduleTypes); return this;
+            _moduleRegistrationStrategy.RegisterStepModules(_context.Kernel, _guid.ToString(), makeReusable, moduleTypes); return this;
         }
         public ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_kernel, makeReusable); return this;
+            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Kernel, _guid.ToString(), makeReusable); return this;
         }
         #endregion
 
@@ -87,5 +86,7 @@ namespace TestUnium.Instantiation.Sessioning
             ISession session;
             _testContext.Sessions.TryRemove(Thread.CurrentThread.ManagedThreadId, out session);
         }
+
+        public String GetSessionId() => _guid.ToString();
     }
 }

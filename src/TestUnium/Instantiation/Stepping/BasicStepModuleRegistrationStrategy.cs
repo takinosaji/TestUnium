@@ -19,17 +19,17 @@ namespace TestUnium.Instantiation.Stepping
     [StepRunner(typeof(StepRunnerBase))]
     public class BasicStepModuleRegistrationStrategy : IStepModuleRegistrationStrategy
     {
-        public void RegisterStepModule<TStepModule>(IKernel kernel, Boolean makeReusable = false) where TStepModule : IStepModule
+        public void RegisterStepModule<TStepModule>(IKernel kernel, String context, Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            RegisterStepModules(kernel, makeReusable, typeof(TStepModule));
+            RegisterStepModules(kernel, context, makeReusable, typeof(TStepModule));
         }
 
-        public void RegisterStepModules(IKernel kernel, params Type[] moduleTypes)
+        public void RegisterStepModules(IKernel kernel, String context, params Type[] moduleTypes)
         {
-          RegisterStepModules(kernel, false, moduleTypes);
+          RegisterStepModules(kernel, context, false, moduleTypes);
         }
 
-        public void RegisterStepModules(IKernel kernel, Boolean makeReusable, params Type[] moduleTypes)
+        public void RegisterStepModules(IKernel kernel, String context, Boolean makeReusable, params Type[] moduleTypes)
         {
             foreach (var moduleType in moduleTypes)
             {
@@ -37,10 +37,12 @@ namespace TestUnium.Instantiation.Stepping
                     throw new IncorrectInheritanceException(new[] { moduleType.Name }, new[] { nameof(IStepModule) });
                 if (makeReusable || moduleType.GetCustomAttribute<ReusableAttribute>() != null)
                 {
-                    kernel.Bind<IStepModule>().To(moduleType).InSingletonScope();
+                    var namedBinding = kernel.Bind<IStepModule>().To(moduleType).InSingletonScope();
+                    if (!String.IsNullOrEmpty(context)) namedBinding.Named(context);
                     return;
                 }
-                kernel.Bind<IStepModule>().To(moduleType);
+                var binding = kernel.Bind<IStepModule>().To(moduleType);
+                if (!String.IsNullOrEmpty(context)) binding.Named(context);
             }
         }
 

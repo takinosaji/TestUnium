@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using Ninject;
 using TestUnium.Instantiation.Stepping.Modules;
 using TestUnium.Instantiation.Stepping.Steps;
 
@@ -7,11 +10,13 @@ namespace TestUnium.Instantiation.Stepping
 {
     public class StepRunnerBase : IStepRunner
     {
-        private IStepModule[] _modules;
+        private IEnumerable<IStepModule> _modules;
 
-        public StepRunnerBase(IStepModule[] modules)
+        public StepRunnerBase(IKernel kernel, String sessionId)
         {
-            _modules = modules;
+            _modules = String.IsNullOrEmpty(sessionId) 
+                ? kernel.GetAll<IStepModule>() 
+                : kernel.GetAll<IStepModule>(sessionId);
         }
 
         public void BeforeExecution(IStep step)

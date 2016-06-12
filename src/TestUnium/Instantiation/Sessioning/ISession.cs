@@ -19,6 +19,7 @@ namespace TestUnium.Instantiation.Sessioning
         ISession Include<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule;
         #endregion
         //ISessionDrivenTest GetTestContext();
+        String GetSessionId();
         void Start(Action<ISessionContext> operations);
         void End();
     }

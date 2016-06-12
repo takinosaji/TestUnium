@@ -1,4 +1,5 @@
 ﻿using System;
+using Ninject;
 using TestUnium.Instantiation.Stepping.Modules;
 using TestUnium.Instantiation.Stepping.Steps;
 

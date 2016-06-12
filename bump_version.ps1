@@ -2,4 +2,5 @@ param (
     [Parameter(Mandatory=$True)]
     $version
 )
-Set-Content .\.version $version
+$datetime = Get-Date
+"$($dateTime.ToUniversalTime().ToString()) : $version" >> .\.version

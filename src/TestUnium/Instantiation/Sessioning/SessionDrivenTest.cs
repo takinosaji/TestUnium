@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using Ninject;
+using Ninject.Parameters;
 using TestUnium.Common;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Stepping;
@@ -29,6 +30,18 @@ namespace TestUnium.Instantiation.Sessioning
                     session, (i, s) => session);
                 return session;
             }
+        }
+
+        public String GetCurrentSessionId()
+        {
+            ISession currentSession;
+            Sessions.TryGetValue(Thread.CurrentThread.ManagedThreadId, out currentSession);
+            return currentSession?.GetSessionId();
+        }
+
+        public IParameter GetCurrentSessionIdConstructorArg()
+        {
+            return new ConstructorArgument("sessionId", GetCurrentSessionId());
         }
     }
 }
