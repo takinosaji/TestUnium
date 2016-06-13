@@ -10,7 +10,7 @@ using TestUnium.Paging;
 
 namespace TestUnium.Extensions
 {
-    public static class DriverExtensions
+    public static class SeleniumExtensions
     {
         public static IWebElement FindElement(this ISearchContext driver, By by, Double timeoutInSeconds = 0)
         {

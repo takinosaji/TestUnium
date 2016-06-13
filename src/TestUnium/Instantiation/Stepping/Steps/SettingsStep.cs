@@ -4,7 +4,7 @@ using TestUnium.Instantiation.Settings;
 
 namespace TestUnium.Instantiation.Stepping.Steps
 {
-    public abstract class SettingsBaseStep : ExecutableStep
+    public abstract class SettingsStep : ExecutableStep
     {
         [Inject]
         public ISettings Settings { get; set; }

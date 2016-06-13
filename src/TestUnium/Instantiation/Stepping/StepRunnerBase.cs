@@ -17,6 +17,7 @@ namespace TestUnium.Instantiation.Stepping
             _modules = String.IsNullOrEmpty(sessionId) 
                 ? kernel.GetAll<IStepModule>() 
                 : kernel.GetAll<IStepModule>(sessionId);
+            kernel.AddBinding();
         }
 
         public void BeforeExecution(IStep step)
@@ -42,8 +43,9 @@ namespace TestUnium.Instantiation.Stepping
             {
                 step.Execute();
             }
-            catch
+            catch(Exception excp)
             {
+                step.SetException(excp);
                 AfterExecution(step, StepExecutionResult.Failure);
                 throw;
             }
@@ -59,8 +61,9 @@ namespace TestUnium.Instantiation.Stepping
             {
                 value = step.Execute();
             }
-            catch 
+            catch(Exception excp)
             {
+                step.SetException(excp);
                 AfterExecution(step, StepExecutionResult.Failure);
                 throw;
             }
