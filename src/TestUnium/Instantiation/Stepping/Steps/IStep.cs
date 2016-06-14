@@ -6,6 +6,6 @@ namespace TestUnium.Instantiation.Stepping.Steps
     {
         Boolean IsFakeStep();
         Exception GetLastException();
-        Exception SetException(Exception excp);
+        void SetException(Exception excp);
     }
 }

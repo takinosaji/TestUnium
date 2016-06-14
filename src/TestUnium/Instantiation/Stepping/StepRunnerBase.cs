@@ -17,7 +17,6 @@ namespace TestUnium.Instantiation.Stepping
             _modules = String.IsNullOrEmpty(sessionId) 
                 ? kernel.GetAll<IStepModule>() 
                 : kernel.GetAll<IStepModule>(sessionId);
-            kernel.AddBinding();
         }
 
         public void BeforeExecution(IStep step)
