@@ -57,7 +57,7 @@ namespace TestUnium.Instantiation.Customization
         {
             var attributeList = customizationAttributes.ToList();
             var theOnlys = attributeList.Where(attr => attr.GetType().GetCustomAttribute<TheOnlyAttribute>() != null).ToList();
-            var theOnyLasts = theOnlys.GroupBy(t => t).Select(grp => grp.Last()).ToList();
+            var theOnyLasts = theOnlys.GroupBy(t => t.TheOnlyRoot).Select(grp => grp.Last()).ToList();
             for (var i = attributeList.Count - 1; i >= 0 ; i--)
             {
                 var attr = attributeList[i];

@@ -14,6 +14,24 @@ namespace TestUnium.Instantiation.Customization
         public Boolean Visible { get; set; }
         public List<Type> CancellationList { get; set; }
 
+        public Type TheOnlyRoot
+        {
+            get
+            {
+                var type = GetType();
+                if (type.GetCustomAttribute<TheOnlyAttribute>() == null) return null;
+                while (true)
+                {
+                    var baseType = type.BaseType;
+                    var theOnly = baseType.GetCustomAttribute<TheOnlyAttribute>() != null;
+                    if (!theOnly) break;
+                    type = baseType;
+                }
+
+                return type;
+            }
+        }
+
         protected CustomizationAttribute(UInt16 priority = 0) : this(null, priority) {}
 
         protected CustomizationAttribute(IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
@@ -85,6 +103,6 @@ namespace TestUnium.Instantiation.Customization
             if (@interface == null)
                 throw new IncorrectInheritanceException(new[] { GetType().Name }, new[] { typeof(ICustomizer<>).Name });
             return @interface.GetGenericArguments()[0];
-        }
+        }   
     }
 }
