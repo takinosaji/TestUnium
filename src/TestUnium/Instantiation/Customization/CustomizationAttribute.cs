@@ -19,7 +19,7 @@ namespace TestUnium.Instantiation.Customization
             get
             {
                 var type = GetType();
-                if (type.GetCustomAttribute<TheOnlyAttribute>() == null) return type;
+                if (type.GetCustomAttribute<TheOnlyAttribute>() == null) return null;
                 while (true)
                 {
                     var baseType = type.BaseType;
