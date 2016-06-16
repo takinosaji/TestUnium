@@ -60,11 +60,13 @@
   <ItemGroup>
     <Compile Include="Bootstrapping\Resolver.cs" />
     <Compile Include="Bootstrapping\Get.cs" />
+    <Compile Include="Common\Move.cs" />
     <Compile Include="Common\CustomizationAttributePriorities.cs" />
     <Compile Include="Common\DubKeyDictionary.cs" />
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="Common\CommandLineArgsConstants.cs" />
     <Compile Include="Common\InjectionHelper.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\NinjectExtensions.cs" />
     <Compile Include="Instantiation\Core\IKernelDrivenTest.cs" />
     <Compile Include="Instantiation\Core\KernelDrivenTest.cs" />

@@ -3,12 +3,15 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
+using TestUnium.Common;
 using TestUnium.Instantiation.Browsing;
 using TestUnium.Instantiation.Customization;
+using TestUnium.Instantiation.Customization.Prioritizing;
 
 namespace TestUnium.Instantiation.WebDriving
 {
     [TheOnly]
+    [Priority((UInt16)CustomizationAttributePriorities.DefaultWebDriver)]
     public class WebDriverAttribute : CustomizationAttribute, ICustomizer<WebDriverDrivenTest>
     {
         public virtual void Customize(WebDriverDrivenTest context)

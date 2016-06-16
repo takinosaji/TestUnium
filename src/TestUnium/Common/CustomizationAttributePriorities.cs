@@ -10,6 +10,7 @@
         DefaultBrowser = 1,
         DetectBrowser = 2,
         ForbiddenBrowsers = 3,
-        AllowedBrowsers = 4
+        AllowedBrowsers = 4,
+        DefaultWebDriver = 5
     }
 }

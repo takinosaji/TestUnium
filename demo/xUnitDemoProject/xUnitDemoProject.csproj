@@ -92,6 +92,10 @@
       <Project>{620F1519-35FC-484C-8243-AD0280EDF8C4}</Project>
       <Name>TestUnium</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Cuztomizers\Cuztomizers.csproj">
+      <Project>{6BF0FDE8-7B27-4856-91AB-B120A19D6B97}</Project>
+      <Name>Cuztomizers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PageObjects\PageObjects.csproj">
       <Project>{FEDEE2F8-4BEA-4732-B963-6A756D3CB21B}</Project>
       <Name>PageObjects</Name>

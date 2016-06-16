@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TestUnium.Common;
+using TestUnium.Extensions;
 using TestUnium.Instantiation.Customization.Prioritizing;
 
 namespace TestUnium.Instantiation.Customization
@@ -90,11 +92,15 @@ namespace TestUnium.Instantiation.Customization
         /// <returns></returns>
         public int CompareTo(CustomizationAttribute other)
         {
+            var mineType = GetType();
+            var othersTType = other.GetType();
             var mineTargetType = GetCustomizationTargetType();
             var othersTargetType = other.GetCustomizationTargetType();           
-            if (mineTargetType.IsSubclassOf(othersTargetType)) return 1;
-            if (othersTargetType.IsSubclassOf(mineTargetType)) return -1;
-            return Priority == 0 ? 1 : other.Priority == 0 ? - 1 : Priority - other.Priority;
+            if (mineTargetType.IsSubclassOf(othersTargetType)) return Move.ToTheEnd.GetValue();
+            if (othersTargetType.IsSubclassOf(mineTargetType)) return Move.ToTheHead.GetValue();
+            if (mineType.IsSubclassOf(othersTType)) return Move.ToTheEnd.GetValue();
+            if (othersTType.IsSubclassOf(mineType)) return Move.ToTheHead.GetValue();
+            return Priority == 0 ? Move.ToTheEnd.GetValue() : other.Priority == 0 ? Move.ToTheHead.GetValue() : Priority - other.Priority;
         }
 
         public Type GetCustomizationTargetType()
