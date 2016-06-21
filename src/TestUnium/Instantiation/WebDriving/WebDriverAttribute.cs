@@ -22,8 +22,10 @@ namespace TestUnium.Instantiation.WebDriving
                     context.Driver = new FirefoxDriver();
                     break;
                 case Browser.Chrome:
+                    var options = new ChromeOptions();
+                    options.AddArgument("no-sandbox");
                     context.Driver =
-                        new ChromeDriver(ChromeDriverService.CreateDefaultService(context.Settings.ChromeDriverPath));
+                        new ChromeDriver(ChromeDriverService.CreateDefaultService(context.Settings.ChromeDriverPath), options);
                     break;
                 case Browser.InternetExplorer:
                     context.Driver =
