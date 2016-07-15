@@ -16,8 +16,9 @@ namespace TestUnium.Instantiation.Settings
         public String WebAppUrl { get; set; }
         public String ChromeDriverPath { get; set; }
         public String IeDriverPath { get; set; }
-       
 
+        public static event Action<SettingsBase> PostDeserializationActions;
+       
         public SettingsBase()
         {
             MainUrl = String.Empty;
@@ -37,6 +38,6 @@ namespace TestUnium.Instantiation.Settings
         /// Override this method for performing settings changing 
         /// without modifying current settings file on a hard drive.
         /// </summary>
-        public virtual void PostDeserializationAction() { }
+        public virtual void PostDeserializationAction() => PostDeserializationActions?.Invoke(this);
     }
 }

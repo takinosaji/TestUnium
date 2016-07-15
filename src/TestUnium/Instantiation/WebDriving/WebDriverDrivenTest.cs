@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Bootstrapping;
 using TestUnium.Common;
+using TestUnium.Extensions;
 using TestUnium.Instantiation.Browsing;
 using TestUnium.Instantiation.Settings;
 using TestUnium.Paging;
@@ -44,7 +45,7 @@ namespace TestUnium.Instantiation.WebDriving
         public void MakeScreenshot()
         {
             if (Driver == null) throw new WebDriverHasNotBeenProperlyInitializedException();
-            var ss = ((ITakesScreenshot)Driver).GetScreenshot();
+            var ss = Driver.GetScreenshot();
             var screenshotName = "Screenshot_" +
                                  DateTime.Now.ToString(CultureInfo.InvariantCulture)
                                      .Replace(' ', '_')

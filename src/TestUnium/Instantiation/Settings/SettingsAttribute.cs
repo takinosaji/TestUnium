@@ -33,9 +33,7 @@ namespace TestUnium.Instantiation.Settings
         {
             context.Settings = (ISettings)Activator.CreateInstance(_settingsType);
 
-            var args = Environment.GetCommandLineArgs();
-            var pos = Array.IndexOf(args, CommandLineArgsConstants.SettingsCmdArg);
-            var settingsFilePath = (pos != -1 && pos < args.Length - 1) ? args[pos + 1] : "settings.json";
+            var settingsFilePath = ShellHelper.TryGetArg(CommandLineArgsConstants.SettingsCmdArg, "settings.json");
 
             if (File.Exists(settingsFilePath))
             {

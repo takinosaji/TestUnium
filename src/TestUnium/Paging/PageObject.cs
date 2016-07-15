@@ -10,24 +10,21 @@ namespace TestUnium.Paging
 {
     public class PageObject : WebDriverContainer, IPageObject
     {
-        private readonly By _markerBy;
+        protected readonly By MarkerSelector;
         private IWebElement _marker;
 
         public String Name { get; set; }
         public PageObject() : this(null) {}
 
-        public PageObject(By markerBy)
+        public PageObject(By markerSelector)
         {
-            _markerBy = markerBy;
+            MarkerSelector = markerSelector;
             var nameAttr = (NameAttribute)GetType().GetCustomAttribute(typeof(NameAttribute));
             
             Name = nameAttr?.Name ?? GetType().Name;
         }
 
-        public bool CheckMarkerAfterInitialization()
-        {
-            return (LazyAttribute)GetType().GetCustomAttribute(typeof(LazyAttribute)) != null;
-        }
+        public bool CheckMarkerAfterInitialization() => (LazyAttribute)GetType().GetCustomAttribute(typeof(LazyAttribute)) != null;
 
         public void CheckMarker()
         {
@@ -36,8 +33,8 @@ namespace TestUnium.Paging
                 var markerAttr = (MarkerAttribute)GetType().GetCustomAttribute(typeof(MarkerAttribute));
                 if (markerAttr == null)
                 {
-                    if (_markerBy == null) throw new PageMarkerNotProvidedException(Name);
-                    _marker = Driver.FindElement(_markerBy, LongWait);
+                    if (MarkerSelector == null) throw new PageMarkerNotProvidedException(Name);
+                    _marker = Driver.FindElement(MarkerSelector, LongWait);
                     return;
                 }
                 _marker = Driver.FindElement(markerAttr.GetBy(), LongWait);

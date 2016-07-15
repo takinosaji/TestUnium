@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Bootstrapping;
+using TestUnium.Instantiation.WebDriving;
 using TestUnium.Paging;
 
 namespace TestUnium.Extensions
@@ -70,7 +71,7 @@ namespace TestUnium.Extensions
 
 
         //We have to resolve an issue when test will be executed in several threads
-        public static TPageObject GetPage<TPageObject>(this IWebDriver driver) where TPageObject : IPageObject
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Action<TPageObject> pageTransformAction = null) where TPageObject : IPageObject
         {
             if (!Resolver.Instance.Kernel.GetBindings(typeof(TPageObject)).Any())
             {
@@ -78,8 +79,19 @@ namespace TestUnium.Extensions
             }
             var page = Resolver.Instance.Kernel.Get<TPageObject>();
             PageFactory.InitElements(Resolver.Instance.Kernel.Get<IWebDriver>(), page);
-            if(page.CheckMarkerAfterInitialization()) page.CheckMarker();
+            pageTransformAction?.Invoke(page);
+            if (page.CheckMarkerAfterInitialization()) page.CheckMarker();
             return page;
+        }
+
+        public static Screenshot GetScreenshot(this IWebDriver driver)
+        {
+            return ((ITakesScreenshot)driver).GetScreenshot();
+        }
+
+        public static void SetCookie(this IWebDriver driver, String name, String value)
+        {
+            driver.Manage().Cookies.AddCookie(new Cookie(name, value));
         }
     }
 }

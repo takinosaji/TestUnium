@@ -4,6 +4,10 @@
     {
         Firefox,
         Chrome,
-        InternetExplorer
+        InternetExplorer,
+        MicrosoftEdge,
+        Safari,
+        AndroidBrowser,
+        PhantomJs
     }
 }
