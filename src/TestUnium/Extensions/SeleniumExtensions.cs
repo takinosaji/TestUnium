@@ -68,10 +68,10 @@ namespace TestUnium.Extensions
         //    return driver.FindElement<TElement>(by, new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds)));
         //}
 
-
-
         //We have to resolve an issue when test will be executed in several threads
-        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Action<TPageObject> pageTransformAction = null) where TPageObject : IPageObject
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver,
+            Action<TPageObject> pageTransformAction = null, Boolean cancelMarkerCheck = false, By markerSelector = null) 
+            where TPageObject : IPageObject
         {
             if (!Resolver.Instance.Kernel.GetBindings(typeof(TPageObject)).Any())
             {
@@ -80,9 +80,23 @@ namespace TestUnium.Extensions
             var page = Resolver.Instance.Kernel.Get<TPageObject>();
             PageFactory.InitElements(Resolver.Instance.Kernel.Get<IWebDriver>(), page);
             pageTransformAction?.Invoke(page);
+            if(cancelMarkerCheck) return page;
             if (page.CheckMarkerAfterInitialization()) page.CheckMarker();
             return page;
         }
+
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean checkMarker)
+            where TPageObject : IPageObject =>
+                GetPage<TPageObject>(driver, null, checkMarker);
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, By markerSelector)
+            where TPageObject : IPageObject =>
+                GetPage<TPageObject>(driver, null, true, markerSelector);
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean checkMarker, By markerSelector)
+            where TPageObject : IPageObject =>
+                GetPage<TPageObject>(driver, null, checkMarker, markerSelector);
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Action<TPageObject> pageTransformAction, By markerSelector)
+            where TPageObject : IPageObject =>
+                GetPage(driver, pageTransformAction, true, markerSelector);
 
         public static Screenshot GetScreenshot(this IWebDriver driver)
         {

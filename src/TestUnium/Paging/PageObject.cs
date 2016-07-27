@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
@@ -10,34 +12,42 @@ namespace TestUnium.Paging
 {
     public class PageObject : WebDriverContainer, IPageObject
     {
-        protected readonly By MarkerSelector;
-        private IWebElement _marker;
+        protected readonly By[] MarkerSelectors;
+        private readonly List<IWebElement> _markers;
 
         public String Name { get; set; }
         public PageObject() : this(null) {}
 
-        public PageObject(By markerSelector)
+        public PageObject(params By[] markerSelectors)
         {
-            MarkerSelector = markerSelector;
+            _markers = new List<IWebElement>();
+            MarkerSelectors = markerSelectors;
             var nameAttr = (NameAttribute)GetType().GetCustomAttribute(typeof(NameAttribute));
             
             Name = nameAttr?.Name ?? GetType().Name;
         }
 
-        public bool CheckMarkerAfterInitialization() => (LazyAttribute)GetType().GetCustomAttribute(typeof(LazyAttribute)) != null;
+        public bool CheckMarkerAfterInitialization() => (LazyAttribute)GetType().GetCustomAttribute(typeof(LazyAttribute)) == null;
 
         public void CheckMarker()
         {
             try
             {
-                var markerAttr = (MarkerAttribute)GetType().GetCustomAttribute(typeof(MarkerAttribute));
-                if (markerAttr == null)
+                var markerAttrs = (MarkerAttribute[])GetType().GetCustomAttributes(typeof(MarkerAttribute));
+                if (markerAttrs == null || markerAttrs.Length <= 0)
                 {
-                    if (MarkerSelector == null) throw new PageMarkerNotProvidedException(Name);
-                    _marker = Driver.FindElement(MarkerSelector, LongWait);
+                    if (MarkerSelectors == null) throw new PageMarkerNotProvidedException(Name);
+                    Array.ForEach(MarkerSelectors, by =>
+                    {
+                        _markers.Add(Driver.FindElement(by, LongWait));
+                    });
+
                     return;
                 }
-                _marker = Driver.FindElement(markerAttr.GetBy(), LongWait);
+                Array.ForEach(markerAttrs, ma =>
+                {
+                    _markers.Add(Driver.FindElement(ma.GetBy(), LongWait));
+                });         
             }
             catch(Exception excp)
             {
