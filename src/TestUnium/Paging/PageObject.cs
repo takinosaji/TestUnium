@@ -32,21 +32,21 @@ namespace TestUnium.Paging
         public void CheckMarker()
         {
             try
-            {
-                var markerAttrs = (MarkerAttribute[])GetType().GetCustomAttributes(typeof(MarkerAttribute));
-                if (markerAttrs == null || markerAttrs.Length <= 0)
+            {           
+                if (MarkerSelectors == null)
                 {
-                    if (MarkerSelectors == null) throw new PageMarkerNotProvidedException(Name);
-                    Array.ForEach(MarkerSelectors, by =>
+                    var markerAttrs = (MarkerAttribute[])GetType().GetCustomAttributes(typeof(MarkerAttribute));
+                    if (markerAttrs == null || markerAttrs.Length <= 0) throw new PageMarkerNotProvidedException(Name);
+                    Array.ForEach(markerAttrs, ma =>
                     {
-                        _markers.Add(Driver.FindElement(by, LongWait));
+                        _markers.Add(Driver.FindElement(ma.GetBy(), LongWait));
                     });
 
                     return;
                 }
-                Array.ForEach(markerAttrs, ma =>
+                Array.ForEach(MarkerSelectors, by =>
                 {
-                    _markers.Add(Driver.FindElement(ma.GetBy(), LongWait));
+                    _markers.Add(Driver.FindElement(by, LongWait));
                 });         
             }
             catch(Exception excp)

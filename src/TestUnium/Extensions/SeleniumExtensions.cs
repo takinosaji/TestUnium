@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Ninject;
+using Ninject.Parameters;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -70,33 +71,33 @@ namespace TestUnium.Extensions
 
         //We have to resolve an issue when test will be executed in several threads
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver,
-            Action<TPageObject> pageTransformAction = null, Boolean cancelMarkerCheck = false, By markerSelector = null) 
+            Action<TPageObject> pageTransformAction = null, Boolean supressMarkerCheck = false, params By[] markerSelectors) 
             where TPageObject : IPageObject
         {
             if (!Resolver.Instance.Kernel.GetBindings(typeof(TPageObject)).Any())
             {
                 Resolver.Instance.Kernel.Bind<TPageObject>().ToSelf();
             }
-            var page = Resolver.Instance.Kernel.Get<TPageObject>();
+            var page = Resolver.Instance.Kernel.Get<TPageObject>(new ConstructorArgument("markerSelectors", markerSelectors));
             PageFactory.InitElements(Resolver.Instance.Kernel.Get<IWebDriver>(), page);
             pageTransformAction?.Invoke(page);
-            if(cancelMarkerCheck) return page;
+            if(supressMarkerCheck) return page;
             if (page.CheckMarkerAfterInitialization()) page.CheckMarker();
             return page;
         }
 
-        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean checkMarker)
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean supressMarkerCheck)
             where TPageObject : IPageObject =>
-                GetPage<TPageObject>(driver, null, checkMarker);
+                GetPage<TPageObject>(driver, null, supressMarkerCheck);
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver, By markerSelector)
             where TPageObject : IPageObject =>
                 GetPage<TPageObject>(driver, null, true, markerSelector);
-        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean checkMarker, By markerSelector)
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean supressMarkerCheck, params By[] markerSelectors)
             where TPageObject : IPageObject =>
-                GetPage<TPageObject>(driver, null, checkMarker, markerSelector);
-        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Action<TPageObject> pageTransformAction, By markerSelector)
+                GetPage<TPageObject>(driver, null, supressMarkerCheck, markerSelectors);
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Action<TPageObject> pageTransformAction, params By[] markerSelectors)
             where TPageObject : IPageObject =>
-                GetPage(driver, pageTransformAction, true, markerSelector);
+                GetPage(driver, pageTransformAction, true, markerSelectors);
 
         public static Screenshot GetScreenshot(this IWebDriver driver)
         {
