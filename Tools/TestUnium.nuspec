@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TestUnium</id>
+    <version>${auto.version}</version>
+    <authors>TakinosaJi</authors>
+    <owners>TakinosaJi</owners>
+    <licenseUrl>https://github.com/takinosaji/TestUnium/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/takinosaji/TestUnium</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Framework for scalable and productive automated web UI testing</description>
+    <releaseNotes>Initial version for presentation of main features.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>testing selenium</tags>
+    <!--<dependencies>
+      <dependency id="SampleDependency" version="1.0" />
+    </dependencies>-->
+  </metadata>
+</package>
