@@ -1,0 +1,31 @@
+{
+  "name": "xunium",
+  "version": "1.0.0",
+  "description": "TestUnium testing framework",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TakinosaJi/xUnium.git"
+  },
+  "keywords": [
+    "xunit",
+    "selenium",
+    "automation testing",
+    "qa"
+  ],
+  "author": "TakinosaJi",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/TakinosaJi/TestUnium/issues"
+  },
+  "homepage": "https://github.com/TakinosaJi/TestUnium#readme",
+  "readme" : "README.md",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-copy": "0.0.2",
+    "gulp-newer": "^0.5.1"
+  }
+}
