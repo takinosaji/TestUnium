@@ -32,7 +32,8 @@ namespace TestUnium.Paging
         public void CheckMarker()
         {
             try
-            {           
+            {
+
                 if (MarkerSelectors == null)
                 {
                     var markerAttrs = (MarkerAttribute[])GetType().GetCustomAttributes(typeof(MarkerAttribute));

@@ -89,9 +89,9 @@ namespace TestUnium.Extensions
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean supressMarkerCheck)
             where TPageObject : IPageObject =>
                 GetPage<TPageObject>(driver, null, supressMarkerCheck);
-        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, By markerSelector)
+        public static TPageObject GetPage<TPageObject>(this IWebDriver driver, params By[] markerSelectors)
             where TPageObject : IPageObject =>
-                GetPage<TPageObject>(driver, null, true, markerSelector);
+                GetPage<TPageObject>(driver, null, true, markerSelectors);
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean supressMarkerCheck, params By[] markerSelectors)
             where TPageObject : IPageObject =>
                 GetPage<TPageObject>(driver, null, supressMarkerCheck, markerSelectors);
