@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestUnium.Common;
+using TestUnium.Domain;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Customization.Prioritizing;
 using TestUnium.Instantiation.Settings;

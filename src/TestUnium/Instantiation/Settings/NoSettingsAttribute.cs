@@ -1,5 +1,5 @@
 ﻿using System;
-using TestUnium.Common;
+using TestUnium.Domain;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Customization.Prioritizing;
 

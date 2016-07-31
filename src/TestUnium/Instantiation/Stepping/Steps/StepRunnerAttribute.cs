@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestUnium.Common;
+using TestUnium.Domain;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Customization.Prioritizing;
 

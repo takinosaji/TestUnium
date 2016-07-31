@@ -19,7 +19,7 @@ namespace PageObjects
         [FindsBy(How = How.XPath, Using = "//*[text() = 'Sign up for GitHub']")]
         public IWebElement SignUpBtn { get; set; }
 
-        public IWebElement StikySignUpBtn()
+        public IWebElement StickySignUpBtn()
         {
             return Driver.FindStickyElement(By.XPath("//*[text() = 'Sign up for GitHub']"));
         }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Ninject;
-using TestUnium.Common;
 using TestUnium.Instantiation.Stepping;
 using TestUnium.Instantiation.Stepping.Modules;
 

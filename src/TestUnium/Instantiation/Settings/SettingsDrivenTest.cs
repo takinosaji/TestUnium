@@ -1,8 +1,8 @@
 ﻿using Ninject;
-using TestUnium.Bootstrapping;
-using TestUnium.Common;
+using TestUnium.Domain;
 using TestUnium.Instantiation.Sessioning;
 using TestUnium.Instantiation.Stepping;
+using TestUnium.Services.Implementations;
 
 namespace TestUnium.Instantiation.Settings
 {
@@ -13,7 +13,7 @@ namespace TestUnium.Instantiation.Settings
 
         public SettingsDrivenTest()
         {
-            InjectionHelper.Inject(kernel =>
+            InjectionService.Inject(kernel =>
             {
                 kernel.Bind<ISettings>().ToMethod(ctx => Settings);
                 Kernel.Bind<ISettingsDrivenTest>().ToConstant(this);

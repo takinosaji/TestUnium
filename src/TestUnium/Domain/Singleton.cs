@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TestUnium.Common
+namespace TestUnium.Domain
 {
     public class Singleton<T> where T : class
     {

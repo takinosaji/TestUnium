@@ -3,7 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
-using TestUnium.Common;
+using TestUnium.Domain;
 using TestUnium.Instantiation.Browsing;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Customization.Prioritizing;

@@ -5,6 +5,7 @@ namespace TestUnium.Paging
     public interface IPageObject
     {
         Boolean CheckMarkerAfterInitialization();
-        void CheckMarker();
+        void Load();
+        Boolean IsLoaded { get; }
     }
 }

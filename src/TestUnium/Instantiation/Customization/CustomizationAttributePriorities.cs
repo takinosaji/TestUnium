@@ -1,4 +1,4 @@
-﻿namespace TestUnium.Common
+﻿namespace TestUnium.Instantiation.Customization
 {
     enum CustomizationAttributePriorities
     {

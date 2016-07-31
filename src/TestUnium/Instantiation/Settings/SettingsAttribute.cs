@@ -1,9 +1,13 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-using TestUnium.Common;
+using Ninject;
+using TestUnium.Bootstrapping;
+using TestUnium.Domain;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Customization.Prioritizing;
+using TestUnium.Services;
+using TestUnium.Services.Implementations;
 
 namespace TestUnium.Instantiation.Settings
 {
@@ -16,6 +20,8 @@ namespace TestUnium.Instantiation.Settings
         private readonly Boolean _loadFromFile;
         private readonly Boolean _createFileIfNotExist;
 
+        private readonly IShellService _shellService;
+
         public SettingsAttribute(Type settingsType, Boolean loadFromFile = true, Boolean createFileIfNotExist = true) 
             : base(new []
             {
@@ -24,6 +30,9 @@ namespace TestUnium.Instantiation.Settings
         {
             if (!typeof(ISettings).IsAssignableFrom(settingsType))
                 throw new IncorrectInheritanceException(new[] { settingsType.Name }, new [] { nameof(SettingsBase)});
+
+            _shellService = Container.Instance.Kernel.Get<IShellService>();
+
             _settingsType = settingsType;
             _loadFromFile = loadFromFile;
             _createFileIfNotExist = createFileIfNotExist;
@@ -33,7 +42,7 @@ namespace TestUnium.Instantiation.Settings
         {
             context.Settings = (ISettings)Activator.CreateInstance(_settingsType);
 
-            var settingsFilePath = ShellHelper.TryGetArg(CommandLineArgsConstants.SettingsCmdArg, "settings.json");
+            var settingsFilePath = _shellService.TryGetArg(CommandLineArgsConstants.SettingsCmdArg, "settings.json");
 
             if (File.Exists(settingsFilePath))
             {

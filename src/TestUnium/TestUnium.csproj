@@ -58,15 +58,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapping\Resolver.cs" />
-    <Compile Include="Bootstrapping\Get.cs" />
-    <Compile Include="Common\ShellHelper.cs" />
-    <Compile Include="Common\Move.cs" />
-    <Compile Include="Common\CustomizationAttributePriorities.cs" />
-    <Compile Include="Common\DubKeyDictionary.cs" />
-    <Compile Include="Common\Singleton.cs" />
-    <Compile Include="Common\CommandLineArgsConstants.cs" />
-    <Compile Include="Common\InjectionHelper.cs" />
+    <Compile Include="Bootstrapping\Container.cs" />
+    <Compile Include="Bootstrapping\Modules\ServicesModule.cs" />
+    <Compile Include="Global\Resolver.cs" />
+    <Compile Include="Global\Get.cs" />
+    <Compile Include="Services\IShellService.cs" />
+    <Compile Include="Services\IInjectionService.cs" />
+    <Compile Include="Services\Implementations\ShellService.cs" />
+    <Compile Include="Domain\Move.cs" />
+    <Compile Include="Instantiation\Customization\CustomizationAttributePriorities.cs" />
+    <Compile Include="Domain\DubKeyDictionary.cs" />
+    <Compile Include="Domain\Singleton.cs" />
+    <Compile Include="Domain\CommandLineArgsConstants.cs" />
+    <Compile Include="Services\Implementations\NinjectionService.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\NinjectExtensions.cs" />
     <Compile Include="Instantiation\Browsing\InternetExplorer.cs" />

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestUnium.Common;
+using TestUnium.Domain;
 using TestUnium.Extensions;
 using TestUnium.Instantiation.Customization.Prioritizing;
 

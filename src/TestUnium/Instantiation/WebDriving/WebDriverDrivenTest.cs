@@ -3,14 +3,17 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Bootstrapping;
-using TestUnium.Common;
+using TestUnium.Domain;
 using TestUnium.Extensions;
 using TestUnium.Instantiation.Browsing;
 using TestUnium.Instantiation.Settings;
 using TestUnium.Paging;
+using TestUnium.Services;
+using TestUnium.Services.Implementations;
 
 namespace TestUnium.Instantiation.WebDriving
 {
@@ -24,9 +27,13 @@ namespace TestUnium.Instantiation.WebDriving
         public IWait<IWebDriver> SmallWait { get; set; }
         public IWait<IWebDriver> MediumWait { get; set; }
         public IWait<IWebDriver> LongWait { get; set; }
+
+        private readonly IInjectionService _injectionService;
+
         public WebDriverDrivenTest()
         {
-            InjectionHelper.Inject(kernel =>
+            _injectionService = Container.Instance.Kernel.Get<IInjectionService>();
+            _injectionService.Inject(kernel =>
             {
                 kernel.Bind<Browser>().ToMethod((ctx) => Browser);
                 kernel.Bind<IWebDriverDrivenTest>().ToConstant(this);

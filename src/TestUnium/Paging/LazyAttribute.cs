@@ -2,7 +2,5 @@
 
 namespace TestUnium.Paging
 {
-    public class LazyAttribute : Attribute
-    {
-    }
+    public class LazyAttribute : Attribute { }
 }

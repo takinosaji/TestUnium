@@ -2,19 +2,22 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using Ninject;
-using TestUnium.Common;
+using TestUnium.Bootstrapping;
+using TestUnium.Domain;
+using TestUnium.Services;
+using TestUnium.Services.Implementations;
 
-namespace TestUnium.Bootstrapping
+namespace TestUnium.Global
 {
-    public class Resolver : Singleton<Resolver>
+    internal class Resolver : Singleton<Resolver>
     {
         private readonly ConcurrentDictionary<Int32, IKernel> _kernels;
-
+        private readonly IInjectionService _injectionService;
         public IKernel Kernel
         {
             get
             {
-                return _kernels.GetOrAdd(Thread.CurrentThread.ManagedThreadId, InjectionHelper.CreateKernel());
+                return _kernels.GetOrAdd(Thread.CurrentThread.ManagedThreadId, _injectionService.CreateKernel());
             }
             set
             {
@@ -24,6 +27,7 @@ namespace TestUnium.Bootstrapping
 
         private Resolver()
         {
+            _injectionService = Container.Instance.Kernel.Get<IInjectionService>();
             _kernels = new ConcurrentDictionary<Int32, IKernel>();
         }
     }

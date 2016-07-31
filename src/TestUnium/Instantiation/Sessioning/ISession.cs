@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ninject;
-using TestUnium.Common;
 using TestUnium.Instantiation.Stepping.Modules;
 
 namespace TestUnium.Instantiation.Sessioning

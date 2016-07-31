@@ -1,10 +1,7 @@
 ﻿using Ninject;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 using TestUnium.Instantiation.Settings;
-using TestUnium.Paging;
 
-namespace TestUnium.Bootstrapping
+namespace TestUnium.Global
 {
     public static class Get
     {

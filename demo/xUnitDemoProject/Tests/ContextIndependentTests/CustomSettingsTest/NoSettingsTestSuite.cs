@@ -1,5 +1,4 @@
-﻿using TestUnium.Bootstrapping;
-using TestUnium.Instantiation.Browsing;
+﻿using TestUnium.Instantiation.Browsing;
 using TestUnium.Instantiation.Settings;
 using Xunit;
 

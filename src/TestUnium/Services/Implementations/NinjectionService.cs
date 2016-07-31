@@ -1,11 +1,11 @@
 ﻿using System;
 using Ninject;
 
-namespace TestUnium.Common
+namespace TestUnium.Services.Implementations
 {
-    public static class InjectionHelper
+    public class NinjectionService : IInjectionService
     {
-        public static void Inject(Action<IKernel> injections, params IKernel[] kernels)
+        public void Inject(Action<IKernel> injections, params IKernel[] kernels)
         {
             foreach (var kernel in kernels)
             {
@@ -13,7 +13,7 @@ namespace TestUnium.Common
             }
         }
 
-        public static IKernel CreateKernel()
+        public IKernel CreateKernel()
         {
             var kernel = new StandardKernel(new NinjectSettings
             {

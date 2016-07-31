@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using Ninject;
 using Ninject.Parameters;
-using TestUnium.Common;
 using TestUnium.Instantiation.Customization;
 using TestUnium.Instantiation.Stepping;
 using TestUnium.Instantiation.Stepping.Modules;
