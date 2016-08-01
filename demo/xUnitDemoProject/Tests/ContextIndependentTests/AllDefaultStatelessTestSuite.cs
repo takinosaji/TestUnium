@@ -13,9 +13,7 @@ using OpenQA.Selenium.Support.UI;
 using PageObjects;
 using StepModules;
 using Steps;
-using TestUnium.Extensions;
-using TestUnium.Instantiation.Browsing;
-using TestUnium.Instantiation.WebDriving;
+using TestUnium.Selenium.Extensions;
 using Xunit;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests

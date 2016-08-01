@@ -7,7 +7,6 @@ using TestUnium.Instantiation.Stepping.Steps;
 
 namespace TestUnium.Instantiation.Stepping
 {
-    [StepRunner(typeof(StepRunnerBase))]
     public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest, IStepModuleRegistrator
     {
         private readonly IStepModuleRegistrationStrategy _moduleRegistrationStrategy;

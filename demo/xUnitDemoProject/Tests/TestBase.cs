@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using StepModules;
 using TestUnium;
+using TestUnium.Selenium;
 
 namespace xUnitDemoProject.Tests
 {
-    public class TestBase : TestCore, IDisposable
+    public class TestBase : SeleniumCore, IDisposable
     {
         public TestBase()
         {

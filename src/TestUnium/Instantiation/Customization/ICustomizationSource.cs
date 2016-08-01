@@ -1,7 +1,7 @@
 ﻿namespace TestUnium.Instantiation.Customization
 {
-    public interface ICustomizationSource
-    {
-        void Customize(ICustomizationTarget context);
-    }
+    //public interface ICustomizationSource
+    //{
+    //    void Customize(ICustomizationTarget context);
+    //}
 }

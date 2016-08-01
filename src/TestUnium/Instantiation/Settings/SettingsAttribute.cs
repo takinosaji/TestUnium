@@ -56,7 +56,7 @@ namespace TestUnium.Instantiation.Settings
             {
                 if (_createFileIfNotExist)
                 {
-                    context.Settings = (ISettings) Activator.CreateInstance(context.Settings.GetType());
+                    //context.Settings = (ISettings) Activator.CreateInstance(context.Settings.GetType());
                     File.WriteAllText(settingsFilePath,
                         JsonConvert.SerializeObject(context.Settings, Formatting.Indented));
                 }

@@ -1,6 +1,6 @@
 ﻿namespace TestUnium.Instantiation.Customization
 {
-    enum CustomizationAttributePriorities
+    public enum CustomizationAttributePriorities
     {
         StepRunner = 1,
         Session = 1,

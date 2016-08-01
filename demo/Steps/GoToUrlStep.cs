@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using TestUnium.Instantiation.Stepping.Steps;
+using TestUnium.Selenium.Stepping;
 
 namespace Steps
 {

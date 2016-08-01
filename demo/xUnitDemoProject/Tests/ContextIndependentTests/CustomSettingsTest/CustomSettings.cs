@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestUnium.Instantiation.Settings;
+using TestUnium.Selenium.Settings;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
 {
@@ -11,7 +12,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
     /// Custom settings class is being passed into TestBase class via type name surrounded with
     /// "typeof" operator as parameter to "Settings" attribute.
     /// </summary>
-    public class CustomSettings : SettingsBase
+    public class CustomSettings : WebSettings
     {
         public String GitHubRepoSegment { get; set; }
         /// <summary>

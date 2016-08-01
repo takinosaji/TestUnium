@@ -9,10 +9,10 @@
     <projectUrl>https://github.com/takinosaji/TestUnium</projectUrl>
     <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Framework for scalable and productive automated web UI testing</description>
+    <description>Framework for scalable and productive automated testing.</description>
     <releaseNotes>Initial version for presentation of main features.</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>testing selenium</tags>
+    <tags>automation testing</tags>
     <!--<dependencies>
       <dependency id="SampleDependency" version="1.0" />
     </dependencies>-->

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
-using TestUnium.Instantiation.Browsing;
-using TestUnium.Instantiation.WebDriving;
+using TestUnium.Selenium.Browsing;
+using TestUnium.Selenium.Settings;
+using TestUnium.Selenium.WebDriving;
 
 namespace Cuztomizers
 {
@@ -18,6 +16,7 @@ namespace Cuztomizers
     {
         public override void Customize(WebDriverDrivenTest context)
         {
+            var settings = context.SettingsOfType<IWebSettings>();
             switch (context.Browser)
             {
                 case Browser.Firefox:
@@ -28,7 +27,7 @@ namespace Cuztomizers
                     mobileEmulation.Add("deviceName", "Samsung Galaxy S4");
                     var options = new ChromeOptions();
                     options.AddAdditionalCapability("mobileEmulation", mobileEmulation);
-                    options.BinaryLocation = context.Settings.ChromeDriverPath;
+                    options.BinaryLocation = settings.ChromeDriverPath;
                     //options.EnableMobileEmulation("Apple iPhone 5");
                     context.Driver = new ChromeDriver(options);
                     break;
@@ -38,7 +37,7 @@ namespace Cuztomizers
                     mobileEmulationIe.Add("deviceName", "Samsung Galaxy S4");
                     optionsIe.AddAdditionalCapability("mobileEmulation", mobileEmulationIe);
                     context.Driver = new InternetExplorerDriver(
-                            InternetExplorerDriverService.CreateDefaultService(context.Settings.IeDriverPath), optionsIe);
+                            InternetExplorerDriverService.CreateDefaultService(settings.IeDriverPath), optionsIe);
                     break;
                 default:
                     context.Driver = GetFirefoxDriver();

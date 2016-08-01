@@ -1,5 +1,4 @@
-﻿using TestUnium.Instantiation.Browsing;
-using TestUnium.Instantiation.Settings;
+﻿using TestUnium.Instantiation.Settings;
 using Xunit;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest

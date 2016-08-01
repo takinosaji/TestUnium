@@ -53,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\TestUnium.Selenium\TestUnium.Selenium.csproj">
+      <Project>{32283BE6-54DE-4524-997D-3E4F19C5B705}</Project>
+      <Name>TestUnium.Selenium</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\TestUnium\TestUnium.csproj">
       <Project>{620F1519-35FC-484C-8243-AD0280EDF8C4}</Project>
       <Name>TestUnium</Name>

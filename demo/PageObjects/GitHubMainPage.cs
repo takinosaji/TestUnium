@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
-using TestUnium.Extensions;
-using TestUnium.Paging;
+using TestUnium.Selenium.Extensions;
+using TestUnium.Selenium.Paging;
 
 namespace PageObjects
 {

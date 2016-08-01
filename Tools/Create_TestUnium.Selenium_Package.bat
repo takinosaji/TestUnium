@@ -1,0 +1,2 @@
+powershell.exe -file .\CreatePackageFlow.ps1 -Version %1 -BuildConfiguration Release -NuspecDestinationPath "..\src\TestUnium.Selenium\TestUnium.Selenium.nuspec" -VersionFilePath "..\src\TestUnium.Selenium\.version
+pause
