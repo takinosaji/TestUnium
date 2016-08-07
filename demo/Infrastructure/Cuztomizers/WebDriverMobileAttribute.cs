@@ -6,9 +6,9 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
-using TestUnium.Selenium.Browsing;
 using TestUnium.Selenium.Settings;
 using TestUnium.Selenium.WebDriving;
+using TestUnium.Selenium.WebDriving.Browsing;
 
 namespace Cuztomizers
 {

@@ -1,5 +1,5 @@
 ﻿using System;
-using TestUnium.Instantiation.Settings;
+using TestUnium.Settings;
 
 namespace TestUnium.Selenium.Settings
 {

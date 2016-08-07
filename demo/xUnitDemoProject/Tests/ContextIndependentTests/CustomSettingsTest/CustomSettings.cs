@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestUnium.Instantiation.Settings;
 using TestUnium.Selenium.Settings;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest

@@ -4,14 +4,10 @@ using System.Globalization;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using TestUnium.Instantiation.Sessioning;
-using TestUnium.Instantiation.Settings;
-using TestUnium.Instantiation.Stepping;
-using TestUnium.Instantiation.Stepping.Steps;
-using TestUnium.Selenium.Browsing;
 using TestUnium.Selenium.Extensions;
-using TestUnium.Selenium.Paging;
-using TestUnium.Selenium.Settings;
+using TestUnium.Selenium.WebDriving.Browsing;
+using TestUnium.Selenium.WebDriving.Paging;
+using TestUnium.Settings;
 
 namespace TestUnium.Selenium.WebDriving
 {

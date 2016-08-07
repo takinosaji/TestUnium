@@ -1,5 +1,6 @@
 ﻿using Ninject;
-using TestUnium.Instantiation.Settings;
+using TestUnium.Internal;
+using TestUnium.Settings;
 
 namespace TestUnium.Global
 {

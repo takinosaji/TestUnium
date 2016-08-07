@@ -1,4 +1,4 @@
-﻿using TestUnium.Instantiation.Stepping.Steps;
+﻿using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium.Stepping
 {

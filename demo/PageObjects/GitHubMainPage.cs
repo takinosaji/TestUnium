@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using TestUnium.Selenium.Extensions;
-using TestUnium.Selenium.Paging;
+using TestUnium.Selenium.WebDriving.Paging;
 
 namespace PageObjects
 {

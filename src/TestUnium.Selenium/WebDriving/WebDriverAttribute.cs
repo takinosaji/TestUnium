@@ -3,10 +3,10 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
-using TestUnium.Instantiation.Customization;
-using TestUnium.Instantiation.Customization.Prioritizing;
-using TestUnium.Selenium.Browsing;
+using TestUnium.Customization;
+using TestUnium.Customization.Prioritizing;
 using TestUnium.Selenium.Settings;
+using TestUnium.Selenium.WebDriving.Browsing;
 
 namespace TestUnium.Selenium.WebDriving
 {

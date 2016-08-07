@@ -1,10 +1,10 @@
-﻿using TestUnium.Instantiation.Sessioning;
-using TestUnium.Instantiation.Settings;
-using TestUnium.Instantiation.Stepping;
-using TestUnium.Instantiation.Stepping.Steps;
-using TestUnium.Selenium.Browsing;
-using TestUnium.Selenium.Settings;
+﻿using TestUnium.Selenium.Settings;
 using TestUnium.Selenium.WebDriving;
+using TestUnium.Selenium.WebDriving.Browsing;
+using TestUnium.Sessioning;
+using TestUnium.Settings;
+using TestUnium.Stepping;
+using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium
 {

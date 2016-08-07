@@ -6,7 +6,8 @@ using Ninject.Parameters;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Global;
-using TestUnium.Selenium.Paging;
+using TestUnium.Selenium.WebDriving.Paging;
+using TestUnium.Selenium.WebDriving.Paging.ExtendedElements;
 
 namespace TestUnium.Selenium.Extensions
 {

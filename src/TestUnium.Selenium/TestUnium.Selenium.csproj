@@ -57,23 +57,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Browsing\AllowedBrowsersAttribute.cs" />
-    <Compile Include="Browsing\Browser.cs" />
-    <Compile Include="Browsing\BrowserNotAllowedException.cs" />
-    <Compile Include="Browsing\DefaultBrowserAttribute.cs" />
-    <Compile Include="Browsing\DetectBrowserAttribute.cs" />
-    <Compile Include="Browsing\ForbiddenBrowsersAttribute.cs" />
-    <Compile Include="Browsing\InternetExplorer.cs" />
-    <Compile Include="Browsing\NoAllowedBrowsersException.cs" />
+    <Compile Include="WebDriving\Browsing\AllowedBrowsersAttribute.cs" />
+    <Compile Include="WebDriving\Browsing\Browser.cs" />
+    <Compile Include="WebDriving\Browsing\BrowserNotAllowedException.cs" />
+    <Compile Include="WebDriving\Browsing\DefaultBrowserAttribute.cs" />
+    <Compile Include="WebDriving\Browsing\DetectBrowserAttribute.cs" />
+    <Compile Include="WebDriving\Browsing\ForbiddenBrowsersAttribute.cs" />
+    <Compile Include="WebDriving\Browsing\InternetExplorer.cs" />
+    <Compile Include="WebDriving\Browsing\NoAllowedBrowsersException.cs" />
     <Compile Include="Extensions\SeleniumExtensions.cs" />
-    <Compile Include="Extensions\StickyElement.cs" />
-    <Compile Include="Paging\IPageObject.cs" />
-    <Compile Include="Paging\LazyAttribute.cs" />
-    <Compile Include="Paging\MarkerAttribute.cs" />
-    <Compile Include="Paging\NameAttribute.cs" />
-    <Compile Include="Paging\PageMarkerNotProvidedException.cs" />
-    <Compile Include="Paging\PageObject.cs" />
-    <Compile Include="Paging\PageObjectNotFoundException.cs" />
+    <Compile Include="WebDriving\Paging\ExtendedElements\StickyElement.cs" />
+    <Compile Include="WebDriving\Paging\IPageObject.cs" />
+    <Compile Include="WebDriving\Paging\LazyAttribute.cs" />
+    <Compile Include="WebDriving\Paging\MarkerAttribute.cs" />
+    <Compile Include="WebDriving\Paging\NameAttribute.cs" />
+    <Compile Include="WebDriving\Paging\PageMarkerNotProvidedException.cs" />
+    <Compile Include="WebDriving\Paging\PageObject.cs" />
+    <Compile Include="WebDriving\Paging\PageObjectNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeleniumCore.cs" />
     <Compile Include="Settings\IWebSettings.cs" />
