@@ -19,7 +19,7 @@ namespace StepModules
             PositiveCounter += 1;
         }
 
-        public void AfterExecution(IStep step, StepExecutionResult result)
+        public void AfterExecution(IStep step, StepState state)
         {
             NegativeCounter = -1;
         }

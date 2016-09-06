@@ -7,7 +7,6 @@ using TestUnium.Customization.Prioritizing;
 using TestUnium.Domain;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
-using TestUnium.RussianDoll;
 
 namespace TestUnium.Settings
 {

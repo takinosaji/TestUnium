@@ -16,7 +16,7 @@ namespace StepModules
             throw new InvalidOperationException();
         }
 
-        public void AfterExecution(IStep step, StepExecutionResult result)
+        public void AfterExecution(IStep step, StepState state)
         {
             throw new InvalidOperationException();
         }

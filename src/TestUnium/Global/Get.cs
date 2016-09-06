@@ -11,7 +11,7 @@ namespace TestUnium.Global
             return (TSettingsBase)Resolver.Instance.Kernel.Get<ISettings>();
         }
 
-        public static IKernel ThreadBoundKernel => Resolver.Instance.Kernel;
+        public static IKernel TestContextKernel => Resolver.Instance.Kernel;
 
         //public static TTest TestClassInstance<TTest>() where TTest : ICustomizationTarget
         //{

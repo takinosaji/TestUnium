@@ -7,7 +7,6 @@ using Ninject.Activation.Caching;
 using Ninject.Parameters;
 using Ninject.Planning;
 using Ninject.Planning.Bindings;
-using TestUnium.RussianDoll;
 using TestUnium.Stepping.Modules;
 using TestUnium.Stepping.Steps;
 

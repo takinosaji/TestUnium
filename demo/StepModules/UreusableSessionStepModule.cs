@@ -18,7 +18,7 @@ namespace StepModules
             Flag = true;
         }
 
-        public void AfterExecution(IStep step, StepExecutionResult result)
+        public void AfterExecution(IStep step, StepState state)
         {
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TestUnium.RussianDoll
+namespace TestUnium
 {
     [Serializable]
     class IncorrectInheritanceException : ApplicationException

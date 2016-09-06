@@ -26,11 +26,11 @@ namespace TestUnium.Stepping
             }
         }
 
-        public void AfterExecution(IStep step, StepExecutionResult result)
+        public void AfterExecution(IStep step, StepState state)
         {
             foreach (var module in _modules)
             {
-                module.AfterExecution(step, result);
+                module.AfterExecution(step, state);
             }
         }
 

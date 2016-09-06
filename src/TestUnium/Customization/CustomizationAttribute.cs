@@ -5,7 +5,6 @@ using System.Reflection;
 using TestUnium.Customization.Prioritizing;
 using TestUnium.Domain;
 using TestUnium.Extensions;
-using TestUnium.RussianDoll;
 
 namespace TestUnium.Customization
 {

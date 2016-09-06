@@ -73,11 +73,11 @@ namespace TestUnium.Selenium.Extensions
             Action<TPageObject> pageTransformAction = null, Boolean suppressLoading = false, params By[] markerSelectors) 
             where TPageObject : IPageObject
         {
-            if (!Get.ThreadBoundKernel.GetBindings(typeof(TPageObject)).Any())
+            if (!Get.TestContextKernel.GetBindings(typeof(TPageObject)).Any())
             {
-                Get.ThreadBoundKernel.Bind<TPageObject>().ToSelf();
+                Get.TestContextKernel.Bind<TPageObject>().ToSelf();
             }
-            var page = Get.ThreadBoundKernel.Get<TPageObject>(new ConstructorArgument("markerSelectors", markerSelectors));         
+            var page = Get.TestContextKernel.Get<TPageObject>(new ConstructorArgument("markerSelectors", markerSelectors));         
             pageTransformAction?.Invoke(page);
             if(suppressLoading) return page;
             if (!page.CheckMarkerAfterInitialization()) return page;

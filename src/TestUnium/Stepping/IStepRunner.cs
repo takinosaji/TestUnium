@@ -8,7 +8,7 @@ namespace TestUnium.Stepping
         void Run(IExecutableStep step);
         TResult RunWithReturnValue<TResult>(IExecutableStep<TResult> step);
         void BeforeExecution(IStep step);
-        void AfterExecution(IStep step, StepExecutionResult result);
+        void AfterExecution(IStep step, StepState state);
         void AddModules(params IStepModule[] modules);
         void RemoveModules(params IStepModule[] modules);
     }

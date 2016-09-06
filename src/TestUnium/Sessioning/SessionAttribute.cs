@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
-using TestUnium.RussianDoll;
 
 namespace TestUnium.Sessioning
 {
