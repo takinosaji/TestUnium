@@ -54,15 +54,19 @@ namespace TestUnium.Sessioning
         #region StepModules
         public ISession Include(params Type[] moduleTypes)
         {
-            _moduleRegistrationStrategy.RegisterStepModules(_context.Kernel, _guid.ToString(), false, moduleTypes); return this;
+            return Include(false, moduleTypes);
         }
         public ISession Include(Boolean makeReusable, params Type[] moduleTypes)
         {
             _moduleRegistrationStrategy.RegisterStepModules(_context.Kernel, _guid.ToString(), makeReusable, moduleTypes); return this;
         }
-        public ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
+        public ISession Include<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule
         {
             _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Kernel, _guid.ToString(), makeReusable); return this;
+        }
+        public ISession Include<TStepModule>() where TStepModule : IStepModule
+        {
+            return Include<TStepModule>(false);
         }
         #endregion
 

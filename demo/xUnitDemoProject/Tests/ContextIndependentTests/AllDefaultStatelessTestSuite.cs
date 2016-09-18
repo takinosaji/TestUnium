@@ -47,7 +47,6 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
                     Driver.Navigate().GoToUrl("http://github.com");
                     var gitHubPage = Driver.GetPage<GitHubMainPage>();
                     if(!gitHubPage.IsLoaded) gitHubPage.Load(); //in case if our GitHubMainPage is lazy.
-                    var displayed = gitHubPage.SignUpBtn.Displayed;
                     var stickyButton = gitHubPage.StickySignUpBtn();
                     stickyButton.Click();
                     Driver.Navigate().GoToUrl("http://github.com");

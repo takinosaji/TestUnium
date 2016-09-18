@@ -15,60 +15,63 @@ namespace TestUnium.Stepping
             Kernel.Bind<IStepDrivenTest>().ToConstant(this);
         }
 
-        public void RegisterStepModule<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
-        {
+        public void RegisterStepModule<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule =>
             _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, makeReusable, typeof(TStepModule));
-        }
+       
+        public void RegisterStepModule<TStepModule>() where TStepModule : IStepModule =>
+            RegisterStepModule<TStepModule>(false);
 
-        public void RegisterStepModules(params Type[] moduleTypes)
-        {
+        public void RegisterStepModules(params Type[] moduleTypes) =>
             _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, false, moduleTypes);
-        }
-        public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes)
-        {
+        
+        public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes) =>
             _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, makeReusable, moduleTypes);
-        }
-
-        public void UnregisterStepModule<T>() where T : IStepModule
-        {
+      
+        public void UnregisterStepModule<T>() where T : IStepModule =>
             UnregisterStepModules(typeof(T));
-        }
 
-        public void UnregisterStepModules(params Type[] moduleTypes)
-        {
+        public void UnregisterStepModules(params Type[] moduleTypes) =>
             _moduleRegistrationStrategy.UnregisterStepModules(Kernel, moduleTypes);
-        }
-
-        public void Do<TStep>(Action<TStep> setSetUpAction = null) where TStep : IExecutableStep
+        
+        public void Do<TStep>(Action<TStep> setSetUpAction = null, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow) where TStep : IExecutableStep
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<TStep>();
+            step.ExceptionHandlingMode = exceptionHandlingMode;
             setSetUpAction?.Invoke(step);
             runner.Run(step);
         }
-            
-        public TResult Do<TStep, TResult>(Action<TStep> setSetUpAction = null) 
+        public void Do<TStep>(StepExceptionMode exceptionHandlingMode) where TStep : IExecutableStep =>
+            Do((Action<TStep>)null, exceptionHandlingMode);
+        
+        public TResult Do<TStep, TResult>(Action<TStep> setSetUpAction = null, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow) 
             where TStep : IExecutableStep<TResult>
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<TStep>();
+            step.ExceptionHandlingMode = exceptionHandlingMode;
             setSetUpAction?.Invoke(step);                        
             return runner.RunWithReturnValue(step);
         }
-
-        public void Do(Action outOfStepOperations)
+        public TResult Do<TStep, TResult>(StepExceptionMode exceptionHandlingMode)
+            where TStep : IExecutableStep<TResult> =>
+            Do<TStep, TResult>(null, exceptionHandlingMode);
+       
+        public void Do(Action outOfStepOperations, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow)
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<FakeStep>();
             step.Operations = outOfStepOperations;
+            step.ExceptionHandlingMode = exceptionHandlingMode;
             runner.Run(step);
         }
 
-        public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue)
+        public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow)
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<FakeStepWithReturnValue<TResult>>();
             step.OperationsWithReturnValue = outOfStepFuncWithReturnValue;
+            step.ExceptionHandlingMode = exceptionHandlingMode;
             return runner.RunWithReturnValue(step);
         }
 

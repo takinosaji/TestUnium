@@ -74,6 +74,7 @@
     <Compile Include="Stepping\IStepModuleRegistrationStrategy.cs" />
     <Compile Include="Stepping\BasicStepModuleRegistrationStrategy.cs" />
     <Compile Include="Stepping\IStepModuleRegistrator.cs" />
+    <Compile Include="Stepping\StepExceptionMode.cs" />
     <Compile Include="Stepping\Steps\StepRunnerAttribute.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsStep.cs" />
     <Compile Include="Customization\CustomizationAttribute.cs" />

@@ -14,6 +14,7 @@ namespace TestUnium.Sessioning
         IKernel GetSessionKernel();
         ISession Include(params Type[] moduleTypes);
         ISession Include(Boolean makeReusable, params Type[] moduleTypes);
+        ISession Include<TStepModule>() where TStepModule : IStepModule;
         ISession Include<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule;
         #endregion
         //ISessionDrivenTest GetTestContext();

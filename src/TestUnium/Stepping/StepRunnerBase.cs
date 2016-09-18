@@ -47,7 +47,11 @@ namespace TestUnium.Stepping
                 step.LastException = excp;
                 step.State = StepState.Failed;
                 AfterExecution(step, StepState.Failed);
-                throw;
+                if (step.ExceptionHandlingMode == StepExceptionMode.Rethrow)
+                {
+                    throw;
+                }
+                return;
             }
             
             AfterExecution(step, StepState.Executed);
@@ -55,7 +59,7 @@ namespace TestUnium.Stepping
 
         public TResult RunWithReturnValue<TResult>(IExecutableStep<TResult> step)
         {
-            TResult value = default(TResult);
+            var value = default(TResult);
             BeforeExecution(step);
             try
             {
@@ -67,7 +71,11 @@ namespace TestUnium.Stepping
                 step.LastException = excp;
                 step.State = StepState.Failed;
                 AfterExecution(step, StepState.Failed);
-                throw;
+                if (step.ExceptionHandlingMode == StepExceptionMode.Rethrow)
+                {
+                    throw;
+                }
+                return value;
             }
             AfterExecution(step, StepState.Executed);
             return value;

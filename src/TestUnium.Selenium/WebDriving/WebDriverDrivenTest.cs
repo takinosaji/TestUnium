@@ -35,7 +35,7 @@ namespace TestUnium.Selenium.WebDriving
 
         public void ShutDownWebDriver()
         {
-            Driver?.Close();
+            Driver?.Quit();
         }
         public void MakeScreenshot()
         {
