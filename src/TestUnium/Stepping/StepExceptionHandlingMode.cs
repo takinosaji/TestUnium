@@ -1,6 +1,6 @@
 ﻿namespace TestUnium.Stepping
 {
-    public enum StepExceptionMode
+    public enum StepExceptionHandlingMode
     {
         Consume,
         Rethrow

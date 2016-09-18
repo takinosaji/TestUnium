@@ -6,7 +6,7 @@ namespace TestUnium.Stepping.Steps
     {
         Boolean IsFakeStep { get; }
         StepState State { get; set; }
-        StepExceptionMode ExceptionHandlingMode { get; set; }
+        StepExceptionHandlingMode ExceptionHandlingMode { get; set; }
         Exception LastException { get; set; }
     }
 }

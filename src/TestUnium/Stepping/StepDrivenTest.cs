@@ -33,7 +33,7 @@ namespace TestUnium.Stepping
         public void UnregisterStepModules(params Type[] moduleTypes) =>
             _moduleRegistrationStrategy.UnregisterStepModules(Kernel, moduleTypes);
         
-        public void Do<TStep>(Action<TStep> setSetUpAction = null, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow) where TStep : IExecutableStep
+        public void Do<TStep>(Action<TStep> setSetUpAction = null, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow) where TStep : IExecutableStep
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<TStep>();
@@ -41,10 +41,10 @@ namespace TestUnium.Stepping
             setSetUpAction?.Invoke(step);
             runner.Run(step);
         }
-        public void Do<TStep>(StepExceptionMode exceptionHandlingMode) where TStep : IExecutableStep =>
+        public void Do<TStep>(StepExceptionHandlingMode exceptionHandlingMode) where TStep : IExecutableStep =>
             Do((Action<TStep>)null, exceptionHandlingMode);
         
-        public TResult Do<TStep, TResult>(Action<TStep> setSetUpAction = null, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow) 
+        public TResult Do<TStep, TResult>(Action<TStep> setSetUpAction = null, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow) 
             where TStep : IExecutableStep<TResult>
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
@@ -53,11 +53,11 @@ namespace TestUnium.Stepping
             setSetUpAction?.Invoke(step);                        
             return runner.RunWithReturnValue(step);
         }
-        public TResult Do<TStep, TResult>(StepExceptionMode exceptionHandlingMode)
+        public TResult Do<TStep, TResult>(StepExceptionHandlingMode exceptionHandlingMode)
             where TStep : IExecutableStep<TResult> =>
             Do<TStep, TResult>(null, exceptionHandlingMode);
        
-        public void Do(Action outOfStepOperations, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow)
+        public void Do(Action outOfStepOperations, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow)
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<FakeStep>();
@@ -66,7 +66,7 @@ namespace TestUnium.Stepping
             runner.Run(step);
         }
 
-        public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue, StepExceptionMode exceptionHandlingMode = StepExceptionMode.Rethrow)
+        public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow)
         {
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<FakeStepWithReturnValue<TResult>>();
