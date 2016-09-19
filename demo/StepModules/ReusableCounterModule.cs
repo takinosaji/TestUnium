@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestUnium.Instantiation.Stepping;
-using TestUnium.Instantiation.Stepping.Modules;
-using TestUnium.Instantiation.Stepping.Steps;
+using TestUnium.Stepping;
+using TestUnium.Stepping.Modules;
+using TestUnium.Stepping.Steps;
 
 namespace StepModules
 {
@@ -19,7 +19,7 @@ namespace StepModules
             PositiveCounter += 1;
         }
 
-        public void AfterExecution(IStep step, StepExecutionResult result)
+        public void AfterExecution(IStep step, StepState state)
         {
             NegativeCounter = -1;
         }

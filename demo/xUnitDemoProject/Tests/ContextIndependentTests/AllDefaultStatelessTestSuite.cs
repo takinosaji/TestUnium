@@ -13,9 +13,7 @@ using OpenQA.Selenium.Support.UI;
 using PageObjects;
 using StepModules;
 using Steps;
-using TestUnium.Extensions;
-using TestUnium.Instantiation.Browsing;
-using TestUnium.Instantiation.WebDriving;
+using TestUnium.Selenium.Extensions;
 using Xunit;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests
@@ -48,7 +46,8 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
                 {
                     Driver.Navigate().GoToUrl("http://github.com");
                     var gitHubPage = Driver.GetPage<GitHubMainPage>();
-                    var stickyButton = gitHubPage.StikySignUpBtn();
+                    if(!gitHubPage.IsLoaded) gitHubPage.Load(); //in case if our GitHubMainPage is lazy.
+                    var stickyButton = gitHubPage.StickySignUpBtn();
                     stickyButton.Click();
                     Driver.Navigate().GoToUrl("http://github.com");
                     stickyButton.Click();

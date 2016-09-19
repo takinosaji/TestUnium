@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject;
-using TestUnium.Instantiation.Sessioning;
+using TestUnium.Sessioning;
 
 namespace SessionContexts
 {

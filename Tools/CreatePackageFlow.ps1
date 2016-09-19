@@ -4,12 +4,15 @@ param (
     [parameter(Mandatory=$true, HelpMessage="Specify package version.")]
 	[ValidateNotNullOrEmpty()]
 	[string] $Version,	
+	[parameter(Mandatory=$true, HelpMessage="Specify path to target project file.")]
+	[ValidateNotNullOrEmpty()]
+	[string] $ProjectFilePath,
 	[parameter(Mandatory=$true, HelpMessage="Specify destination path for nuspec file.")]
 	[ValidateNotNullOrEmpty()]
 	[string] $NuspecDestinationPath,
-	[parameter(Mandatory=$false)]
+	[parameter(Mandatory=$true, HelpMessage="Specify source path for nuspec file.")]
 	[ValidateNotNullOrEmpty()]
-	[string] $NuspecSourcePath = ".\TestUnium.nuspec",
+	[string] $NuspecSourcePath,
 	[parameter(Mandatory=$false)]
 	[ValidateNotNullOrEmpty()]
 	[string] $VersionFilePath = "..\.version"
@@ -38,7 +41,7 @@ try
         Write-Host "Unsure if build passed or failed: $($buildResult.Message)" 
     }
 
-    Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack ..\src\TestUnium\TestUnium.csproj -IncludeReferencedProjects -Verbose -Prop Configuration=$BuildConfiguration"
+    Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Verbose -Prop Configuration=$BuildConfiguration"
 
     Bump-Version -FilePath $VersionFilePath -Version $Version
 }

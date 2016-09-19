@@ -1,6 +1,6 @@
-﻿using TestUnium.Bootstrapping;
-using TestUnium.Instantiation.Browsing;
-using TestUnium.Instantiation.Settings;
+﻿using TestUnium.Global;
+using TestUnium.Selenium.WebDriving.Browsing;
+using TestUnium.Settings;
 using Xunit;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest

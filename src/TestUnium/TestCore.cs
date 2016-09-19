@@ -1,6 +1,6 @@
-﻿using TestUnium.Instantiation.WebDriving;
+﻿using TestUnium.Settings;
 
 namespace TestUnium
 {
-    public class TestCore : WebDriverDrivenTest { }
+    public class TestCore : SettingsDrivenTest { }
 }
