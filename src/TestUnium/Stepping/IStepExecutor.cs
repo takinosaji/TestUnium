@@ -3,7 +3,7 @@ using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
 {
-    public interface IStepDrivenTest
+    public interface IStepExecutor
     {
         void Do<TStep>(Action<TStep> setSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow) where TStep : IExecutableStep;
@@ -16,6 +16,6 @@ namespace TestUnium.Stepping
         void Do(Action outOfStepOperations, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow);
         TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow);
-        TStep Fill<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep;
+        TStep GetStep<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep;
     }
 }

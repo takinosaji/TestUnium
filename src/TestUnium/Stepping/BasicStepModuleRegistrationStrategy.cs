@@ -12,7 +12,6 @@ using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
 {
-    [StepRunner(typeof(StepRunnerBase))]
     public class BasicStepModuleRegistrationStrategy : IStepModuleRegistrationStrategy
     {
         public void RegisterStepModule<TStepModule>(IKernel kernel, String context, Boolean makeReusable = false) where TStepModule : IStepModule

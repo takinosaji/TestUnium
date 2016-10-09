@@ -4,7 +4,7 @@ using TestUnium.Stepping.Steps.Settings;
 
 namespace TestUnium.Selenium.Stepping
 {
-    public abstract class WebDriverStepCore : SettingsStep
+    public abstract class WebDriverDrivenStepCore : SettingsDrivenStepCore
     {
         [Inject]
         public IWebDriver Driver { get; set; }

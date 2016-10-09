@@ -6,13 +6,13 @@ using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
 {
-    public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest, IStepModuleRegistrator
+    public class StepDrivenTest : SessionDrivenTest, IStepExecutor, IStepModuleRegistrator
     {
         private readonly IStepModuleRegistrationStrategy _moduleRegistrationStrategy;
         public StepDrivenTest()
         {
             _moduleRegistrationStrategy = Kernel.Get<IStepModuleRegistrationStrategy>();
-            Kernel.Bind<IStepDrivenTest>().ToConstant(this);
+            Kernel.Bind<IStepExecutor>().ToConstant(this);
         }
 
         public void RegisterStepModule<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule =>
@@ -75,7 +75,7 @@ namespace TestUnium.Stepping
             return runner.RunWithReturnValue(step);
         }
 
-        public TStep Fill<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep
+        public TStep GetStep<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep
         {
             var step = Kernel.Get<TStep>();
             stepSetupAction?.Invoke(step);

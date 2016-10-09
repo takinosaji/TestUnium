@@ -1,6 +1,7 @@
 ﻿using Ninject.Modules;
 using TestUnium.Internal.Services;
 using TestUnium.Internal.Services.Implementations;
+using TestUnium.Sessioning.Managing;
 
 namespace TestUnium.Internal.Bootstrapping.Modules
 {
@@ -10,6 +11,7 @@ namespace TestUnium.Internal.Bootstrapping.Modules
         {
             Bind<IShellService>().To<ShellService>().InSingletonScope();
             Bind<IInjectionService>().To<NinjectionService>().InSingletonScope();
+            Bind<ISessionManagingService>().To<SessionManagingService>().InSingletonScope();
         }
     }
 }

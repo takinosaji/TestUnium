@@ -14,7 +14,7 @@ namespace TestUnium.Sessioning
         private readonly ISessionDrivenTest _testContext;
         private readonly ISessionContext _context;
         private readonly List<ISessionPlugin> _plugins;
-        private readonly Guid _guid;
+        public Guid SessionId { get; set; }
 
         public SessionBase(ISessionDrivenTest testContext, ISessionContext context,
             IStepModuleRegistrationStrategy moduleRegistrationStrategy)
@@ -23,7 +23,7 @@ namespace TestUnium.Sessioning
             _plugins = new List<ISessionPlugin>();
             _testContext = testContext;
             _context = context;
-            _guid = Guid.NewGuid();
+            SessionId = Guid.NewGuid();
         }
 
         #region Plugins
@@ -58,11 +58,11 @@ namespace TestUnium.Sessioning
         }
         public ISession Include(Boolean makeReusable, params Type[] moduleTypes)
         {
-            _moduleRegistrationStrategy.RegisterStepModules(_context.Kernel, _guid.ToString(), makeReusable, moduleTypes); return this;
+            _moduleRegistrationStrategy.RegisterStepModules(_context.Kernel, SessionId.ToString(), makeReusable, moduleTypes); return this;
         }
         public ISession Include<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule
         {
-            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Kernel, _guid.ToString(), makeReusable); return this;
+            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Kernel, SessionId.ToString(), makeReusable); return this;
         }
         public ISession Include<TStepModule>() where TStepModule : IStepModule
         {
@@ -90,6 +90,6 @@ namespace TestUnium.Sessioning
             _testContext.Sessions.TryRemove(Thread.CurrentThread.ManagedThreadId, out session);
         }
 
-        public String GetSessionId() => _guid.ToString();
+        public String GetSessionId() => SessionId.ToString();
     }
 }
