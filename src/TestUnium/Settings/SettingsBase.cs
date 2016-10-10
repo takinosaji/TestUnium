@@ -5,9 +5,6 @@ namespace TestUnium.Settings
     [Serializable]
     public class SettingsBase : ISettings
     {
-        public String ScreenshotSystemPath { get; set; }
-        public String ScreenshotUrlPath { get; set; }
-        public Int32 ScreenshotFolderCapacity { get; set; }
         public String LogSystemPath { get; set; }
         public String LogUrlPath { get; set; }
         public Int32 LogFolderCapacity { get; set; }
@@ -16,9 +13,6 @@ namespace TestUnium.Settings
        
         public SettingsBase()
         {
-            ScreenshotSystemPath = "screenshots";
-            ScreenshotSystemPath = String.Empty;
-            ScreenshotFolderCapacity = 50;
             LogSystemPath = "logs";
             LogUrlPath = String.Empty;
             LogFolderCapacity = 50;

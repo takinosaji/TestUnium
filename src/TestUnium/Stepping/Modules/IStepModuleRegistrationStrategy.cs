@@ -1,8 +1,7 @@
 ﻿using System;
 using Ninject;
-using TestUnium.Stepping.Modules;
 
-namespace TestUnium.Stepping
+namespace TestUnium.Stepping.Modules
 {
     public interface IStepModuleRegistrationStrategy
     {

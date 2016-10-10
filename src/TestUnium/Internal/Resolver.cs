@@ -2,8 +2,8 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using Ninject;
-using TestUnium.Domain;
 using TestUnium.Internal.Bootstrapping;
+using TestUnium.Internal.Domain;
 using TestUnium.Internal.Services;
 
 namespace TestUnium.Internal

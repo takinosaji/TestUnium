@@ -4,9 +4,6 @@ namespace TestUnium.Settings
 {
     public interface ISettings
     {
-        String ScreenshotSystemPath { get; set; }
-        String ScreenshotUrlPath { get; set; }
-        Int32 ScreenshotFolderCapacity { get; set; }
         String LogSystemPath { get; set; }
         String LogUrlPath { get; set; }
         Int32 LogFolderCapacity { get; set; }

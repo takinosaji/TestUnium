@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using Ninject;
 using TestUnium.Stepping.Modules;
 using TestUnium.Stepping.Steps;
+using TestUnium.Stepping.Steps.Validation;
 
 namespace TestUnium.Stepping
 {
     public class StepRunnerBase : IStepRunner
     {
         private IEnumerable<IStepModule> _modules;
-
+        
         public StepRunnerBase(IKernel kernel, String sessionId)
         {
             _modules = String.IsNullOrEmpty(sessionId) 
@@ -34,8 +36,22 @@ namespace TestUnium.Stepping
             }
         }
 
-        public void Run(IExecutableStep step)
+        public void Run<TStep>(TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
+            where TStep : IExecutableStep
         {
+            step.ExceptionHandlingMode = exceptionHandlingMode;
+            stepSetUpAction?.Invoke(step);
+
+            if (validateStep)
+            {
+                var validator = new RequiredMembersStepValidator().Validate(step);
+                if (!validator.IsValid)
+                {
+                    Contract.Assert(validator.IsValid, validator.Message);
+                }
+            }
+            step.PreExecute();
+
             BeforeExecution(step);
             try
             {
@@ -57,8 +73,19 @@ namespace TestUnium.Stepping
             AfterExecution(step, StepState.Executed);
         }
 
-        public TResult RunWithReturnValue<TResult>(IExecutableStep<TResult> step)
+        public TResult RunWithReturnValue<TStep, TResult>(TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
+            where TStep : IExecutableStep<TResult>
         {
+            step.ExceptionHandlingMode = exceptionHandlingMode;
+            stepSetUpAction?.Invoke(step);
+
+            var validator = new RequiredMembersStepValidator().Validate(step);
+            if (!validator.IsValid)
+            {
+                Contract.Assert(validator.IsValid, validator.Message);
+            }
+            step.PreExecute();
+
             var value = default(TResult);
             BeforeExecution(step);
             try

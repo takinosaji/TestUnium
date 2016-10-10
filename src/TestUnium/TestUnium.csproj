@@ -73,6 +73,49 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -84,6 +127,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -96,6 +140,8 @@
   <ItemGroup>
     <Compile Include="Internal\Bootstrapping\Container.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\ServicesModule.cs" />
+    <Compile Include="Internal\Validation\IValidationResult.cs" />
+    <Compile Include="Internal\Validation\IValidator.cs" />
     <Compile Include="Sessioning\Managing\ISessionManagingService.cs" />
     <Compile Include="Sessioning\Managing\SessionManagingService.cs" />
     <Compile Include="Internal\Resolver.cs" />
@@ -103,11 +149,11 @@
     <Compile Include="Internal\Services\IShellService.cs" />
     <Compile Include="Internal\Services\IInjectionService.cs" />
     <Compile Include="Internal\Services\Implementations\ShellService.cs" />
-    <Compile Include="Domain\Move.cs" />
+    <Compile Include="Internal\Domain\Move.cs" />
     <Compile Include="Customization\CustomizationAttributePriorities.cs" />
-    <Compile Include="Domain\DubKeyDictionary.cs" />
-    <Compile Include="Domain\Singleton.cs" />
-    <Compile Include="Domain\CommandLineArgsConstants.cs" />
+    <Compile Include="Internal\Domain\DubKeyDictionary.cs" />
+    <Compile Include="Internal\Domain\Singleton.cs" />
+    <Compile Include="Internal\Domain\CommandLineArgsConstants.cs" />
     <Compile Include="Internal\Services\Implementations\NinjectionService.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\NinjectExtensions.cs" />
@@ -118,9 +164,9 @@
     <Compile Include="Customization\VisibilityAttribute.cs" />
     <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Sessioning\Managing\SessionStoreContext.cs" />
-    <Compile Include="Stepping\IStepModuleRegistrationStrategy.cs" />
-    <Compile Include="Stepping\BasicStepModuleRegistrationStrategy.cs" />
-    <Compile Include="Stepping\IStepModuleRegistrator.cs" />
+    <Compile Include="Stepping\Modules\IStepModuleRegistrationStrategy.cs" />
+    <Compile Include="Stepping\Modules\BasicStepModuleRegistrationStrategy.cs" />
+    <Compile Include="Stepping\Modules\IStepModuleRegistrator.cs" />
     <Compile Include="Stepping\StepExceptionHandlingMode.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStepCore.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStep.cs" />
@@ -170,6 +216,8 @@
     <Compile Include="Stepping\Steps\IExecutableStep.cs" />
     <Compile Include="Stepping\Steps\ExecutableStepCore.cs" />
     <Compile Include="Stepping\StepState.cs" />
+    <Compile Include="Stepping\Steps\Validation\RequiredMembersStepValidator.cs" />
+    <Compile Include="Stepping\Steps\Validation\StepValidationResult.cs" />
     <Compile Include="TestCore.cs" />
   </ItemGroup>
   <ItemGroup>

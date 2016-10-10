@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestUnium.Domain
+namespace TestUnium.Internal.Domain
 {
     public static class CommandLineArgsConstants
     {

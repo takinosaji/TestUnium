@@ -6,6 +6,9 @@ namespace TestUnium.Selenium.Settings
     [Serializable]
     public class WebSettings : SettingsBase, IWebSettings
     {
+        public String ScreenshotSystemPath { get; set; }
+        public String ScreenshotUrlPath { get; set; }
+        public Int32 ScreenshotFolderCapacity { get; set; }
         public Boolean MakeScreenshotOnError { get; set; }
         public String MainUrl { get; set; }
         public String WebAppUrl { get; set; }
@@ -14,6 +17,9 @@ namespace TestUnium.Selenium.Settings
        
         public WebSettings()
         {
+            ScreenshotFolderCapacity = 50;
+            ScreenshotSystemPath = "screenshots";
+            ScreenshotSystemPath = String.Empty;
             MakeScreenshotOnError = true;
             MainUrl = String.Empty;
             WebAppUrl = "localhost";

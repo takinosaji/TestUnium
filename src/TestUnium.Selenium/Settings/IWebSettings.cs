@@ -5,6 +5,9 @@ namespace TestUnium.Selenium.Settings
 {
     public interface IWebSettings : ISettings
     {
+        String ScreenshotSystemPath { get; set; }
+        String ScreenshotUrlPath { get; set; }
+        Int32 ScreenshotFolderCapacity { get; set; }
         Boolean MakeScreenshotOnError { get; set; }
         String MainUrl { get; set; }
         String WebAppUrl { get; set; }

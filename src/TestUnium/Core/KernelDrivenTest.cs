@@ -4,6 +4,7 @@ using TestUnium.Internal;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
 using TestUnium.Stepping;
+using TestUnium.Stepping.Modules;
 
 namespace TestUnium.Core
 {

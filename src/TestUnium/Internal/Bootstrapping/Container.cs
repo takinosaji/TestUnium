@@ -1,6 +1,6 @@
 ﻿using Ninject;
-using TestUnium.Domain;
 using TestUnium.Internal.Bootstrapping.Modules;
+using TestUnium.Internal.Domain;
 
 namespace TestUnium.Internal.Bootstrapping
 {

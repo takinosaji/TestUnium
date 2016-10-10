@@ -7,10 +7,8 @@ using Ninject.Activation.Caching;
 using Ninject.Parameters;
 using Ninject.Planning;
 using Ninject.Planning.Bindings;
-using TestUnium.Stepping.Modules;
-using TestUnium.Stepping.Steps;
 
-namespace TestUnium.Stepping
+namespace TestUnium.Stepping.Modules
 {
     public class BasicStepModuleRegistrationStrategy : IStepModuleRegistrationStrategy
     {

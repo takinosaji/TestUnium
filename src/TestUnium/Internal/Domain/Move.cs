@@ -1,4 +1,4 @@
-﻿namespace TestUnium.Domain
+﻿namespace TestUnium.Internal.Domain
 {
     public enum Move
     {

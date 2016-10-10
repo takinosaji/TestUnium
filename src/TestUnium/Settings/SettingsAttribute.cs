@@ -4,8 +4,8 @@ using Newtonsoft.Json;
 using Ninject;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
-using TestUnium.Domain;
 using TestUnium.Internal.Bootstrapping;
+using TestUnium.Internal.Domain;
 using TestUnium.Internal.Services;
 
 namespace TestUnium.Settings

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Selenium.Extensions;
+using TestUnium.Selenium.Settings;
 using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Selenium.WebDriving.Paging;
 using TestUnium.Settings;
@@ -39,6 +41,7 @@ namespace TestUnium.Selenium.WebDriving
         }
         public void MakeScreenshot()
         {
+            Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
             if (Driver == null) throw new WebDriverHasNotBeenProperlyInitializedException();
             var ss = Driver.GetScreenshot();
             var screenshotName = "Screenshot_" +
@@ -46,7 +49,7 @@ namespace TestUnium.Selenium.WebDriving
                                      .Replace(' ', '_')
                                      .Replace(':', '_') + ".png";
             ss.SaveAsFile(
-                $"{Settings.ScreenshotSystemPath}{Path.PathSeparator}{GetType().FullName}{Path.PathSeparator}{screenshotName}",
+                $"{(Settings as IWebSettings).ScreenshotSystemPath}{Path.PathSeparator}{GetType().FullName}{Path.PathSeparator}{screenshotName}",
                 ImageFormat.Png);
         }
     }

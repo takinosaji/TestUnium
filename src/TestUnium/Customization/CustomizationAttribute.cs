@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TestUnium.Customization.Prioritizing;
-using TestUnium.Domain;
 using TestUnium.Extensions;
+using TestUnium.Internal.Domain;
 
 namespace TestUnium.Customization
 {
