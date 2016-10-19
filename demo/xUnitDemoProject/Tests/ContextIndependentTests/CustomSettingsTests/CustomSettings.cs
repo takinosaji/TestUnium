@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestUnium.Selenium.Settings;
+using TestUnium.Selenium.WebDriving.Browsing;
 
-namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
+namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
 {
     /// <summary>
     /// Custom settings class is being passed into TestBase class via type name surrounded with
@@ -13,6 +10,9 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
     /// </summary>
     public class CustomSettings : WebSettings
     {
+        public Int32 SinsCount { get; set; }
+        public Boolean ToBeOrNotToBe { get; set; }
+        public Browser Browser { get; set; }
         public String GitHubRepoSegment { get; set; }
         /// <summary>
         /// Instantiating new settings entities. This instantiation code may appear useless 
@@ -22,7 +22,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
         {
             GitHubRepoSegment = "/takinosaji/testunium";
         }
-        public override void PostDeserializationAction()
+        public override void PostInitializeAction()
         {
             ChromeDriverPath = "drivers";
         }

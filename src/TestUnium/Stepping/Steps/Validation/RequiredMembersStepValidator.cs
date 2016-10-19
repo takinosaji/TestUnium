@@ -23,7 +23,7 @@ namespace TestUnium.Stepping.Steps.Validation
         public IValidationResult Validate(IStep step)
         {
             var stepType = step.GetType();
-            var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly;
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
             var fields = _reflectionService.GetAllFields(stepType, flags);
             var properties = _reflectionService.GetAllProperties(stepType, flags);
             foreach (var fieldInfo in fields.Where(f => f.GetCustomAttribute<RequiredAttribute>() != null))

@@ -3,7 +3,7 @@ using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Settings;
 using Xunit;
 
-namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
+namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
 {
     /// <summary>
     /// TestSuite with default WebDriver initialization parameters.
@@ -12,7 +12,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
     /// </summary>
     [DefaultBrowser(Browser.Chrome)]
     [ForbiddenBrowsers(Browser.InternetExplorer)]
-    [Settings(typeof(CustomSettings))]
+    [AppSettings(typeof(CustomSettings))]
     public class CustomSettingsTestSuite : TestBase
     {
         /// <summary>

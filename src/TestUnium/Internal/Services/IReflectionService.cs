@@ -8,5 +8,6 @@ namespace TestUnium.Internal.Services
     {
         IEnumerable<PropertyInfo> GetAllProperties(Type t, BindingFlags flags);
         IEnumerable<FieldInfo> GetAllFields(Type t, BindingFlags flags);
+        Object InvokeMethod(Object obj, String methodName, params Object[] args);
     }
 }

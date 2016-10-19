@@ -22,7 +22,7 @@ namespace TestUnium.Settings
         /// Override this method for performing settings changing 
         /// without modifying current settings file on a hard drive.
         /// </summary>
-        public virtual void PostDeserializationAction(){}
-        //public virtual void PostDeserializationAction() => PostDeserializationActions?.Invoke(this);
+        public virtual void PostInitializeAction(){}
+        //public virtual void PostInitializeAction() => PostDeserializationActions?.Invoke(this);
     }
 }

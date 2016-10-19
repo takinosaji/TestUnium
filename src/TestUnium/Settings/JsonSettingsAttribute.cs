@@ -10,34 +10,22 @@ using TestUnium.Internal.Services;
 
 namespace TestUnium.Settings
 {
-    [TheOnly]
-    [Priority((UInt16)CustomizationAttributePriorities.Settings)]
-    [AttributeUsage(AttributeTargets.Class)]
-    public class SettingsAttribute : CustomizationAttribute, ICustomizer<SettingsDrivenTest>
+    public class JsonSettingsAttribute : AppSettingsAttribute
     {
-        protected readonly Type SettingsType;
+        private readonly IShellService _shellService;
         protected readonly Boolean LoadFromFile;
         protected readonly Boolean CreateFileIfNotExist;
 
-        private readonly IShellService _shellService;
-
-        public SettingsAttribute(Type settingsType, Boolean loadFromFile = true, Boolean createFileIfNotExist = true) 
-            : base(new []
-            {
-                typeof(NoSettingsAttribute)
-            })
+        public JsonSettingsAttribute(Type settingsType, bool loadFromFile = true, bool createFileIfNotExist = true)
+            : base(settingsType)
         {
-            if (!typeof(ISettings).IsAssignableFrom(settingsType))
-                throw new IncorrectInheritanceException(new[] { settingsType.Name }, new [] { nameof(SettingsBase)});
-
             _shellService = Container.Instance.Kernel.Get<IShellService>();
 
-            SettingsType = settingsType;
             LoadFromFile = loadFromFile;
             CreateFileIfNotExist = createFileIfNotExist;
-        }  
+        }
 
-        public virtual void Customize(SettingsDrivenTest context)
+        public override void Customize(SettingsDrivenTest context)
         {
             context.Settings = (ISettings)Activator.CreateInstance(SettingsType);
 
@@ -61,7 +49,7 @@ namespace TestUnium.Settings
                 }
             }
 
-            context.Settings.PostDeserializationAction();
+            Settings = context.Settings;
         }
     }
 }

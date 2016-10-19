@@ -9,11 +9,8 @@ namespace TestUnium.Settings
 
         public SettingsDrivenTest()
         {
-            InjectionService.Inject(kernel =>
-            {
-                kernel.Bind<ISettings>().ToMethod(ctx => Settings);
-                Kernel.Bind<ISettingsDrivenTest>().ToConstant(this);
-            }, Kernel);
+            Kernel.Bind<ISettings>().ToMethod(ctx => Settings);
+            Kernel.Bind<ISettingsDrivenTest>().ToConstant(this);
         }
 
         public TSettingsBase SettingsOfType<TSettingsBase>() where TSettingsBase : ISettings => (TSettingsBase)Kernel.Get<ISettings>(); 

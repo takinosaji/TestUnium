@@ -103,6 +103,8 @@ namespace TestUnium.Customization
             return Priority == 0 ? Move.ToTheEnd.GetValue() : other.Priority == 0 ? Move.ToTheHead.GetValue() : Priority - other.Priority;
         }
 
+        public virtual void PostCustomize(Object context) { }
+
         public Type GetCustomizationTargetType()
         {
             var @interface = GetType().GetInterfaces().FirstOrDefault(i =>i.IsGenericType &&i.GetGenericTypeDefinition() == typeof(ICustomizer<>));

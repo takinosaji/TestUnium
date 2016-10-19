@@ -1,7 +1,7 @@
 ﻿using TestUnium.Settings;
 using Xunit;
 
-namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTest
+namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
 {
     /// <summary>
     /// TestSuite decorated with nosettings attribute doesn't load settings and ignores all customizations related to it. 

@@ -11,6 +11,6 @@ namespace TestUnium.Settings
         /// Overriding some settings values set by default and loaded from file. 
         /// Note that changes made by following code dont affect settigns file content.
         /// </summary>
-        void PostDeserializationAction();
+        void PostInitializeAction();
     }
 }

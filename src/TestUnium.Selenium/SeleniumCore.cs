@@ -10,7 +10,7 @@ namespace TestUnium.Selenium
 {
     [SessionContext(typeof(ContextBase))]
     [StepRunner(typeof(StepRunnerBase))]
-    [Settings(typeof(WebSettings))]
+    [AppSettings(typeof(WebSettings))]
     [WebDriver]
     [DetectBrowser]
     [DefaultBrowser(Browser.Firefox)]

@@ -6,6 +6,7 @@ namespace TestUnium.Customization
         where TCustomizationTarget : ICustomizationAttributeDrivenTest
     {
         Type TheOnlyRoot { get; }
+        void PostCustomize(Object context);
         void Customize(TCustomizationTarget context);
         Type GetCustomizationTargetType();
     }
