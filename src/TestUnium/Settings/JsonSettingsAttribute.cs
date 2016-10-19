@@ -15,9 +15,9 @@ namespace TestUnium.Settings
     [AttributeUsage(AttributeTargets.Class)]
     public class SettingsAttribute : CustomizationAttribute, ICustomizer<SettingsDrivenTest>
     {
-        private readonly Type _settingsType;
-        private readonly Boolean _loadFromFile;
-        private readonly Boolean _createFileIfNotExist;
+        protected readonly Type SettingsType;
+        protected readonly Boolean LoadFromFile;
+        protected readonly Boolean CreateFileIfNotExist;
 
         private readonly IShellService _shellService;
 
@@ -32,28 +32,28 @@ namespace TestUnium.Settings
 
             _shellService = Container.Instance.Kernel.Get<IShellService>();
 
-            _settingsType = settingsType;
-            _loadFromFile = loadFromFile;
-            _createFileIfNotExist = createFileIfNotExist;
+            SettingsType = settingsType;
+            LoadFromFile = loadFromFile;
+            CreateFileIfNotExist = createFileIfNotExist;
         }  
 
         public virtual void Customize(SettingsDrivenTest context)
         {
-            context.Settings = (ISettings)Activator.CreateInstance(_settingsType);
+            context.Settings = (ISettings)Activator.CreateInstance(SettingsType);
 
             var settingsFilePath = _shellService.TryGetArg(CommandLineArgsConstants.SettingsCmdArg, "settings.json");
 
             if (File.Exists(settingsFilePath))
             {
-                if (_loadFromFile)
+                if (LoadFromFile)
                 {
                     context.Settings =
-                        (ISettings) JsonConvert.DeserializeObject(File.ReadAllText(settingsFilePath), _settingsType);
+                        (ISettings) JsonConvert.DeserializeObject(File.ReadAllText(settingsFilePath), SettingsType);
                 }
             }
             else
             {
-                if (_createFileIfNotExist)
+                if (CreateFileIfNotExist)
                 {
                     //context.Settings = (ISettings) Activator.CreateInstance(context.Settings.GetType());
                     File.WriteAllText(settingsFilePath,

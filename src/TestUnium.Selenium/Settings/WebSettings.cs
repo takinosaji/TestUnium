@@ -19,7 +19,7 @@ namespace TestUnium.Selenium.Settings
         {
             ScreenshotFolderCapacity = 50;
             ScreenshotSystemPath = "screenshots";
-            ScreenshotSystemPath = String.Empty;
+            ScreenshotUrlPath = String.Empty;
             MakeScreenshotOnError = true;
             MainUrl = String.Empty;
             WebAppUrl = "localhost";

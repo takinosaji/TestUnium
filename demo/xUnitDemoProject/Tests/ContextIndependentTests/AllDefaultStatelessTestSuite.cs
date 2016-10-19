@@ -14,6 +14,7 @@ using PageObjects;
 using StepModules;
 using Steps;
 using TestUnium.Selenium.Extensions;
+using TestUnium.Selenium.Stepping.Modules;
 using Xunit;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests
@@ -29,6 +30,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
         public AllDefaultStatelessTestSuite()
         {
             // Registration and cancelling specific step modules
+            RegisterStepModule<MakeScreenshotOnFailure>();
             RegisterStepModule<ThrowsExceptionModule>();
             UnregisterStepModule<ThrowsExceptionModule>();
         }

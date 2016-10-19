@@ -8,7 +8,7 @@ using TestUnium.Internal.Services;
 
 namespace TestUnium.Internal
 {
-    internal class Resolver : Singleton<Resolver>
+    public class Resolver : Singleton<Resolver>
     {
         private readonly ConcurrentDictionary<Int32, IKernel> _kernels;
         private readonly IInjectionService _injectionService;

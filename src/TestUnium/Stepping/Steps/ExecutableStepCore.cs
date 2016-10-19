@@ -4,8 +4,10 @@ using Ninject;
 
 namespace TestUnium.Stepping.Steps
 {
-    public abstract class ExecutableStepCore //: IStepExecutor
+    public abstract class ExecutableStepCore
     {
+        [Inject]
+        public IStepExecutor Executor { get; set; }
         public StepState State { get; set; }
         public StepExceptionHandlingMode ExceptionHandlingMode {get; set; }
         public Exception LastException { get; set; }

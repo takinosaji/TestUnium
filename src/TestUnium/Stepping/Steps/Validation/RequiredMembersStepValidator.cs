@@ -4,17 +4,28 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
+using Ninject;
+using TestUnium.Internal.Bootstrapping;
+using TestUnium.Internal.Services;
 using TestUnium.Internal.Validation;
 
 namespace TestUnium.Stepping.Steps.Validation
 {
     public class RequiredMembersStepValidator : IValidator
     {
+        private readonly IReflectionService _reflectionService;
+
+        public RequiredMembersStepValidator()
+        {
+            _reflectionService = Container.Instance.Kernel.Get<IReflectionService>();
+        }
+
         public IValidationResult Validate(IStep step)
         {
             var stepType = step.GetType();
-            var fields = GetAllFields(stepType);
-            var properties = GetAllProperties(stepType);
+            var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly;
+            var fields = _reflectionService.GetAllFields(stepType, flags);
+            var properties = _reflectionService.GetAllProperties(stepType, flags);
             foreach (var fieldInfo in fields.Where(f => f.GetCustomAttribute<RequiredAttribute>() != null))
             {
                 var value = fieldInfo.GetValue(step);
@@ -47,24 +58,6 @@ namespace TestUnium.Stepping.Steps.Validation
             }
 
             return new StepValidationResult(true);
-        }
-
-        private IEnumerable<PropertyInfo> GetAllProperties(Type t)
-        {
-            if (t == null)
-                return Enumerable.Empty<PropertyInfo>();
-
-            var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly;
-            return t.GetProperties(flags).Union(GetAllProperties(t.BaseType));
-        }
-
-        private IEnumerable<FieldInfo> GetAllFields(Type t)
-        {
-            if (t == null)
-                return Enumerable.Empty<FieldInfo>();
-
-            var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly;
-            return t.GetFields(flags).Union(GetAllFields(t.BaseType));
         }
     }
 }

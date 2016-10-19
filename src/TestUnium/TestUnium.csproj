@@ -128,6 +128,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -140,6 +141,8 @@
   <ItemGroup>
     <Compile Include="Internal\Bootstrapping\Container.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\ServicesModule.cs" />
+    <Compile Include="Internal\Services\Implementations\ReflectionService.cs" />
+    <Compile Include="Internal\Services\IReflectionService.cs" />
     <Compile Include="Internal\Validation\IValidationResult.cs" />
     <Compile Include="Internal\Validation\IValidator.cs" />
     <Compile Include="Sessioning\Managing\ISessionManagingService.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="Customization\VisibilityAttribute.cs" />
     <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Sessioning\Managing\SessionStoreContext.cs" />
+    <Compile Include="Settings\AppSettingsAttribute.cs" />
     <Compile Include="Stepping\Modules\IStepModuleRegistrationStrategy.cs" />
     <Compile Include="Stepping\Modules\BasicStepModuleRegistrationStrategy.cs" />
     <Compile Include="Stepping\Modules\IStepModuleRegistrator.cs" />
