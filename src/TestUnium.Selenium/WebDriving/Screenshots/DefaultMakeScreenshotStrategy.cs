@@ -12,7 +12,7 @@ namespace TestUnium.Selenium.WebDriving.Screenshots
 {
     public class DefaultMakeScreenshotStrategy : IMakeScreenshotStrategy
     {
-        public void MakeScreenshot(Type targetType, IWebDriver driver, IWebSettings settings)
+        public void MakeScreenshot(Type testClassType, String callingMethodName, IWebDriver driver, IWebSettings settings)
         {
             Contract.Requires(!String.IsNullOrEmpty(settings.ScreenshotSystemPath), $"ScreenshotSystemPath can not be empty!");
             if (driver == null) throw new WebDriverHasNotBeenProperlyInitializedException();
@@ -24,7 +24,7 @@ namespace TestUnium.Selenium.WebDriving.Screenshots
 
                                      .Replace(':', '_') + ".png";
             var path =
-                $"{settings.ScreenshotSystemPath}{Path.DirectorySeparatorChar}{targetType.FullName}{Path.DirectorySeparatorChar}{screenshotName}";
+                $"{settings.ScreenshotSystemPath}{Path.DirectorySeparatorChar}{testClassType}{Path.DirectorySeparatorChar}{callingMethodName}{Path.DirectorySeparatorChar}{screenshotName}";
             var dir = Path.GetDirectoryName(path);
             if (!Directory.Exists(dir))
             {

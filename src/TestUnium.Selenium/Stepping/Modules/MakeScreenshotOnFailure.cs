@@ -6,6 +6,7 @@ using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium.Stepping.Modules
 {
+    [Reusable]
     public class MakeScreenshotOnFailure : IStepModule
     {
         public void BeforeExecution(IStep step) { }
@@ -18,10 +19,10 @@ namespace TestUnium.Selenium.Stepping.Modules
             if (state != StepState.Failed) return;
             if (stepMaker != null)
             {
-                stepMaker.MakeScreenshot();
+                stepMaker.MakeScreenshot(step.CallingMethodName);
                 return;
             }
-            executorMaker?.MakeScreenshot();
+            executorMaker?.MakeScreenshot(step.CallingMethodName);
         }
     }
 }
