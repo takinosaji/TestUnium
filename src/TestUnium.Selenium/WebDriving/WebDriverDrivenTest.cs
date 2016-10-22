@@ -3,6 +3,7 @@ using System.Diagnostics.Contracts;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -26,6 +27,12 @@ namespace TestUnium.Selenium.WebDriving
         public IWait<IWebDriver> MediumWait { get; set; }
         public IWait<IWebDriver> LongWait { get; set; }
 
+#if DEBUG
+        static WebDriverDrivenTest()
+        {
+            Container.Instance.Kernel.Load(Assembly.GetExecutingAssembly());
+        }
+#endif
         public WebDriverDrivenTest()
         {
             InjectionService.Inject(kernel =>

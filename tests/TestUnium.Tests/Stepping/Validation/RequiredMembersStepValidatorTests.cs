@@ -29,7 +29,7 @@ namespace TestUnium.Tests.Stepping.Validation
             stopwatch.Start();
             for (var i = 0; i < creationAttemptsNumber; i++)
             {
-                stepRunner.Run(step, null, StepExceptionHandlingMode.Rethrow, false);
+                stepRunner.Run(null, step, null, StepExceptionHandlingMode.Rethrow, false);
             }
             stopwatch.Stop();
             var withoutElapsed = stopwatch.Elapsed;
@@ -39,7 +39,7 @@ namespace TestUnium.Tests.Stepping.Validation
             stopwatch.Start();
             for (var i = 0; i < creationAttemptsNumber; i++)
             {
-                stepRunner.Run(step, null, StepExceptionHandlingMode.Rethrow, true);
+                stepRunner.Run(null, step, null, StepExceptionHandlingMode.Rethrow, true);
             }
             stopwatch.Stop();
             var withElapsed = stopwatch.Elapsed;

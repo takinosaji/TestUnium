@@ -3,6 +3,7 @@ using Ninject.Parameters;
 using TestUnium.Internal;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
+using TestUnium.Plugging;
 using TestUnium.Stepping;
 using TestUnium.Stepping.Modules;
 

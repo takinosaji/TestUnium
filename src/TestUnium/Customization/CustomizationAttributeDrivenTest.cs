@@ -7,10 +7,11 @@ using Ninject;
 using TestUnium.Core;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
+using TestUnium.Plugging;
 
 namespace TestUnium.Customization
 {
-    public class CustomizationAttributeDrivenTest : KernelDrivenTest, ICustomizationAttributeDrivenTest
+    public class CustomizationAttributeDrivenTest : PluginDrivenTest, ICustomizationAttributeDrivenTest
     {
         //Improve algorithm of avoiding initialization of customization attributes second and next times.
         private readonly List<Type> _invokedAttributes;

@@ -38,7 +38,7 @@ namespace TestUnium.Stepping
             where TStep : IExecutableStep
         {
             Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg())
-                .Run(Kernel.Get<TStep>(), 
+                .Run(this, Kernel.Get<TStep>(),
                 stepSetUpAction,
                 exceptionHandlingMode, validateStep);
         }
@@ -56,6 +56,7 @@ namespace TestUnium.Stepping
         {           
             return Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg())
                 .RunWithReturnValue<TStep, TResult>(
+                    this,
                     Kernel.Get<TStep>(), 
                     stepSetUpAction, 
                     exceptionHandlingMode, validateStep);
@@ -73,7 +74,7 @@ namespace TestUnium.Stepping
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<FakeStep>();
             step.Operations = outOfStepOperations;
-            runner.Run(step, null, exceptionHandlingMode, false);
+            runner.Run(this, step, null, exceptionHandlingMode, false);
         }
 
         public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue, 
@@ -82,7 +83,7 @@ namespace TestUnium.Stepping
             var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
             var step = Kernel.Get<FakeStepWithReturnValue<TResult>>();
             step.OperationsWithReturnValue = outOfStepFuncWithReturnValue;
-            return runner.RunWithReturnValue<FakeStepWithReturnValue<TResult>, TResult>(step, null, exceptionHandlingMode, false);
+            return runner.RunWithReturnValue<FakeStepWithReturnValue<TResult>, TResult>(this, step, null, exceptionHandlingMode, false);
         }
 
         public TStep GetStep<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep

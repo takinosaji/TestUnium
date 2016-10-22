@@ -127,6 +127,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -145,6 +146,10 @@
     <Compile Include="Internal\Services\IReflectionService.cs" />
     <Compile Include="Internal\Validation\IValidationResult.cs" />
     <Compile Include="Internal\Validation\IValidator.cs" />
+    <Compile Include="Plugging\StaticPluginCompositionEngine.cs" />
+    <Compile Include="Plugging\ICompositionEngine.cs" />
+    <Compile Include="Plugging\IPluginsDrivenTest.cs" />
+    <Compile Include="Plugging\PluginDrivenTest.cs" />
     <Compile Include="Sessioning\Managing\ISessionManagingService.cs" />
     <Compile Include="Sessioning\Managing\SessionManagingService.cs" />
     <Compile Include="Internal\Resolver.cs" />
@@ -227,7 +232,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TestUnium.Extensibility\TestUnium.Extensibility.csproj">
+      <Project>{E6E44CCE-CDE4-43FD-9578-790A60067F1B}</Project>
+      <Name>TestUnium.Extensibility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

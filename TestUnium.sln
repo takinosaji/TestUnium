@@ -42,6 +42,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnium.Selenium", "src\T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnium.Tests", "tests\TestUnium.Tests\TestUnium.Tests.csproj", "{488C7644-3067-4952-9A00-3EE5CC6C49EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnium.Extensibility", "src\TestUnium.Extensibility\TestUnium.Extensibility.csproj", "{E6E44CCE-CDE4-43FD-9578-790A60067F1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnium.Specification", "TestUnium.Specification\TestUnium.Specification.csproj", "{B8CC7C3B-A447-460A-9A55-39B255DE7717}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +92,14 @@ Global
 		{488C7644-3067-4952-9A00-3EE5CC6C49EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{488C7644-3067-4952-9A00-3EE5CC6C49EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{488C7644-3067-4952-9A00-3EE5CC6C49EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E44CCE-CDE4-43FD-9578-790A60067F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E44CCE-CDE4-43FD-9578-790A60067F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E44CCE-CDE4-43FD-9578-790A60067F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E44CCE-CDE4-43FD-9578-790A60067F1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8CC7C3B-A447-460A-9A55-39B255DE7717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8CC7C3B-A447-460A-9A55-39B255DE7717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8CC7C3B-A447-460A-9A55-39B255DE7717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8CC7C3B-A447-460A-9A55-39B255DE7717}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,5 +117,7 @@ Global
 		{6BF0FDE8-7B27-4856-91AB-B120A19D6B97} = {915BA235-7C12-4780-B627-B80FAAE698ED}
 		{32283BE6-54DE-4524-997D-3E4F19C5B705} = {4BB85767-0D31-495C-A24E-7F44BF9C92FF}
 		{488C7644-3067-4952-9A00-3EE5CC6C49EA} = {E14E7560-BB3D-4F42-9E7B-6197F1682874}
+		{E6E44CCE-CDE4-43FD-9578-790A60067F1B} = {4BB85767-0D31-495C-A24E-7F44BF9C92FF}
+		{B8CC7C3B-A447-460A-9A55-39B255DE7717} = {4BB85767-0D31-495C-A24E-7F44BF9C92FF}
 	EndGlobalSection
 EndGlobal

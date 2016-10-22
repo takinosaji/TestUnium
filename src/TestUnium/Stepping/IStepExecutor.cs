@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
@@ -8,25 +9,25 @@ namespace TestUnium.Stepping
         void Do<TStep>
             (Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, 
-            Boolean validateStep = true) 
+            Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
             where TStep : IExecutableStep;
         void Do<TStep>
             (StepExceptionHandlingMode exceptionHandlingMode, 
-            Boolean validateStep = true)
+            Boolean validateStep = true, [CallerMemberName] String callingMethodName = "")
             where TStep : IExecutableStep;
-        void Do<TStep>(Boolean validateStep) 
+        void Do<TStep>(Boolean validateStep, [CallerMemberName] String callingMethodName = "") 
             where TStep : IExecutableStep;
 
         TResult Do<TStep, TResult>
             (Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow,
-            Boolean validateStep = true)
+            Boolean validateStep = true, [CallerMemberName] String callingMethodName = "")
             where TStep : IExecutableStep<TResult>;
         TResult Do<TStep, TResult>
             (StepExceptionHandlingMode exceptionHandlingMode, 
-            Boolean validateStep = true)
+            Boolean validateStep = true, [CallerMemberName] String callingMethodName = "")
             where TStep : IExecutableStep<TResult>;
-        TResult Do<TStep, TResult>(Boolean validateStep) 
+        TResult Do<TStep, TResult>(Boolean validateStep, [CallerMemberName] String callingMethodName = "") 
             where TStep : IExecutableStep<TResult>;
 
         void Do(Action outOfStepOperations, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow);
