@@ -6,9 +6,9 @@ namespace TestUnium.Stepping
 {
     public interface IStepRunner
     {
-        void Run<TStep>(IStepExecutor executor, TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep) 
+        void Run<TStep>(IStepExecutor executor, String callingMethodName, TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep) 
             where TStep : IExecutableStep;
-        TResult RunWithReturnValue<TStep, TResult>(IStepExecutor executor, TStep step, Action<TStep> stepSetUpAction,
+        TResult RunWithReturnValue<TStep, TResult>(IStepExecutor executor, String callingMethodName, TStep step, Action<TStep> stepSetUpAction,
             StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
             where TStep : IExecutableStep<TResult>;
         void BeforeExecution(IStep step);

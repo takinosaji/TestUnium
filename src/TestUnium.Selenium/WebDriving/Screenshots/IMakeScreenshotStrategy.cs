@@ -7,6 +7,6 @@ namespace TestUnium.Selenium.WebDriving.Screenshots
 {
     public interface IMakeScreenshotStrategy
     {
-        void MakeScreenshot(Type targetType, IWebDriver driver, IWebSettings settings);
+        void MakeScreenshot(Type testClassType, String callingMethodName, IWebDriver driver, IWebSettings settings);
     }
 }

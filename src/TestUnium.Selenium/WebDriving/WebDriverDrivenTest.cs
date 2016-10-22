@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -33,6 +34,7 @@ namespace TestUnium.Selenium.WebDriving
             Container.Instance.Kernel.Load(Assembly.GetExecutingAssembly());
         }
 #endif
+
         public WebDriverDrivenTest()
         {
             InjectionService.Inject(kernel =>
@@ -53,10 +55,10 @@ namespace TestUnium.Selenium.WebDriving
             Driver?.Quit();
         }
 
-        public void MakeScreenshot()
+        public void MakeScreenshot([CallerMemberName] String callingMethodName = "")
         {
             Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
-            _makeScreenshotStrategy.MakeScreenshot(GetType(), Driver, Settings as IWebSettings);
+            _makeScreenshotStrategy.MakeScreenshot(GetType(), callingMethodName, Driver, Settings as IWebSettings);
         }
     }
 }

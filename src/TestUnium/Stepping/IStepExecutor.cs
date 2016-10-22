@@ -30,9 +30,9 @@ namespace TestUnium.Stepping
         TResult Do<TStep, TResult>(Boolean validateStep, [CallerMemberName] String callingMethodName = "") 
             where TStep : IExecutableStep<TResult>;
 
-        void Do(Action outOfStepOperations, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow);
+        void Do(Action outOfStepOperations, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, [CallerMemberName] String callingMethodName = "");
         TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue,
-            StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow);
+            StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, [CallerMemberName] String callingMethodName = "");
 
         TStep GetStep<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep;
     }

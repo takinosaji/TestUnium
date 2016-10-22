@@ -36,10 +36,11 @@ namespace TestUnium.Stepping
             }
         }
 
-        public virtual void Run<TStep>(IStepExecutor executor, TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
+        public virtual void Run<TStep>(IStepExecutor executor, String callingMethodName, TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
             where TStep : IExecutableStep
         {
             step.Executor = executor;
+            step.CallingMethodName = callingMethodName;
             step.ExceptionHandlingMode = exceptionHandlingMode;
             stepSetUpAction?.Invoke(step);
 
@@ -74,10 +75,11 @@ namespace TestUnium.Stepping
             AfterExecution(step, StepState.Executed);
         }
 
-        public virtual TResult RunWithReturnValue<TStep, TResult>(IStepExecutor executor, TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
+        public virtual TResult RunWithReturnValue<TStep, TResult>(IStepExecutor executor, String callingMethodName, TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
             where TStep : IExecutableStep<TResult>
         {
             step.Executor = executor;
+            step.CallingMethodName = callingMethodName;
             step.ExceptionHandlingMode = exceptionHandlingMode;
             stepSetUpAction?.Invoke(step);
 

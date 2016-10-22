@@ -6,6 +6,7 @@ namespace TestUnium.Stepping.Steps
     public interface IStep
     {
         IStepExecutor Executor { get; set; }
+        String CallingMethodName { get; set; }
         Boolean IsFakeStep { get; }
         StepState State { get; set; }
         StepExceptionHandlingMode ExceptionHandlingMode { get; set; }
