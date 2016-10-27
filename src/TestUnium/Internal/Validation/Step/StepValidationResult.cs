@@ -1,7 +1,6 @@
 ﻿using System;
-using TestUnium.Internal.Validation;
 
-namespace TestUnium.Stepping.Steps.Validation
+namespace TestUnium.Internal.Validation.Step
 {
     public class StepValidationResult : IValidationResult
     {

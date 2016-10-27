@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using Ninject;
 using TestUnium.Internal.Bootstrapping.Modules;
@@ -17,11 +18,11 @@ namespace TestUnium.Internal.Bootstrapping
                 InjectNonPublic = true
             });
             _kernel.Bind<IKernel>().ToConstant(_kernel);
-#if DEBUG
+//#if DEBUG
             _kernel.Load(Assembly.GetExecutingAssembly());
-#else
+/*#else
             _kernel.Load(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-#endif
+#endif*/
         }
 
         public IKernel Kernel => _kernel;

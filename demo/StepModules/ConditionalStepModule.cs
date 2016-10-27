@@ -4,25 +4,26 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using StepModules.Conditions;
+using Steps;
 using TestUnium.Stepping;
 using TestUnium.Stepping.Modules;
+using TestUnium.Stepping.Modules.Conditions;
 using TestUnium.Stepping.Steps;
 
 namespace StepModules
 {
-    [Reusable]
-    public class ReusableCounterModule : IStepModule
+    [TargetStep(typeof(GoToUrlStep))]
+    public class ConditionalStepModule : IStepModule
     {
-        private Int32 PositiveCounter { get; set; }
-        private Int32 NegativeCounter { get; set; }
         public void BeforeExecution(IStep step)
         {
-            PositiveCounter += 1;
+            throw new Exception("This shouldn't ever happen!");
         }
 
         public void AfterExecution(IStep step, StepState state)
         {
-            NegativeCounter = -1;
+            throw new Exception("Big Bang!");
         }
     }
 }

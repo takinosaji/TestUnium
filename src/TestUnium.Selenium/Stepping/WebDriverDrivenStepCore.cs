@@ -28,7 +28,7 @@ namespace TestUnium.Selenium.Stepping
         public void MakeScreenshot([CallerMemberName] String callingMethodName = "")
         {
             Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
-            _makeScreenshotStrategy.MakeScreenshot(GetTestClassType(Executor), GetCallingMethodName(Executor, callingMethodName), Driver, Settings as IWebSettings);
+            _makeScreenshotStrategy.MakeScreenshot(this as IStep, GetTestClassType(Executor), GetCallingMethodName(Executor, callingMethodName), Driver, Settings as IWebSettings);
         }
 
         private String GetCallingMethodName(IStepExecutor executor, String callingMethodName)

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestUnium</RootNamespace>
     <AssemblyName>TestUnium</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
@@ -139,12 +139,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotating\NameAttribute.cs" />
     <Compile Include="Internal\Bootstrapping\Container.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\ServicesModule.cs" />
+    <Compile Include="Internal\Bootstrapping\Modules\StepValidationModule.cs" />
+    <Compile Include="Internal\Bootstrapping\Modules\StepModuleValidationModule.cs" />
     <Compile Include="Internal\Services\Implementations\ReflectionService.cs" />
     <Compile Include="Internal\Services\IReflectionService.cs" />
+    <Compile Include="Internal\Validation\StepModules\ExcludedStepModuleValidator.cs" />
+    <Compile Include="Internal\Validation\StepModules\TargetStepsModuleValidator.cs" />
+    <Compile Include="Internal\Validation\StepModules\StepConditionsModuleValidator.cs" />
+    <Compile Include="Internal\Validation\StepModules\RealStepOnlyModuleValidator.cs" />
+    <Compile Include="Internal\Validation\StepModules\FakeStepOnlyModuleValidator.cs" />
+    <Compile Include="Internal\Validation\StepModules\IStepModuleValidator.cs" />
     <Compile Include="Internal\Validation\IValidationResult.cs" />
-    <Compile Include="Internal\Validation\IValidator.cs" />
+    <Compile Include="Internal\Validation\Step\IStepValidator.cs" />
+    <Compile Include="Internal\Validation\Step\RequiredMembersStepValidator.cs" />
     <Compile Include="Sessioning\Managing\ISessionManagingService.cs" />
     <Compile Include="Sessioning\Managing\SessionManagingService.cs" />
     <Compile Include="Internal\Resolver.cs" />
@@ -168,10 +178,18 @@
     <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Sessioning\Managing\SessionStoreContext.cs" />
     <Compile Include="Settings\AppSettingsAttribute.cs" />
+    <Compile Include="Stepping\Modules\Conditions\ExcludedStepAttribute.cs" />
+    <Compile Include="Stepping\Modules\Conditions\IStepChecker.cs" />
+    <Compile Include="IChecker.cs" />
+    <Compile Include="Stepping\Modules\Conditions\FakeStepOnlyAttribute.cs" />
+    <Compile Include="Stepping\Modules\Conditions\RealStepOnlyAttribute.cs" />
     <Compile Include="Stepping\Modules\IStepModuleRegistrationStrategy.cs" />
     <Compile Include="Stepping\Modules\BasicStepModuleRegistrationStrategy.cs" />
     <Compile Include="Stepping\Modules\IStepModuleRegistrator.cs" />
+    <Compile Include="Stepping\Modules\Conditions\StepConditionsAttribute.cs" />
+    <Compile Include="Stepping\Modules\Conditions\TargetStepAttribute.cs" />
     <Compile Include="Stepping\StepExceptionHandlingMode.cs" />
+    <Compile Include="Stepping\StepSetUpException.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStepCore.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStep.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStep.cs" />
@@ -201,8 +219,6 @@
     <Compile Include="Settings\ISettingsDrivenTest.cs" />
     <Compile Include="Stepping\IStepExecutor.cs" />
     <Compile Include="Stepping\IStepRunner.cs" />
-    <Compile Include="Stepping\Modules\Logging\ConsoleLogger.cs" />
-    <Compile Include="Stepping\Modules\Logging\ILogger.cs" />
     <Compile Include="Stepping\Steps\FakeStep.cs" />
     <Compile Include="Stepping\Modules\ReusableAttribute.cs" />
     <Compile Include="Stepping\Steps\FakeStepAttribute.cs" />
@@ -220,8 +236,7 @@
     <Compile Include="Stepping\Steps\IExecutableStep.cs" />
     <Compile Include="Stepping\Steps\ExecutableStepCore.cs" />
     <Compile Include="Stepping\StepState.cs" />
-    <Compile Include="Stepping\Steps\Validation\RequiredMembersStepValidator.cs" />
-    <Compile Include="Stepping\Steps\Validation\StepValidationResult.cs" />
+    <Compile Include="Internal\Validation\Step\StepValidationResult.cs" />
     <Compile Include="TestCore.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestUnium.Selenium.WebDriving.Paging
+namespace TestUnium.Annotating
 {
     public class NameAttribute : Attribute
     {

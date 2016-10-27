@@ -1,4 +1,7 @@
-﻿using TestUnium.Global;
+﻿using System.Threading.Tasks;
+using StepModules;
+using Steps;
+using TestUnium.Global;
 using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Settings;
 using Xunit;
@@ -15,6 +18,21 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     [AppSettings(typeof(CustomSettings))]
     public class CustomSettingsTestSuite : TestBase
     {
+        public CustomSettingsTestSuite()
+        {
+            RegisterStepModule<ConditionalStepModule>();
+        }
+
+        [Fact]
+        public void shit()
+        {
+            Do<GoToUrlStep>();
+            Do(() =>
+            {
+
+            });
+        }
+
         /// <summary>
         /// You may define new field of your custom settings type.
         /// </summary>

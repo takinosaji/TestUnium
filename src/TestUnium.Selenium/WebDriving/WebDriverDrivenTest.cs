@@ -28,12 +28,12 @@ namespace TestUnium.Selenium.WebDriving
         public IWait<IWebDriver> MediumWait { get; set; }
         public IWait<IWebDriver> LongWait { get; set; }
 
-#if DEBUG
+//#if DEBUG
         static WebDriverDrivenTest()
         {
             Container.Instance.Kernel.Load(Assembly.GetExecutingAssembly());
         }
-#endif
+//#endif
 
         public WebDriverDrivenTest()
         {
@@ -58,7 +58,7 @@ namespace TestUnium.Selenium.WebDriving
         public void MakeScreenshot([CallerMemberName] String callingMethodName = "")
         {
             Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
-            _makeScreenshotStrategy.MakeScreenshot(GetType(), callingMethodName, Driver, Settings as IWebSettings);
+            _makeScreenshotStrategy.MakeScreenshot(null, GetType(), callingMethodName, Driver, Settings as IWebSettings);
         }
     }
 }

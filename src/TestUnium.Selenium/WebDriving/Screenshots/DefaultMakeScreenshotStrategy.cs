@@ -7,22 +7,23 @@ using OpenQA.Selenium;
 using TestUnium.Selenium.Extensions;
 using TestUnium.Selenium.Settings;
 using TestUnium.Settings;
+using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium.WebDriving.Screenshots
 {
     public class DefaultMakeScreenshotStrategy : IMakeScreenshotStrategy
     {
-        public void MakeScreenshot(Type testClassType, String callingMethodName, IWebDriver driver, IWebSettings settings)
+        public void MakeScreenshot(IStep step, Type testClassType, String callingMethodName, IWebDriver driver, IWebSettings settings)
         {
             Contract.Requires(!String.IsNullOrEmpty(settings.ScreenshotSystemPath), $"ScreenshotSystemPath can not be empty!");
             if (driver == null) throw new WebDriverHasNotBeenProperlyInitializedException();
             var ss = driver.GetScreenshot();
-            var screenshotName = "Screenshot_" +
-                                 DateTime.Now.ToString(CultureInfo.InvariantCulture)
-                                     .Replace('/', '_')
-                                     .Replace(' ', '_')
+            var screenshotName = (step?.GetType().Name ?? callingMethodName) + "_" + 
+                DateTime.Now.ToString(CultureInfo.InvariantCulture)
+                    .Replace('/', '_')
+                    .Replace(' ', '_')
 
-                                     .Replace(':', '_') + ".png";
+                    .Replace(':', '_') + ".png";
             var path =
                 $"{settings.ScreenshotSystemPath}{Path.DirectorySeparatorChar}{testClassType}{Path.DirectorySeparatorChar}{callingMethodName}{Path.DirectorySeparatorChar}{screenshotName}";
             var dir = Path.GetDirectoryName(path);

@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Reflection;
 using Ninject;
+using TestUnium.Annotating;
 
 namespace TestUnium.Stepping.Steps
 {
     public abstract class ExecutableStepCore
     {
+        public String Name
+        {
+            get
+            {
+                var nameAttr = (NameAttribute)GetType().GetCustomAttribute(typeof(NameAttribute));
+                return nameAttr?.Name ?? GetType().Name;
+            }
+        } 
+
         public IStepExecutor Executor { get; set; }
         public String CallingMethodName { get; set; }
         public StepState State { get; set; }

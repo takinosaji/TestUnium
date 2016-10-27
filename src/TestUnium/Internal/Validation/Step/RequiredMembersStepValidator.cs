@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -7,11 +6,11 @@ using System.Reflection;
 using Ninject;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
-using TestUnium.Internal.Validation;
+using TestUnium.Stepping.Steps;
 
-namespace TestUnium.Stepping.Steps.Validation
+namespace TestUnium.Internal.Validation.Step
 {
-    public class RequiredMembersStepValidator : IValidator
+    public class RequiredMembersStepValidator : IStepValidator
     {
         private readonly IReflectionService _reflectionService;
 
