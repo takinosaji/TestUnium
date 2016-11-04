@@ -29,6 +29,7 @@ namespace TestUnium.Selenium.WebDriving
         public IWait<IWebDriver> LongWait { get; set; }
 
 //#if DEBUG
+        // This is very ugly. Need to think how to move this out.
         static WebDriverDrivenTest()
         {
             Container.Instance.Kernel.Load(Assembly.GetExecutingAssembly());

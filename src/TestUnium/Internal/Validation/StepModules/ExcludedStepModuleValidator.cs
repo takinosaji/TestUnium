@@ -10,7 +10,7 @@ namespace TestUnium.Internal.Validation.StepModules
     {
         public bool Validate(Type moduleType, IStep step)
         {
-            var attributes = moduleType.GetCustomAttributes<TargetStepAttribute>().ToList();
+            var attributes = moduleType.GetCustomAttributes<ExcludedStepAttribute>().ToList();
             return attributes.Count <= 0 || attributes.SelectMany(stepConditionsAttribute =>
                 stepConditionsAttribute.TargetSteps).All(stepType => 
                     stepType != step.GetType());

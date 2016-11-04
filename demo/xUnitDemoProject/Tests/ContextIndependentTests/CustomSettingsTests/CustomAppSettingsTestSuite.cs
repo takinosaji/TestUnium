@@ -18,21 +18,6 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     [AppSettings(typeof(CustomSettings))]
     public class CustomSettingsTestSuite : TestBase
     {
-        public CustomSettingsTestSuite()
-        {
-            RegisterStepModule<ConditionalStepModule>();
-        }
-
-        [Fact]
-        public void shit()
-        {
-            Do<GoToUrlStep>();
-            Do(() =>
-            {
-
-            });
-        }
-
         /// <summary>
         /// You may define new field of your custom settings type.
         /// </summary>

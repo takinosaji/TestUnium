@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotating\NameAttribute.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Internal\Bootstrapping\Container.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\ServicesModule.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\StepValidationModule.cs" />
