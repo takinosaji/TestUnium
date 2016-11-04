@@ -6,6 +6,7 @@ namespace TestUnium.Sessioning
 {
     public interface ISession
     {
+        Guid SessionId { get; set; }
         #region Contexts
         ISession Using(params ISessionPlugin[] plugins);
         ISession Using<TPlugin>() where TPlugin : ISessionPlugin, new();

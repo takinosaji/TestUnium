@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using TestUnium.Annotating;
 using TestUnium.Selenium.Extensions;
 using TestUnium.Selenium.WebDriving.Paging;
 

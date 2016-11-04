@@ -5,9 +5,6 @@ namespace TestUnium.Settings
     [Serializable]
     public class SettingsBase : ISettings
     {
-        public String ScreenshotSystemPath { get; set; }
-        public String ScreenshotUrlPath { get; set; }
-        public Int32 ScreenshotFolderCapacity { get; set; }
         public String LogSystemPath { get; set; }
         public String LogUrlPath { get; set; }
         public Int32 LogFolderCapacity { get; set; }
@@ -16,9 +13,6 @@ namespace TestUnium.Settings
        
         public SettingsBase()
         {
-            ScreenshotSystemPath = "screenshots";
-            ScreenshotSystemPath = String.Empty;
-            ScreenshotFolderCapacity = 50;
             LogSystemPath = "logs";
             LogUrlPath = String.Empty;
             LogFolderCapacity = 50;
@@ -28,7 +22,7 @@ namespace TestUnium.Settings
         /// Override this method for performing settings changing 
         /// without modifying current settings file on a hard drive.
         /// </summary>
-        public virtual void PostDeserializationAction(){}
-        //public virtual void PostDeserializationAction() => PostDeserializationActions?.Invoke(this);
+        public virtual void PostInitializeAction(){}
+        //public virtual void PostInitializeAction() => PostDeserializationActions?.Invoke(this);
     }
 }

@@ -3,7 +3,7 @@
 namespace TestUnium.Stepping.Steps
 {
     [FakeStep]
-    class FakeStep : ExecutableStep, IExecutableStep
+    class FakeStep : ExecutableStepCore, IExecutableStep
     {
         public Action Operations;
 

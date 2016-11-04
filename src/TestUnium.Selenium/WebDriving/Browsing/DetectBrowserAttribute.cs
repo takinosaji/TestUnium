@@ -1,7 +1,7 @@
 ﻿using System;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
-using TestUnium.Domain;
+using TestUnium.Internal.Domain;
 
 namespace TestUnium.Selenium.WebDriving.Browsing
 {

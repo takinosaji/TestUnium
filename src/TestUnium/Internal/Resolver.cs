@@ -2,13 +2,13 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using Ninject;
-using TestUnium.Domain;
 using TestUnium.Internal.Bootstrapping;
+using TestUnium.Internal.Domain;
 using TestUnium.Internal.Services;
 
 namespace TestUnium.Internal
 {
-    internal class Resolver : Singleton<Resolver>
+    public class Resolver : Singleton<Resolver>
     {
         private readonly ConcurrentDictionary<Int32, IKernel> _kernels;
         private readonly IInjectionService _injectionService;

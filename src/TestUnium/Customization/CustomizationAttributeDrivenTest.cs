@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Ninject;
 using TestUnium.Core;
+using TestUnium.Internal.Bootstrapping;
+using TestUnium.Internal.Services;
 
 namespace TestUnium.Customization
 {
@@ -13,11 +16,15 @@ namespace TestUnium.Customization
         private readonly List<Type> _invokedAttributes;
         private readonly List<Type> _hiddenAttributes;
 
+        protected readonly IReflectionService ReflectionService;
+
         protected CustomizationAttributeDrivenTest()
         {
             _hiddenAttributes = new List<Type>();
             _invokedAttributes = new List<Type>();
             Kernel.Bind<ICustomizationAttributeDrivenTest>().ToConstant(this);
+
+            ReflectionService = Container.Instance.Kernel.Get<IReflectionService>();
         }
 
         /// <summary>
@@ -39,10 +46,8 @@ namespace TestUnium.Customization
                 if (_invokedAttributes.Any(i => i == a.GetType()) ||
                     _hiddenAttributes.Any(i => i == a.GetType())) return;
                 if (a.HasToBeCanceled(_invokedAttributes)) return;
-                var attrType = a.GetType();
-                var method = attrType.GetMethod("Customize");
-                if(method == null) throw new NullReferenceException($"Couldn't find Customize method in {attrType.FullName}");
-                method.Invoke(a, new object[]{ this });
+                ReflectionService.InvokeMethod(a, "Customize", this);
+                ReflectionService.InvokeMethod(a, "PostCustomize", this);
                 var visibilityAttr = a.GetType().GetCustomAttribute<VisibilityAttribute>();
                 if (visibilityAttr == null || visibilityAttr.Visible || a.Visible)
                 {

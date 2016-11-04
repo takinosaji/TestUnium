@@ -2,7 +2,7 @@
 
 namespace TestUnium.Stepping.Steps
 {
-    public class FakeStepWithReturnValue<TResult> : ExecutableStep, IExecutableStep<TResult>
+    public class FakeStepWithReturnValue<TResult> : ExecutableStepCore, IExecutableStep<TResult>
     {
         public Func<TResult> OperationsWithReturnValue;
 

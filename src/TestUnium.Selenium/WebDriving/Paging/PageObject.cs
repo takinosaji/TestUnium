@@ -4,6 +4,7 @@ using System.Reflection;
 using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using TestUnium.Annotating;
 using TestUnium.Selenium.Extensions;
 using TestUnium.Settings;
 
@@ -26,8 +27,8 @@ namespace TestUnium.Selenium.WebDriving.Paging
         {
             _markers = new List<IWebElement>();
             MarkerSelectors = markerSelectors;
+
             var nameAttr = (NameAttribute)GetType().GetCustomAttribute(typeof(NameAttribute));
-            
             Name = nameAttr?.Name ?? GetType().Name;
 
             IsLoaded = false;

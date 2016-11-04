@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TestUnium.Customization.Prioritizing;
-using TestUnium.Domain;
 using TestUnium.Extensions;
+using TestUnium.Internal.Domain;
 
 namespace TestUnium.Customization
 {
@@ -102,6 +102,8 @@ namespace TestUnium.Customization
             if (othersTType.IsSubclassOf(mineType)) return Move.ToTheHead.GetValue();
             return Priority == 0 ? Move.ToTheEnd.GetValue() : other.Priority == 0 ? Move.ToTheHead.GetValue() : Priority - other.Priority;
         }
+
+        public virtual void PostCustomize(Object context) { }
 
         public Type GetCustomizationTargetType()
         {

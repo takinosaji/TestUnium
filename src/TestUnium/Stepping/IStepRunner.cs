@@ -1,12 +1,16 @@
-﻿using TestUnium.Stepping.Modules;
+﻿using System;
+using TestUnium.Stepping.Modules;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
 {
     public interface IStepRunner
     {
-        void Run(IExecutableStep step);
-        TResult RunWithReturnValue<TResult>(IExecutableStep<TResult> step);
+        void Run<TStep>(IStepExecutor executor, String callingMethodName, TStep step, Action<TStep> stepSetUpAction, StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep) 
+            where TStep : IExecutableStep;
+        TResult RunWithReturnValue<TStep, TResult>(IStepExecutor executor, String callingMethodName, TStep step, Action<TStep> stepSetUpAction,
+            StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep)
+            where TStep : IExecutableStep<TResult>;
         void BeforeExecution(IStep step);
         void AfterExecution(IStep step, StepState state);
         void AddModules(params IStepModule[] modules);
