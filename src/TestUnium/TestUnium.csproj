@@ -191,6 +191,7 @@
     <Compile Include="Stepping\Modules\Conditions\TargetStepAttribute.cs" />
     <Compile Include="Stepping\StepExceptionHandlingMode.cs" />
     <Compile Include="Stepping\StepSetUpException.cs" />
+    <Compile Include="Stepping\Steps\Core\ExecutableStep.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStepCore.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStep.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStep.cs" />
@@ -235,7 +236,7 @@
     <Compile Include="Settings\SettingsBase.cs" />
     <Compile Include="Settings\SettingsDrivenTest.cs" />
     <Compile Include="Stepping\Steps\IExecutableStep.cs" />
-    <Compile Include="Stepping\Steps\ExecutableStepCore.cs" />
+    <Compile Include="Stepping\Steps\Core\ExecutableStepCore.cs" />
     <Compile Include="Stepping\StepState.cs" />
     <Compile Include="Internal\Validation\Step\StepValidationResult.cs" />
     <Compile Include="TestCore.cs" />

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using Ninject;
 using TestUnium.Annotating;
 
-namespace TestUnium.Stepping.Steps
+namespace TestUnium.Stepping.Steps.Core
 {
     public abstract class ExecutableStepCore
     {

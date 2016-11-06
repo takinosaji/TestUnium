@@ -34,11 +34,11 @@ try
     }
     ElseIf (!$buildResult.BuildSucceeded -eq $false)
     { 
-        Write-Host "Build failed. Check the build log file $($buildResult.BuildLogFilePath) for errors." 
+        throw [System.IO.Exception] "Build failed. Check the build log file $($buildResult.BuildLogFilePath) for errors." 
     }
     ElseIf ($buildResult.BuildSucceeded -eq $null)
     { 
-        Write-Host "Unsure if build passed or failed: $($buildResult.Message)" 
+        throw [System.IO.Exception] "Unsure if build passed or failed: $($buildResult.Message)" 
     }
 
     Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Verbose -Prop Configuration=$BuildConfiguration"
