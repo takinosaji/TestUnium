@@ -32,6 +32,7 @@ namespace TestUnium.Stepping
 
         public void BeforeExecution(IStep step)
         {
+            //Filter global and session stepmodules
             foreach (var module in _modules)
             {
                 var isValid = true;
@@ -48,6 +49,7 @@ namespace TestUnium.Stepping
                     module.BeforeExecution(step);
                 }
             }
+            //Invoke personal step modules
         }
 
         public void AfterExecution(IStep step, StepState state)
