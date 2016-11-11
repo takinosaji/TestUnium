@@ -56,10 +56,10 @@ namespace TestUnium.Selenium.WebDriving
             Driver?.Quit();
         }
 
-        public void MakeScreenshot([CallerMemberName] String callingMethodName = "")
+        public String MakeScreenshot([CallerMemberName] String callingMethodName = "")
         {
             Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
-            _makeScreenshotStrategy.MakeScreenshot(null, GetType(), callingMethodName, Driver, Settings as IWebSettings);
+            return _makeScreenshotStrategy.MakeScreenshot(null, GetType(), callingMethodName, Driver, Settings as IWebSettings);
         }
     }
 }

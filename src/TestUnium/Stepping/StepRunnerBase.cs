@@ -109,11 +109,8 @@ namespace TestUnium.Stepping
                 step.LastException = excp;
                 step.State = StepState.Failed;
                 AfterExecution(step, StepState.Failed);
-                if (step.ExceptionHandlingMode == StepExceptionHandlingMode.Rethrow)
-                {
-                    throw;
-                }
-                return;
+                if (step.ExceptionHandlingMode != StepExceptionHandlingMode.Rethrow) return;
+                throw step.LastException;  
             }
 
             AfterExecution(step, StepState.Executed);
@@ -156,11 +153,8 @@ namespace TestUnium.Stepping
                 step.LastException = excp;
                 step.State = StepState.Failed;
                 AfterExecution(step, StepState.Failed);
-                if (step.ExceptionHandlingMode == StepExceptionHandlingMode.Rethrow)
-                {
-                    throw;
-                }
-                return value;
+                if (step.ExceptionHandlingMode != StepExceptionHandlingMode.Rethrow) return value;
+                throw step.LastException;
             }
             AfterExecution(step, StepState.Executed);
             return value;

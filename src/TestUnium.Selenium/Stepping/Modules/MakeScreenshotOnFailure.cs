@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.Contracts;
 using TestUnium.Selenium.WebDriving;
+using TestUnium.Selenium.WebDriving.Screenshots;
 using TestUnium.Stepping;
 using TestUnium.Stepping.Modules;
 using TestUnium.Stepping.Steps;
@@ -19,7 +20,8 @@ namespace TestUnium.Selenium.Stepping.Modules
             if (state != StepState.Failed) return;
             if (stepMaker != null)
             {
-                stepMaker.MakeScreenshot(step.CallingMethodName);
+                var screenshotPath = stepMaker.MakeScreenshot(step.CallingMethodName);
+                step.LastException = new ScreenshotCreatedException(screenshotPath, step.LastException);
                 return;
             }
             executorMaker?.MakeScreenshot(step.CallingMethodName);

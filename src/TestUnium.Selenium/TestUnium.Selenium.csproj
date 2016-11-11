@@ -387,6 +387,7 @@
     <Compile Include="Stepping\WebDriverStep.cs" />
     <Compile Include="Stepping\WebDriverDrivenStepCore.cs" />
     <Compile Include="WebDriving\IWebDriverDrivenTest.cs" />
+    <Compile Include="WebDriving\Screenshots\ScreenshotCreatedException.cs" />
     <Compile Include="WebDriving\WebDriverAttribute.cs" />
     <Compile Include="WebDriving\WebDriverContainer.cs" />
     <Compile Include="WebDriving\WebDriverDrivenTest.cs" />
