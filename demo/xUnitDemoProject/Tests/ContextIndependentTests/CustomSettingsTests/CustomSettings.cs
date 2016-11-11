@@ -24,7 +24,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
         }
         public override void PostInitializeAction()
         {
-            ChromeDriverPath = "drivers";
+            ChromeDriverPath = "..\\drivers";
         }
     }
 }
