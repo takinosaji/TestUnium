@@ -41,7 +41,7 @@ try
         throw [System.IO.Exception] "Unsure if build passed or failed: $($buildResult.Message)" 
     }
 
-    Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Verbose -Prop Configuration=$BuildConfiguration"
+    Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Symbols -Verbose -Prop Configuration=$BuildConfiguration"
 
     Bump-Version -FilePath $VersionFilePath -Version $Version
 }
