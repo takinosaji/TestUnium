@@ -16,7 +16,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     [DefaultBrowser(Browser.Chrome)]
     [ForbiddenBrowsers(Browser.InternetExplorer)]
     [AppSettings(typeof(CustomSettings))]
-    public class CustomSettingsTestSuite : TestBase
+    public class CustomAppSettingsTestSuite : TestBase
     {
         /// <summary>
         /// You may define new field of your custom settings type.
