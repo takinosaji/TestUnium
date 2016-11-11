@@ -7,6 +7,9 @@ using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class StepDrivenTest : SessionDrivenTest, IStepExecutor, IStepModuleRegistrator
     {
         private readonly IStepModuleRegistrationStrategy _moduleRegistrationStrategy;
@@ -16,12 +19,9 @@ namespace TestUnium.Stepping
             Kernel.Bind<IStepExecutor>().ToConstant(this);
         }
 
-        public void RegisterStepModule<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule =>
+        public void RegisterStepModule<TStepModule>(Action<TStepModule> stepSetUpAction = null, Boolean makeReusable = false) where TStepModule : IStepModule =>
             _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, makeReusable, typeof(TStepModule));
        
-        public void RegisterStepModule<TStepModule>() where TStepModule : IStepModule =>
-            RegisterStepModule<TStepModule>(false);
-
         public void RegisterStepModules(params Type[] moduleTypes) =>
             _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, false, moduleTypes);
         
