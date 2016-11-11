@@ -26,7 +26,7 @@ namespace TestUnium.Selenium.WebDriving
                     Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of chromedriver.exe filepath.");
                     var settings = context.SettingsOfType<IWebSettings>();
                     var options = new ChromeOptions();
-                    //options.AddArgument("no-sandbox");
+                    options.AddArgument("no-sandbox");
                     context.Driver =
                         new ChromeDriver(ChromeDriverService.CreateDefaultService(settings.ChromeDriverPath), options);
                     break;
