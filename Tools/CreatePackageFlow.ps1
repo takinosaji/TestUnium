@@ -1,7 +1,4 @@
 param (
-    [parameter(Mandatory=$true, HelpMessage="Specify package version.")]
-    [ValidatePattern("^(\d+\.)?(\d+\.)?(\*|\d+)$")]
-	[string] $Version,	
 	[parameter(Mandatory=$true, HelpMessage="Specify path to target solution file.")]
 	[ValidateNotNullOrEmpty()]
 	[string] $SolutionFilePath,
@@ -16,11 +13,11 @@ param (
 	[string] $NuspecSourcePath,
 	[parameter(Mandatory=$true)]
 	[ValidateNotNullOrEmpty()]
-	[string] $VersionFilePath = "..\.version",
-    [switch] $NuGetPackageFromNuSpec,
-    [switch] $RebuildSolution,
-    [Parameter(Mandatory=$false)] 
-    [string] $BuildConfiguration = "Release"
+	[string] $BumpVersionFilePath = "..\.bumpversion",
+	[parameter(Mandatory=$true)]
+	[ValidateNotNullOrEmpty()]
+	[string] $VersionFilePath = "..\version.txt",
+    [switch] $RebuildSolution
 )
 $env:PsModulePath += ";$PsScriptRoot\Modules"
 
@@ -30,24 +27,31 @@ Import-Module Bump-Version -Verbose
 
 try
 {
+    $Version = Get-Content -Path $VersionFilePath
+    if(!($Version -match "^(\d+\.)?(\d+\.)?(\*|\d+)$"))
+    {
+        throw [System.Exception] "Invalid version number. Check your version.txt file." 
+    }
+
+    $BuildConfigurations = @("Release 4.6.1", "Release 4.6", "Release 4.5.2", "Release 4.5.1", "Release 4.5") 
     if($RebuildSolution)
     {   
-        Write-Host "Rebuilding project in $BuildConfiguration configuration."
-        Build-Solution -SolutionFilePath $SolutionFilePath -BuildConfiguration $BuildConfiguration
+        foreach ($conf in $BuildConfigurations)
+        {
+            Write-Host "Rebuilding project in $conf configuration."
+            Build-Solution -SolutionFilePath $SolutionFilePath -BuildConfiguration $conf
+        }
     }
 
     Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
-   
-    if($NuGetPackageFromNuSpec)
-    {
-        Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $NuspecDestinationPath -IncludeReferencedProjects -Symbols -Verbose"
+    if(Test-Path "Package"){
+        Remove-Item -Path "Package"
     }
-    else
-    {
-        Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Symbols -Verbose -Prop Configuration=`"$BuildConfiguration`""
-    }
+    New-Item -Path "Package" -Type directory
+    
+    & nuget pack $ProjectFilePath -Symbols -Verbose -outputdirectory Package -Prop Configuration=`"$($BuildConfigurations[0])`"
 
-    Bump-Version -FilePath $VersionFilePath -Version $Version
+    Bump-Version -FilePath $BumpVersionFilePath -Version $Version
 }
 catch [Exception]
 {
