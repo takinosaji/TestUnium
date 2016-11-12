@@ -55,6 +55,7 @@ try
 catch [Exception]
 {
     Write-Host $_.Exception.Message
+    throw $_
 }
 
 
