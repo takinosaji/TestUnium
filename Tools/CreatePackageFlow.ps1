@@ -16,7 +16,9 @@ param (
 	[parameter(Mandatory=$true)]
 	[ValidateNotNullOrEmpty()]
 	[string] $VersionFilePath = "..\version.txt",
-    [switch] $RebuildSolution
+    [switch] $RebuildSolution,
+    [parameter(Mandatory=$false)]
+    [string] $NuGetPackageOutputDirectory = "Package"
 )
 $env:PsModulePath += ";$PsScriptRoot\Modules"
 
@@ -43,14 +45,13 @@ try
     }
 
     Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
-    if(Test-Path "Package"){
-        Get-ChildItem -Path "Package" -Force -Recurse |
-          Sort-Object -Property FullName -Descending |
-            Remove-Item -Recurse -Force
+   
+    if(!(Test-Path $NuGetPackageOutputDirectory))
+    {
+        New-Item -Path $NuGetPackageOutputDirectory -Type directory
     }
-    New-Item -Path "Package" -Type directory
     
-    & nuget pack $ProjectFilePath -Symbols -Verbose -outputdirectory Package -Prop Configuration=`"$($BuildConfigurations[0])`"
+    & nuget pack $ProjectFilePath -Symbols -Verbose -outputdirectory $NuGetPackageOutputDirectory -Prop Configuration=`"$($BuildConfigurations[0])`"
 
     Bump-Version -FilePath $BumpVersionFilePath -Version $Version
 }
