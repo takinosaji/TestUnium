@@ -44,7 +44,9 @@ try
 
     Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
     if(Test-Path "Package"){
-        Remove-Item -Path "Package"
+        Get-ChildItem -Path $directory -Force -Recurse |
+          Sort-Object -Property FullName -Descending |
+            Remove-Item -Recurse -Force
     }
     New-Item -Path "Package" -Type directory
     
