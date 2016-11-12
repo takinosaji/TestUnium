@@ -1,6 +1,5 @@
 param (
-	[parameter(Mandatory=$true, HelpMessage="Specify path to target solution file.")]
-	[ValidateNotNullOrEmpty()]
+	[parameter(Mandatory=$false, HelpMessage="Specify path to target solution file.")]
 	[string] $SolutionFilePath,
 	[parameter(Mandatory=$true, HelpMessage="Specify path to target project file.")]
 	[ValidateNotNullOrEmpty()]
