@@ -1,9 +1,10 @@
 param (
-    [Parameter(Mandatory=$false)] 
-    [string] $BuildConfiguration = 'Release',
     [parameter(Mandatory=$true, HelpMessage="Specify package version.")]
-	[ValidateNotNullOrEmpty()]
+    [ValidatePattern("^(\d+\.)?(\d+\.)?(\*|\d+)$")]
 	[string] $Version,	
+	[parameter(Mandatory=$true, HelpMessage="Specify path to target solution file.")]
+	[ValidateNotNullOrEmpty()]
+	[string] $SolutionFilePath,
 	[parameter(Mandatory=$true, HelpMessage="Specify path to target project file.")]
 	[ValidateNotNullOrEmpty()]
 	[string] $ProjectFilePath,
@@ -13,9 +14,13 @@ param (
 	[parameter(Mandatory=$true, HelpMessage="Specify source path for nuspec file.")]
 	[ValidateNotNullOrEmpty()]
 	[string] $NuspecSourcePath,
-	[parameter(Mandatory=$false)]
+	[parameter(Mandatory=$true)]
 	[ValidateNotNullOrEmpty()]
-	[string] $VersionFilePath = "..\.version"
+	[string] $VersionFilePath = "..\.version",
+    [switch] $NuGetPackageFromNuSpec,
+    [switch] $RebuildSolution,
+    [Parameter(Mandatory=$false)] 
+    [string] $BuildConfiguration = "Release"
 )
 $env:PsModulePath += ";$PsScriptRoot\Modules"
 
@@ -25,23 +30,22 @@ Import-Module Bump-Version -Verbose
 
 try
 {
-    Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
-   
-    $buildResult = Invoke-MsBuild -Path "..\TestUnium.sln" -Verbose -Params "/target:Clean;Build /property:Configuration=Release"
-    if ($buildResult.BuildSucceeded -eq $true)
-    { 
-        Write-Host "Build completed successfully." 
-    }
-    ElseIf (!$buildResult.BuildSucceeded -eq $false)
-    { 
-        throw [System.IO.Exception] "Build failed. Check the build log file $($buildResult.BuildLogFilePath) for errors." 
-    }
-    ElseIf ($buildResult.BuildSucceeded -eq $null)
-    { 
-        throw [System.IO.Exception] "Unsure if build passed or failed: $($buildResult.Message)" 
+    if($RebuildSolution)
+    {   
+        Write-Host "Rebuilding project in $BuildConfiguration configuration."
+        Build-Solution -SolutionFilePath $SolutionFilePath -BuildConfiguration $BuildConfiguration
     }
 
-    Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Symbols -Verbose -Prop Configuration=$BuildConfiguration"
+    Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
+   
+    if($NuGetPackageFromNuSpec)
+    {
+        Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $NuspecDestinationPath -IncludeReferencedProjects -Symbols -Verbose"
+    }
+    else
+    {
+        Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Symbols -Verbose -Prop Configuration=`"$BuildConfiguration`""
+    }
 
     Bump-Version -FilePath $VersionFilePath -Version $Version
 }
