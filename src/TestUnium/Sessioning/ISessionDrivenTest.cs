@@ -11,4 +11,9 @@ namespace TestUnium.Sessioning
 
         IParameter GetCurrentSessionIdConstructorArg();
     }
+
+    public interface ISessionInvoker
+    {
+        ISession Session { get; }
+    }
 }

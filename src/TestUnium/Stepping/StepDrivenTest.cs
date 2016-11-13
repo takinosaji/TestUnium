@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Ninject;
 using TestUnium.Sessioning;
-using TestUnium.Stepping.Modules;
+using TestUnium.Stepping.Pipeline;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
@@ -12,27 +12,25 @@ namespace TestUnium.Stepping
     /// </summary>
     public class StepDrivenTest : SessionDrivenTest, IStepExecutor, IStepModuleRegistrator
     {
-        private readonly IStepModuleRegistrationStrategy _moduleRegistrationStrategy;
         public StepDrivenTest()
         {
-            _moduleRegistrationStrategy = Kernel.Get<IStepModuleRegistrationStrategy>();
             Kernel.Bind<IStepExecutor>().ToConstant(this);
         }
 
         public void RegisterStepModule<TStepModule>(Action<TStepModule> stepSetUpAction = null, Boolean makeReusable = false) where TStepModule : IStepModule =>
-            _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, makeReusable, typeof(TStepModule));
+            Kernel.Get<IStepModuleRegistrationStrategy>().RegisterStepModules(Kernel, String.Empty, makeReusable, typeof(TStepModule));
        
         public void RegisterStepModules(params Type[] moduleTypes) =>
-            _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, false, moduleTypes);
+            Kernel.Get<IStepModuleRegistrationStrategy>().RegisterStepModules(Kernel, String.Empty, false, moduleTypes);
         
         public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes) =>
-            _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, makeReusable, moduleTypes);
+            Kernel.Get<IStepModuleRegistrationStrategy>().RegisterStepModules(Kernel, String.Empty, makeReusable, moduleTypes);
       
         public void UnregisterStepModule<T>() where T : IStepModule =>
             UnregisterStepModules(typeof(T));
 
         public void UnregisterStepModules(params Type[] moduleTypes) =>
-            _moduleRegistrationStrategy.UnregisterStepModules(Kernel, moduleTypes);
+            Kernel.Get<IStepModuleRegistrationStrategy>().UnregisterStepModules(Kernel, moduleTypes);
         
         public void Do<TStep>(Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 

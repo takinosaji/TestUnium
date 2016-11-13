@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using StepModules;
 using Steps;
 using TestUnium.Global;
 using TestUnium.Selenium.WebDriving.Browsing;
@@ -15,7 +14,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     /// </summary>
     [DefaultBrowser(Browser.Chrome)]
     [ForbiddenBrowsers(Browser.InternetExplorer)]
-    [AppSettings(typeof(CustomSettings))]
+    [UseAppSettings(typeof(CustomSettings))]
     public class CustomAppSettingsTestSuite : TestBase
     {
         /// <summary>

@@ -1,14 +1,16 @@
 ﻿using Ninject;
 using Ninject.Parameters;
+using TestUnium.Customization;
+using TestUnium.Extensions.Ninject;
 using TestUnium.Internal;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
 using TestUnium.Stepping;
-using TestUnium.Stepping.Modules;
+using TestUnium.Stepping.Pipeline;
 
 namespace TestUnium.Core
 {
-    public class KernelDrivenTest : IKernelDrivenTest
+    public class KernelDrivenTest : CustomizationAttributeDrivenTest, IKernelDrivenTest
     {
         public IKernel Kernel { get; set; }
 
@@ -21,8 +23,8 @@ namespace TestUnium.Core
             Kernel = InjectionService.CreateKernel();
             Resolver.Instance.Kernel = Kernel;
 
+            Kernel.Bind<ICustomizationAttributeDrivenTest>().ToConstant(this);
             Kernel.Bind<IKernelDrivenTest>().ToConstant(this);
-            Kernel.Bind<IStepModuleRegistrationStrategy>().To<BasicStepModuleRegistrationStrategy>();
         }
 
         public IParameter GetKernelConstructorArg()

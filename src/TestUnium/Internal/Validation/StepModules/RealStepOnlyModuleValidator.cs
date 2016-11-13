@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using TestUnium.Stepping.Modules.Conditions;
+using TestUnium.Stepping.Pipeline.Conditions;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Internal.Validation.StepModules

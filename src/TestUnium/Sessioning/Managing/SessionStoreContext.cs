@@ -1,4 +1,5 @@
 ﻿using System;
+using TestUnium.Extensions.Ninject;
 
 namespace TestUnium.Sessioning.Managing
 {

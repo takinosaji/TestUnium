@@ -2,7 +2,7 @@
 using TestUnium.Selenium.WebDriving;
 using TestUnium.Selenium.WebDriving.Screenshots;
 using TestUnium.Stepping;
-using TestUnium.Stepping.Modules;
+using TestUnium.Stepping.Pipeline;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium.Stepping.Modules

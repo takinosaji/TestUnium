@@ -1,6 +1,5 @@
 ﻿using Ninject.Modules;
 using TestUnium.Internal.Validation.StepModules;
-using TestUnium.Stepping.Modules.Conditions;
 
 namespace TestUnium.Internal.Bootstrapping.Modules
 {

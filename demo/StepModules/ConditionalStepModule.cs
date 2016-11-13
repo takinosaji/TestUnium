@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using StepModules.Conditions;
 using Steps;
 using TestUnium.Stepping;
-using TestUnium.Stepping.Modules;
-using TestUnium.Stepping.Modules.Conditions;
+using TestUnium.Stepping.Pipeline;
+using TestUnium.Stepping.Pipeline.Conditions;
 using TestUnium.Stepping.Steps;
 
 namespace StepModules

@@ -3,6 +3,7 @@
     public enum CustomizationAttributePriorities
     {
         StepRunner = 1,
+        StepModuleRegistrationStrategy = 2,
         Session = 1,
         SessionContext = 2,
         NoSettings = 1,

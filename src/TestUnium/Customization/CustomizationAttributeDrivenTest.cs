@@ -10,7 +10,7 @@ using TestUnium.Internal.Services;
 
 namespace TestUnium.Customization
 {
-    public class CustomizationAttributeDrivenTest : KernelDrivenTest, ICustomizationAttributeDrivenTest
+    public class CustomizationAttributeDrivenTest : ICustomizationAttributeDrivenTest
     {
         //Improve algorithm of avoiding initialization of customization attributes second and next times.
         private readonly List<Type> _invokedAttributes;
@@ -22,7 +22,6 @@ namespace TestUnium.Customization
         {
             _hiddenAttributes = new List<Type>();
             _invokedAttributes = new List<Type>();
-            Kernel.Bind<ICustomizationAttributeDrivenTest>().ToConstant(this);
 
             ReflectionService = Container.Instance.Kernel.Get<IReflectionService>();
         }

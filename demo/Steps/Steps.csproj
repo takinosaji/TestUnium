@@ -82,7 +82,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StepWIthPrescribedModules.cs" />
     <Compile Include="GoToUrlStep.cs" />
+    <Compile Include="Modules\ConditionalStepModule.cs" />
+    <Compile Include="Modules\Conditions\AlwaysFalseStepChecker.cs" />
+    <Compile Include="Modules\Conditions\AlwaysTrueStepChecker.cs" />
+    <Compile Include="Modules\ReusableCounterModule.cs" />
+    <Compile Include="Modules\ThrowsExceptionModule.cs" />
+    <Compile Include="Modules\UreusableSessionStepModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

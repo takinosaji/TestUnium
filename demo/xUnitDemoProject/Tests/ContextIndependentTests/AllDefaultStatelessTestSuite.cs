@@ -1,6 +1,6 @@
 ﻿using PageObjects;
-using StepModules;
 using Steps;
+using Steps.Modules;
 using TestUnium.Selenium.Extensions;
 using TestUnium.Selenium.Stepping.Modules;
 using Xunit;
@@ -36,7 +36,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
                 {
                     Driver.Navigate().GoToUrl("http://github.com");
                     var gitHubPage = Driver.GetPage<GitHubMainPage>();
-                    if(!gitHubPage.IsLoaded) gitHubPage.Load(); //in case if our GitHubMainPage is lazy.
+                    if (!gitHubPage.IsLoaded) gitHubPage.Load(); //in case if our GitHubMainPage is lazy.
                     var stickyButton = gitHubPage.StickySignUpBtn();
                     stickyButton.Click();
                     Driver.Navigate().GoToUrl("http://github.com");

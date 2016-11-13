@@ -1,5 +1,7 @@
 ﻿using System;
 using Ninject;
+using TestUnium.Core;
+using TestUnium.Extensions.Ninject;
 
 namespace TestUnium.Internal.Services
 {

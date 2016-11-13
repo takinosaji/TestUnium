@@ -12,7 +12,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     /// </summary>
     [DefaultBrowser(Browser.Chrome)]
     [ForbiddenBrowsers(Browser.InternetExplorer)]
-    [JsonSettings(typeof(CustomSettings))]
+    [UseJsonSettings(typeof(CustomSettings))]
     public class CustomJsonSettingsTestSuite : TestBase
     {
         /// <summary>

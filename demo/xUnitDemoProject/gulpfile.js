@@ -13,7 +13,7 @@ var dest = ["./bin/Debug/net461/drivers",
 
 gulp.task('default', function () {
     for (var i = 0; i < dest.length; i++) {
-        gulp.src(['../drivers/chromedriver.exe', '../drivers/IEDriverServer.exe'], { base: src })
+        gulp.src(['../drivers/**'], { base: src })
             .pipe(gnewer(dest[i]))
             .pipe(gulp.dest(dest[i]));
     }

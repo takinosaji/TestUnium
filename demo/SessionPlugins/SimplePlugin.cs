@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
 using TestUnium.Sessioning;
+using TestUnium.Sessioning.Pipeline;
 
-namespace SessionContexts
+namespace SessionPlugins
 {
     public class SimplePlugin : ISessionPlugin
     {
