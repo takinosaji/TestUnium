@@ -22,7 +22,7 @@ namespace TestUnium.Selenium.Stepping
 
         protected WebDriverDrivenStepCore()
         {
-            _makeScreenshotStrategy = Container.Instance.Kernel.Get<IMakeScreenshotStrategy>();
+            _makeScreenshotStrategy = Container.Instance.Current.Get<IMakeScreenshotStrategy>();
         }
 
         public String MakeScreenshot([CallerMemberName] String callingMethodName = "")

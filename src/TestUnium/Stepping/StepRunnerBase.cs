@@ -33,8 +33,8 @@ namespace TestUnium.Stepping
                 ? kernel.GetAll<IStepModule>()
                 : kernel.GetAll<IStepModule>(sessionId);
 
-            _moduleValidators = Container.Instance.Kernel.GetAll<IStepModuleValidator>();
-            _stepValidators = Container.Instance.Kernel.GetAll<IStepValidator>();
+            _moduleValidators = Container.Instance.Current.GetAll<IStepModuleValidator>();
+            _stepValidators = Container.Instance.Current.GetAll<IStepValidator>();
         }
 
         private List<IStepModule> GetValidatedModulesForStep(IStep step)

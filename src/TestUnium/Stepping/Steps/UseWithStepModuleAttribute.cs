@@ -1,7 +1,7 @@
 ﻿using System;
 using TestUnium.Stepping.Pipeline;
 
-namespace TestUnium.Stepping
+namespace TestUnium.Stepping.Steps
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class UseWithStepModuleAttribute : Attribute

@@ -5,6 +5,7 @@ namespace TestUnium.Settings
     [Serializable]
     public class SettingsBase : ISettings
     {
+        public ISettingsContext Context { get; set; }
         public String LogSystemPath { get; set; }
         public String LogUrlPath { get; set; }
         public Int32 LogFolderCapacity { get; set; }

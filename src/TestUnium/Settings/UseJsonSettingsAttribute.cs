@@ -19,15 +19,18 @@ namespace TestUnium.Settings
         public UseJsonSettingsAttribute(Type settingsType, bool loadFromFile = true, bool createFileIfNotExist = true)
             : base(settingsType)
         {
-            _shellService = Container.Instance.Kernel.Get<IShellService>();
+            _shellService = Container.Instance.Current.Get<IShellService>();
 
             LoadFromFile = loadFromFile;
             CreateFileIfNotExist = createFileIfNotExist;
         }
 
-        public override void Customize(SettingsDrivenTest context)
+        public override void Customize(ISettingsDrivenTest context)
         {
             context.Settings = (ISettings)Activator.CreateInstance(SettingsType);
+
+            Settings = context.Settings;
+            Settings.Context = context;
 
             var settingsFilePath = _shellService.TryGetArg(CommandLineArgsConstants.SettingsCmdArg, "settings.json");
 
@@ -48,8 +51,6 @@ namespace TestUnium.Settings
                         JsonConvert.SerializeObject(context.Settings, Formatting.Indented));
                 }
             }
-
-            Settings = context.Settings;
         }
     }
 }

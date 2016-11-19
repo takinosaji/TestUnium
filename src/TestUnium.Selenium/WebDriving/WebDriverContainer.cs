@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace TestUnium.Selenium.WebDriving
 {
-    public class WebDriverContainer
+    public class WebDriverContainer : IWebDriverContext
     {
         [Inject] public IWebDriver Driver { get; set; }
 

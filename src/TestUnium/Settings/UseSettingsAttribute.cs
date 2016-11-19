@@ -2,13 +2,13 @@
 
 namespace TestUnium.Settings
 {
-    public abstract class UseSettingsAttribute : CustomizationAttribute, ICustomizer<SettingsDrivenTest>
+    public abstract class UseSettingsAttribute : CustomizationAttribute, ICustomizer<ISettingsDrivenTest>
     {
         protected UseSettingsAttribute() : base(new[]
         {
             typeof(NoSettingsAttribute)
         }) { }
 
-        public abstract void Customize(SettingsDrivenTest context);
+        public abstract void Customize(ISettingsDrivenTest context);
     }
 }

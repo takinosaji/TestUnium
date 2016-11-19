@@ -10,7 +10,7 @@ namespace TestUnium.Stepping
     /// <summary>
     /// 
     /// </summary>
-    public class StepDrivenTest : SessionDrivenTest, IStepExecutor, IStepModuleRegistrator
+    public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
     {
         public StepDrivenTest()
         {

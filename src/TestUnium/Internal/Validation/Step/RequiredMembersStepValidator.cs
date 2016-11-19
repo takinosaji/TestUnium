@@ -16,7 +16,7 @@ namespace TestUnium.Internal.Validation.Step
 
         public RequiredMembersStepValidator()
         {
-            _reflectionService = Container.Instance.Kernel.Get<IReflectionService>();
+            _reflectionService = Container.Instance.Current.Get<IReflectionService>();
         }
 
         public IValidationResult Validate(IStep step)

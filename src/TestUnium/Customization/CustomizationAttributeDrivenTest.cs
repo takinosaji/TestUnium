@@ -23,21 +23,23 @@ namespace TestUnium.Customization
             _hiddenAttributes = new List<Type>();
             _invokedAttributes = new List<Type>();
 
-            ReflectionService = Container.Instance.Kernel.Get<IReflectionService>();
+            ReflectionService = Container.Instance.Current.Get<IReflectionService>();
         }
 
         /// <summary>
         /// Use this method in each derived class which contains members that could
         /// be configured via customization attributes.
         /// </summary>
-        public void ApplyCustomization()
+        public void ApplyCustomization(Type targetType = null)
         {
-            var frame = new StackFrame(1);
-            var callingMethod = frame.GetMethod();
-            var targetType = callingMethod.DeclaringType ?? GetType();
+            if (targetType == null)
+            {
+                targetType = GetType();
+            }
+
             var attributeList = new List<CustomizationAttribute>(GetType().GetCustomAttributes<CustomizationAttribute>()
                 .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizer<>)))
-                    .Where(a => targetType == a.GetCustomizationTargetType() || targetType.IsSubclassOf(a.GetCustomizationTargetType())));
+                    .Where(a => a.GetCustomizationTargetType().IsAssignableFrom(targetType)));
             attributeList.Sort((f, s) => f.CompareTo(s));
             attributeList = ApplyTheOnlyPolicy(attributeList);
             attributeList.ForEach(a =>

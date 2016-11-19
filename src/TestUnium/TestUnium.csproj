@@ -354,7 +354,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotating\NameAttribute.cs" />
-    <Compile Include="Core\UseKernel.cs" />
+    <Compile Include="Core\Configuration\IKernelConfigurer.cs" />
+    <Compile Include="Core\Configuration\StandardKernelConfigurer.cs" />
+    <Compile Include="Core\ConfigureKernelAttribute.cs" />
     <Compile Include="Extensions\Ninject\IScope.cs" />
     <Compile Include="Extensions\Ninject\Scope.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
@@ -396,8 +398,10 @@
     <Compile Include="Customization\VisibilityAttribute.cs" />
     <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Sessioning\Managing\SessionStoreContext.cs" />
+    <Compile Include="Settings\ISettingsContext.cs" />
     <Compile Include="Settings\UseAppSettingsAttribute.cs" />
     <Compile Include="Settings\UseSettingsAttribute.cs" />
+    <Compile Include="Stepping\IStepDrivenTest.cs" />
     <Compile Include="Stepping\Pipeline\Conditions\ExcludedStepAttribute.cs" />
     <Compile Include="Stepping\Pipeline\Conditions\IStepChecker.cs" />
     <Compile Include="IChecker.cs" />
@@ -409,20 +413,19 @@
     <Compile Include="Stepping\Pipeline\Conditions\StepConditionsAttribute.cs" />
     <Compile Include="Stepping\Pipeline\Conditions\TargetStepAttribute.cs" />
     <Compile Include="Stepping\Pipeline\UseStepModulesRegistrationStrategyAttribute.cs" />
-    <Compile Include="Stepping\UseWithStepModuleAttribute.cs" />
+    <Compile Include="Stepping\Steps\UseWithStepModuleAttribute.cs" />
     <Compile Include="Stepping\StepExceptionHandlingMode.cs" />
     <Compile Include="Stepping\StepSetUpException.cs" />
     <Compile Include="Stepping\Steps\Core\ExecutableStep.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStepCore.cs" />
     <Compile Include="Stepping\Steps\Kernel\KernelDrivenStep.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStep.cs" />
-    <Compile Include="Stepping\Steps\UseStepRunnerAttribute.cs" />
+    <Compile Include="Stepping\UseStepRunnerAttribute.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStepCore.cs" />
     <Compile Include="Customization\CustomizationAttribute.cs" />
     <Compile Include="Customization\CustomizationAttributeFamily.cs" />
     <Compile Include="Customization\ICancellable.cs" />
     <Compile Include="Customization\ICustomizer.cs" />
-    <Compile Include="Customization\ICustomizationSource.cs" />
     <Compile Include="Customization\ICustomizationTarget.cs" />
     <Compile Include="IncorrectInheritanceException.cs" />
     <Compile Include="Customization\Prioritizing\AbsentPriorityException.cs" />

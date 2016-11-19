@@ -103,6 +103,10 @@ namespace TestUnium.Customization
             return Priority == 0 ? Move.ToTheEnd.GetValue() : other.Priority == 0 ? Move.ToTheHead.GetValue() : Priority - other.Priority;
         }
 
+        /// <summary>
+        /// Use this method to place any logic which should not be overriden by derived classes.
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void PostCustomize(Object context) { }
 
         public Type GetCustomizationTargetType()

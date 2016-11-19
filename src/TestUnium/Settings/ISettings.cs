@@ -4,6 +4,7 @@ namespace TestUnium.Settings
 {
     public interface ISettings
     {
+        ISettingsContext Context { get; set; }
         String LogSystemPath { get; set; }
         String LogUrlPath { get; set; }
         Int32 LogFolderCapacity { get; set; }

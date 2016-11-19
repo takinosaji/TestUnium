@@ -26,16 +26,18 @@ namespace TestUnium.Settings
             if (!typeof(ISettings).IsAssignableFrom(settingsType))
                 throw new IncorrectInheritanceException(new[] { settingsType.Name }, new[] { nameof(SettingsBase) });
 
-            _reflectionService = Container.Instance.Kernel.Get<IReflectionService>();
+            _reflectionService = Container.Instance.Current.Get<IReflectionService>();
 
             SettingsType = settingsType;
         }
 
 
-        public override void Customize(SettingsDrivenTest context)
+        public override void Customize(ISettingsDrivenTest context)
         {
-            context.Settings = (ISettings)Activator.CreateInstance(SettingsType);        
+            context.Settings = (ISettings)Activator.CreateInstance(SettingsType);
+
             Settings = context.Settings;
+            Settings.Context = context;
 
             foreach (var property in _reflectionService.GetAllProperties(SettingsType, BindingFlags.Public | BindingFlags.Instance))
             {

@@ -18,7 +18,7 @@ using TestUnium.Settings;
 
 namespace TestUnium.Selenium.WebDriving
 {
-    public class WebDriverDrivenTest : SettingsDrivenTest, IWebDriverDrivenTest, IScreenshotMaker
+    public class WebDriverDrivenTest : SettingsDrivenTest, IWebDriverDrivenTest
     {
         private readonly IMakeScreenshotStrategy _makeScreenshotStrategy;
 
@@ -32,7 +32,7 @@ namespace TestUnium.Selenium.WebDriving
         // This is very ugly. Need to think how to move this out.
         static WebDriverDrivenTest()
         {
-            Container.Instance.Kernel.Load(Assembly.GetExecutingAssembly());
+            Container.Instance.Current.Load(Assembly.GetExecutingAssembly());
         }
 //#endif
 
@@ -48,7 +48,7 @@ namespace TestUnium.Selenium.WebDriving
                 kernel.Bind<IWait<IWebDriver>>().ToMethod(ctx => MediumWait);
                 kernel.Bind<IWait<IWebDriver>>().ToMethod(ctx => LongWait);
             }, Kernel);
-            _makeScreenshotStrategy = Container.Instance.Kernel.Get<IMakeScreenshotStrategy>();
+            _makeScreenshotStrategy = Container.Instance.Current.Get<IMakeScreenshotStrategy>();
         }
 
         public void ShutDownWebDriver()

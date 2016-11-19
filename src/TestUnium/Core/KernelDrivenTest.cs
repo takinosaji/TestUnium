@@ -18,9 +18,14 @@ namespace TestUnium.Core
 
         protected KernelDrivenTest()
         {
-            InjectionService = Container.Instance.Kernel.Get<IInjectionService>();
+            ApplyCustomization(typeof(KernelDrivenTest));
 
-            Kernel = InjectionService.CreateKernel();
+            InjectionService = Container.Instance.Current.Get<IInjectionService>();
+
+            if (Kernel == null)
+            {
+                Kernel = InjectionService.CreateKernel();
+            }
             Resolver.Instance.Kernel = Kernel;
 
             Kernel.Bind<ICustomizationAttributeDrivenTest>().ToConstant(this);

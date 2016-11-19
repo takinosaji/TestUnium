@@ -363,9 +363,11 @@
     <Compile Include="WebDriving\Browsing\DefaultBrowserAttribute.cs" />
     <Compile Include="WebDriving\Browsing\DetectBrowserAttribute.cs" />
     <Compile Include="WebDriving\Browsing\ForbiddenBrowsersAttribute.cs" />
+    <Compile Include="WebDriving\Browsing\IBrowserContext.cs" />
     <Compile Include="WebDriving\Browsing\InternetExplorer.cs" />
     <Compile Include="WebDriving\Browsing\NoAllowedBrowsersException.cs" />
     <Compile Include="Extensions\SeleniumExtensions.cs" />
+    <Compile Include="WebDriving\IWebDriverContext.cs" />
     <Compile Include="WebDriving\Screenshots\DefaultMakeScreenshotStrategy.cs" />
     <Compile Include="WebDriving\Screenshots\IMakeScreenshotStrategy.cs" />
     <Compile Include="WebDriving\IScreenshotMaker.cs" />
