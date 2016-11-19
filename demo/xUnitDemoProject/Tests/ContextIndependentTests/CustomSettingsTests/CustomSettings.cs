@@ -12,7 +12,6 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     {
         public Int32 SinsCount { get; set; }
         public Boolean ToBeOrNotToBe { get; set; }
-        public Browser Browser { get; set; }
         public String GitHubRepoSegment { get; set; }
         /// <summary>
         /// Instantiating new settings entities. This instantiation code may appear useless 
