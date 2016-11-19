@@ -386,7 +386,6 @@
     <Compile Include="Internal\Domain\Singleton.cs" />
     <Compile Include="Internal\Domain\CommandLineArgsConstants.cs" />
     <Compile Include="Internal\Services\Implementations\NinjectionService.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\Ninject\NinjectExtensions.cs" />
     <Compile Include="Core\IKernelDrivenTest.cs" />
     <Compile Include="Core\KernelDrivenTest.cs" />
@@ -395,6 +394,7 @@
     <Compile Include="Customization\VisibilityAttribute.cs" />
     <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Sessioning\Managing\SessionStoreContext.cs" />
+    <Compile Include="Sessioning\UseSessionAttribute.cs" />
     <Compile Include="Settings\ISettingsContext.cs" />
     <Compile Include="Settings\UseAppSettingsAttribute.cs" />
     <Compile Include="Settings\UseSettingsAttribute.cs" />
@@ -438,7 +438,7 @@
     <Compile Include="Sessioning\SessionDrivenTest.cs" />
     <Compile Include="Sessioning\SessionBase.cs" />
     <Compile Include="Sessioning\Pipeline\ISessionPlugin.cs" />
-    <Compile Include="Sessioning\SessionAttribute.cs" />
+    <Compile Include="Sessioning\UseSessionWithContextAttribute.cs" />
     <Compile Include="Settings\ISettingsDrivenTest.cs" />
     <Compile Include="Stepping\IStepExecutor.cs" />
     <Compile Include="Stepping\IStepRunner.cs" />

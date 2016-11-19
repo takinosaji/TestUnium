@@ -1,19 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
 
 namespace TestUnium.Sessioning
 {
     [TheOnly]
+    [CancelIfApplied(typeof(UseSessionWithContextAttribute))]
     [Priority((UInt16)CustomizationAttributePriorities.SessionContext)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class UseSessionContextAttribute : SessionAttribute
+    public class UseSessionContextAttribute : CustomizationAttribute, ICustomizer<ISessionDrivenTest>
     {
-        public UseSessionContextAttribute(Type sessionContextType) : base(typeof(SessionBase), sessionContextType) { }  
+        protected readonly Type SessionContextType;
 
-        public override void Customize(SessionDrivenTest context)
+        public UseSessionContextAttribute(Type sessionContextType)
         {
-            context.Kernel.Bind<ISession>().To<SessionBase>(); 
+            if (!typeof(ISessionContext).IsAssignableFrom(sessionContextType))
+                throw new IncorrectInheritanceException(new List<String> { sessionContextType.Name },
+                    new List<String> { nameof(ISessionContext) });
+            SessionContextType = sessionContextType;
+        }
+
+        public void Customize(ISessionDrivenTest context)
+        {
             context.Kernel.Bind<ISessionContext>().To(SessionContextType); 
         }
     }

@@ -6,14 +6,14 @@ using TestUnium.Customization.Prioritizing;
 namespace TestUnium.Sessioning
 {
     [TheOnly]
-    [Priority((UInt16)CustomizationAttributePriorities.Session)]
+    [Priority((UInt16)CustomizationAttributePriorities.SessionWithContext)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class SessionAttribute : CustomizationAttribute, ICustomizer<SessionDrivenTest>
+    public class UseSessionWithContextAttribute : CustomizationAttribute, ICustomizer<SessionDrivenTest>
     {
         protected readonly Type SessionType;
         protected readonly Type SessionContextType;
 
-        public SessionAttribute(Type sessionType, Type sessionContextType)
+        public UseSessionWithContextAttribute(Type sessionType, Type sessionContextType)
         {
             if (!typeof(ISession).IsAssignableFrom(sessionType) || !typeof(ISessionContext).IsAssignableFrom(sessionContextType))
                 throw new IncorrectInheritanceException(new List<String> { sessionType.Name, sessionContextType.Name },

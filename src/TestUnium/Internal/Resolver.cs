@@ -26,7 +26,7 @@ namespace TestUnium.Internal
 
         private Resolver()
         {
-            _injectionService = Bootstrapping.Container.Instance.Current.Get<IInjectionService>();
+            _injectionService = Container.Instance.Current.Get<IInjectionService>();
             _kernels = new ConcurrentDictionary<Int32, IKernel>();
         }
     }

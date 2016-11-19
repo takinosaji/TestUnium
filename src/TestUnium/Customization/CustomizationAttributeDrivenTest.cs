@@ -13,15 +13,15 @@ namespace TestUnium.Customization
     public class CustomizationAttributeDrivenTest : ICustomizationAttributeDrivenTest
     {
         //Improve algorithm of avoiding initialization of customization attributes second and next times.
-        private readonly List<Type> _invokedAttributes;
-        private readonly List<Type> _hiddenAttributes;
+        private readonly List<Type> _invokedVisibleAttributes;
+        private readonly List<Type> _invokedHiddenAttributes;
 
         protected readonly IReflectionService ReflectionService;
 
         protected CustomizationAttributeDrivenTest()
         {
-            _hiddenAttributes = new List<Type>();
-            _invokedAttributes = new List<Type>();
+            _invokedHiddenAttributes = new List<Type>();
+            _invokedVisibleAttributes = new List<Type>();
 
             ReflectionService = Container.Instance.Current.Get<IReflectionService>();
         }
@@ -39,23 +39,24 @@ namespace TestUnium.Customization
 
             var attributeList = new List<CustomizationAttribute>(GetType().GetCustomAttributes<CustomizationAttribute>()
                 .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizer<>)))
-                    .Where(a => a.GetCustomizationTargetType().IsAssignableFrom(targetType)));
+                .Where(a => a.GetCustomizationTargetType().IsAssignableFrom(targetType))
+                .Where(a => _invokedVisibleAttributes.All(i => i != a.GetType()) && _invokedHiddenAttributes.All(i => i != a.GetType())));
+            if(attributeList.Count == 0) return;
+
             attributeList.Sort((f, s) => f.CompareTo(s));
             attributeList = ApplyTheOnlyPolicy(attributeList);
             attributeList.ForEach(a =>
             {
-                if (_invokedAttributes.Any(i => i == a.GetType()) ||
-                    _hiddenAttributes.Any(i => i == a.GetType())) return;
-                if (a.HasToBeCanceled(_invokedAttributes)) return;
+                if (a.HasToBeCanceled(_invokedVisibleAttributes)) return;
                 ReflectionService.InvokeMethod(a, "Customize", this);
                 ReflectionService.InvokeMethod(a, "PostCustomize", this);
                 var visibilityAttr = a.GetType().GetCustomAttribute<VisibilityAttribute>();
                 if (visibilityAttr == null || visibilityAttr.Visible || a.Visible)
                 {
-                    _invokedAttributes.Add(a.GetType());
+                    _invokedVisibleAttributes.Add(a.GetType());
                     return;
                 }
-                _hiddenAttributes.Add(a.GetType());
+                _invokedHiddenAttributes.Add(a.GetType());
             });
         }
 
@@ -76,6 +77,6 @@ namespace TestUnium.Customization
             return attributeList;
         }
 
-        public List<Type> GetAppliedCustomizations() => _hiddenAttributes; 
+        public List<Type> GetAppliedCustomizations() => _invokedHiddenAttributes; 
     }
 }

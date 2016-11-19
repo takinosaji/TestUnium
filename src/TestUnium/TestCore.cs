@@ -9,8 +9,7 @@ using TestUnium.Stepping.Steps;
 
 namespace TestUnium
 {
-    [ConfigureKernel(typeof(StandardKernelConfigurer))]
-    [UseSessionContext(typeof(ContextBase))]
+    [UseSessionWithContext(typeof(SessionBase), typeof(ContextBase))]
     [UseStepRunner(typeof(StepRunnerBase))]
     [UseStepModulesRegistrationStrategy(typeof(BasicStepModuleRegistrationStrategy))]
     [UseAppSettings(typeof(SettingsBase))]
