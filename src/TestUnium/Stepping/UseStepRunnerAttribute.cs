@@ -8,7 +8,7 @@ namespace TestUnium.Stepping
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.StepRunner)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class UseStepRunnerAttribute : CustomizationAttribute, ICustomizer<StepDrivenTest>
+    public class UseStepRunnerAttribute : CustomizationAttribute, ICustomizer<IStepDrivenTest>
     {
         private readonly Type _stepRunnerType;
 
@@ -20,7 +20,7 @@ namespace TestUnium.Stepping
             _stepRunnerType = stepRunnerType;
         }
 
-        public void Customize(StepDrivenTest context)
+        public void Customize(IStepDrivenTest context)
         {
             context.Kernel.Bind<IStepRunner>().To(_stepRunnerType);
         }

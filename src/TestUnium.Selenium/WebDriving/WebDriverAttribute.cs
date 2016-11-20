@@ -13,9 +13,9 @@ namespace TestUnium.Selenium.WebDriving
 {
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.DefaultWebDriver)]
-    public class WebDriverAttribute : CustomizationAttribute, ICustomizer<WebDriverDrivenTest>
+    public class WebDriverAttribute : CustomizationAttribute, ICustomizer<IWebDriverDrivenTest>
     {
-        public virtual void Customize(WebDriverDrivenTest context)
+        public virtual void Customize(IWebDriverDrivenTest context)
         {
             switch (context.Browser)
             {

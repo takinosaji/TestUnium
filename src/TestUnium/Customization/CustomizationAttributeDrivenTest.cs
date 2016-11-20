@@ -43,6 +43,7 @@ namespace TestUnium.Customization
                 .Where(a => _invokedVisibleAttributes.All(i => i != a.GetType()) && _invokedHiddenAttributes.All(i => i != a.GetType())));
             if(attributeList.Count == 0) return;
 
+            attributeList.Reverse();
             attributeList.Sort((f, s) => f.CompareTo(s));
             attributeList = ApplyTheOnlyPolicy(attributeList);
             attributeList.ForEach(a =>

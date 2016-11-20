@@ -7,7 +7,7 @@ namespace TestUnium.Selenium.WebDriving.Browsing
 {
     [Priority((UInt16)CustomizationAttributePriorities.AllowedBrowsers)]
     [AttributeUsage(AttributeTargets.Class)]
-    class AllowedBrowsersAttribute : CustomizationAttribute, ICustomizer<WebDriverDrivenTest>
+    class AllowedBrowsersAttribute : CustomizationAttribute, ICustomizer<IWebDriverDrivenTest>
     {
     private readonly Browser[] _browsers;
         public AllowedBrowsersAttribute(params Browser[] browsers)
@@ -15,7 +15,7 @@ namespace TestUnium.Selenium.WebDriving.Browsing
             _browsers = browsers;
         }
 
-        public void Customize(WebDriverDrivenTest context)
+        public void Customize(IWebDriverDrivenTest context)
         {
             if (_browsers.Length == 0) throw new NoAllowedBrowsersException();
             if (!_browsers.Any(b => b == context.Browser)) throw new BrowserNotAllowedException(context.Browser);

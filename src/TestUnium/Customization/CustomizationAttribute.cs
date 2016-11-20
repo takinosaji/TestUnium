@@ -5,6 +5,7 @@ using System.Reflection;
 using TestUnium.Customization.Prioritizing;
 using TestUnium.Extensions;
 using TestUnium.Internal.Domain;
+using TestUnium.Settings;
 
 namespace TestUnium.Customization
 {
@@ -41,7 +42,6 @@ namespace TestUnium.Customization
             Visible = true;
             InitializeCancellationCollection(cancellationCollection);
             InitializePriority(priority);
-
         }
 
         private void InitializeCancellationCollection(IEnumerable<Type> cancellationCollection)
@@ -103,8 +103,8 @@ namespace TestUnium.Customization
             }
             if (mineType != othersType)
             {
-                if (mineType.IsAssignableFrom(othersType)) return 1;
-                if (othersType.IsAssignableFrom(mineType)) return -1;
+                if (mineType.IsAssignableFrom(othersType)) return -1;
+                if (othersType.IsAssignableFrom(mineType)) return 1;
             }
             if (Priority == 0 && other.Priority != 0) return 1;
             if (Priority != 0 && other.Priority == 0) return -1;

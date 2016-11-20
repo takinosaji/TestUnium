@@ -9,7 +9,7 @@ namespace TestUnium.Stepping.Pipeline
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.StepModuleRegistrationStrategy)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class UseStepModulesRegistrationStrategyAttribute : CustomizationAttribute, ICustomizer<StepDrivenTest>
+    public class UseStepModulesRegistrationStrategyAttribute : CustomizationAttribute, ICustomizer<IStepDrivenTest>
     {
         protected readonly Type StepModuleRegistrationStrategyType;
 
@@ -21,7 +21,7 @@ namespace TestUnium.Stepping.Pipeline
             StepModuleRegistrationStrategyType = stepModuleRegistrationStrategyType;
         }  
 
-        public virtual void Customize(StepDrivenTest context)
+        public virtual void Customize(IStepDrivenTest context)
         {
             context.Kernel.Bind<IStepModuleRegistrationStrategy>().To(StepModuleRegistrationStrategyType);
         }

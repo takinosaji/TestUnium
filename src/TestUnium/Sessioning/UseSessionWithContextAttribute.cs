@@ -8,7 +8,7 @@ namespace TestUnium.Sessioning
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.SessionWithContext)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class UseSessionWithContextAttribute : CustomizationAttribute, ICustomizer<SessionDrivenTest>
+    public class UseSessionWithContextAttribute : CustomizationAttribute, ICustomizer<ISessionDrivenTest>
     {
         protected readonly Type SessionType;
         protected readonly Type SessionContextType;
@@ -22,7 +22,7 @@ namespace TestUnium.Sessioning
             SessionContextType = sessionContextType;
         }  
 
-        public virtual void Customize(SessionDrivenTest context)
+        public virtual void Customize(ISessionDrivenTest context)
         {
             context.Kernel.Bind<ISession>().To(SessionType); 
             context.Kernel.Bind<ISessionContext>().To(SessionContextType); 
