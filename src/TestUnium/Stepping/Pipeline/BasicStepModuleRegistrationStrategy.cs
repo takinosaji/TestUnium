@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Ninject;
-using Ninject.Activation;
-using Ninject.Activation.Caching;
-using Ninject.Parameters;
-using Ninject.Planning;
-using Ninject.Planning.Bindings;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 
 namespace TestUnium.Stepping.Pipeline
 {
     public class BasicStepModuleRegistrationStrategy : IStepModuleRegistrationStrategy
     {
-        public void RegisterStepModule<TStepModule>(IKernel kernel, String context, Boolean makeReusable = false) where TStepModule : IStepModule
+        public void RegisterStepModule<TStepModule>(IWindsorContainer container, String context, Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            RegisterStepModules(kernel, context, makeReusable, typeof(TStepModule));
+            RegisterStepModules(container, context, makeReusable, typeof(TStepModule));
         }
 
-        public void RegisterStepModules(IKernel kernel, String context, params Type[] moduleTypes)
+        public void RegisterStepModules(IWindsorContainer container, String context, params Type[] moduleTypes)
         {
-          RegisterStepModules(kernel, context, false, moduleTypes);
+          RegisterStepModules(container, context, false, moduleTypes);
         }
 
-        public void RegisterStepModules(IKernel kernel, String context, Boolean makeReusable, params Type[] moduleTypes)
+        public void RegisterStepModules(IWindsorContainer container, String context, Boolean makeReusable, params Type[] moduleTypes)
         {
             foreach (var moduleType in moduleTypes)
             {
@@ -30,46 +26,45 @@ namespace TestUnium.Stepping.Pipeline
                     throw new IncorrectInheritanceException(new[] { moduleType.Name }, new[] { nameof(IStepModule) });
                 if (makeReusable || moduleType.GetCustomAttribute<ReusableAttribute>() != null)
                 {
-                    var namedBinding = kernel.Bind<IStepModule>().To(moduleType).InSingletonScope();
-                    if (!String.IsNullOrEmpty(context)) namedBinding.Named(context);
+                    container.Register(Component.For<IStepModule>().ImplementedBy(moduleType).LifestyleSingleton());
                     return;
                 }
-                var binding = kernel.Bind<IStepModule>().To(moduleType);
-                if (!String.IsNullOrEmpty(context)) binding.Named(context);
+                container.Register(Component.For<IStepModule>().ImplementedBy(moduleType));
             }
         }
 
-        public void UnregisterStepModule<T>(IKernel kernel) where T : IStepModule
+        public void UnregisterStepModule<T>(IWindsorContainer container) where T : IStepModule
         {
-            UnregisterStepModules(kernel, typeof(T));
+            UnregisterStepModules(container, typeof(T));
         }
 
-        public void UnregisterStepModules(IKernel kernel, params Type[] moduleTypes)
+        public void UnregisterStepModules(IWindsorContainer container, params Type[] moduleTypes)
         {
-            foreach (var moduleType in moduleTypes)
-            {
-                IBinding targetBinding = null;
-                kernel.GetBindings(typeof(IStepModule))
-                    .ToList()
-                    .ForEach(
-                        binding =>
-                        {
-                            if (binding.Target != BindingTarget.Type || binding.Target == BindingTarget.Self) return;
-                            var req = kernel.CreateRequest(moduleType, metadata => true, new IParameter[0], true, false);
-                            var cache = kernel.Components.Get<ICache>();
-                            var planner = kernel.Components.Get<IPlanner>();
-                            var pipeline = kernel.Components.Get<IPipeline>();
-                            var provider = binding.GetProvider(new Context(kernel, req, binding, cache, planner, pipeline));
-                            if (provider.Type == moduleType)
-                            {
-                                targetBinding = binding;
-                            }
-                        });
-                if (targetBinding != null)
-                {
-                    kernel.RemoveBinding(targetBinding);
-                }
-            }
+            //TODO: Somehow deal with this situation
+            //foreach (var moduleType in moduleTypes)
+            //{
+            //    IBinding targetBinding = null;
+            //    container.GetBindings(typeof(IStepModule))
+            //        .ToList()
+            //        .ForEach(
+            //            binding =>
+            //            {
+            //                if (binding.Target != BindingTarget.Type || binding.Target == BindingTarget.Self) return;
+            //                var req = container.CreateRequest(moduleType, metadata => true, new IParameter[0], true, false);
+            //                var cache = container.Components.Get<ICache>();
+            //                var planner = container.Components.Get<IPlanner>();
+            //                var pipeline = container.Components.Get<IPipeline>();
+            //                var provider = binding.GetProvider(new Context(container, req, binding, cache, planner, pipeline));
+            //                if (provider.Type == moduleType)
+            //                {
+            //                    targetBinding = binding;
+            //                }
+            //            });
+            //    if (targetBinding != null)
+            //    {
+            //        container.RemoveBinding(targetBinding);
+            //    }
+            //}
         }
     }
 }

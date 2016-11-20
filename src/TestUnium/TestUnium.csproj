@@ -329,12 +329,16 @@
     <DocumentationFile>bin\Release\net461\TestUnium.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -351,17 +355,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotating\NameAttribute.cs" />
-    <Compile Include="Core\Configuration\IKernelConfigurer.cs" />
-    <Compile Include="Core\Configuration\StandardKernelConfigurer.cs" />
+    <Compile Include="Core\Configuration\IContainerConfigurer.cs" />
+    <Compile Include="Core\Configuration\StandardContainerConfigurer.cs" />
     <Compile Include="Core\ConfigureKernelAttribute.cs" />
-    <Compile Include="Extensions\Ninject\IScope.cs" />
-    <Compile Include="Extensions\Ninject\Scope.cs" />
+    <Compile Include="Extensions\Windsor\IScope.cs" />
+    <Compile Include="Extensions\Windsor\Scope.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Extensions\Ninject\ScopeBasedKernel.cs" />
-    <Compile Include="Internal\Bootstrapping\Container.cs" />
+    <Compile Include="Internal\Bootstrapping\CoreContainer.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\ServicesModule.cs" />
-    <Compile Include="Internal\Bootstrapping\Modules\StepValidationModule.cs" />
-    <Compile Include="Internal\Bootstrapping\Modules\StepModuleValidationModule.cs" />
+    <Compile Include="Internal\Bootstrapping\Modules\StepValidationInstaller.cs" />
+    <Compile Include="Internal\Bootstrapping\Modules\StepModuleValidationInstaller.cs" />
     <Compile Include="Internal\Services\Implementations\ReflectionService.cs" />
     <Compile Include="Internal\Services\IReflectionService.cs" />
     <Compile Include="Internal\Validation\StepModules\ExcludedStepModuleValidator.cs" />
@@ -386,9 +389,8 @@
     <Compile Include="Internal\Domain\Singleton.cs" />
     <Compile Include="Internal\Domain\CommandLineArgsConstants.cs" />
     <Compile Include="Internal\Services\Implementations\NinjectionService.cs" />
-    <Compile Include="Extensions\Ninject\NinjectExtensions.cs" />
-    <Compile Include="Core\IKernelDrivenTest.cs" />
-    <Compile Include="Core\KernelDrivenTest.cs" />
+    <Compile Include="Core\IContainerDrivenTest.cs" />
+    <Compile Include="Core\ContainerDrivenTest.cs" />
     <Compile Include="Customization\ICustomizationAttribute.cs" />
     <Compile Include="Customization\IgnoreIfApplied.cs" />
     <Compile Include="Customization\VisibilityAttribute.cs" />

@@ -1,18 +1,20 @@
-﻿using Ninject.Modules;
+﻿using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.SubSystems.Configuration;
+using Castle.Windsor;
 using TestUnium.Internal.Services;
 using TestUnium.Internal.Services.Implementations;
 using TestUnium.Sessioning.Managing;
 
 namespace TestUnium.Internal.Bootstrapping.Modules
 {
-    public class ServicesModule : NinjectModule
+    public class ServicesInstaller : IWindsorInstaller
     {
-        public override void Load()
+        public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            Bind<IShellService>().To<ShellService>().InSingletonScope();
-            Bind<IInjectionService>().To<NinjectionService>().InSingletonScope();
-            Bind<ISessionManagingService>().To<SessionManagingService>().InSingletonScope();
-            Bind<IReflectionService>().To<ReflectionService>().InSingletonScope();
+            container.Register(Component.For<IShellService>().ImplementedBy<ShellService>().LifestyleSingleton());
+            container.Register(Component.For<IInjectionService>().ImplementedBy<NinjectionService>().LifestyleSingleton());
+            container.Register(Component.For<ISessionManagingService>().ImplementedBy<SessionManagingService>().LifestyleSingleton());
+            container.Register(Component.For<IReflectionService>().ImplementedBy<ReflectionService>().LifestyleSingleton());
         }
     }
 }

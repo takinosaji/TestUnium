@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Threading;
-using Ninject;
 
 namespace TestUnium.Sessioning.Managing
 {

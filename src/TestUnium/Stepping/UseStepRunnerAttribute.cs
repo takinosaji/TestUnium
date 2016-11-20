@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
 
@@ -22,7 +23,7 @@ namespace TestUnium.Stepping
 
         public void Customize(IStepDrivenTest context)
         {
-            context.Kernel.Bind<IStepRunner>().To(_stepRunnerType);
+            context.Container.Register(Component.For<IStepRunner>().ImplementedBy(_stepRunnerType));
         }
     }
 }

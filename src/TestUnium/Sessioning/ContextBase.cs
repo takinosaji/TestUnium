@@ -1,14 +1,14 @@
-﻿using Ninject;
+﻿using Castle.Windsor;
 
 namespace TestUnium.Sessioning
 {
     public class ContextBase : ISessionContext
     {
-        public IKernel Kernel { get; set; }
+        public IWindsorContainer Container { get; set; }
 
-        public ContextBase(IKernel kernel)
+        public ContextBase(IWindsorContainer container)
         {
-            Kernel = kernel;
+            Container = container;
         }
     }
 }

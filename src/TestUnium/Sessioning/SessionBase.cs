@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Ninject;
-using Ninject.Infrastructure.Disposal;
+using Castle.Windsor;
 using TestUnium.Extensions.Ninject;
 using TestUnium.Sessioning.Pipeline;
 using TestUnium.Stepping;
@@ -17,7 +16,6 @@ namespace TestUnium.Sessioning
         private readonly ISessionDrivenTest _testContext;
         private readonly ISessionContext _context;
         private readonly List<ISessionPlugin> _plugins;
-        private readonly DisposableObject _scope;
 
         public ISessionInvoker Invoker { get; set; }
         public Guid SessionId { get; set; }
@@ -26,7 +24,6 @@ namespace TestUnium.Sessioning
             IStepModuleRegistrationStrategy moduleRegistrationStrategy)
         {
             _moduleRegistrationStrategy = moduleRegistrationStrategy;
-            _scope = new Scope();
             _plugins = new List<ISessionPlugin>();
             _testContext = testContext;
             _context = context;
@@ -51,9 +48,9 @@ namespace TestUnium.Sessioning
             return this;
         }
 
-        public ISession ConfigureKernel(Action<IKernel> kernelSetUpAction)
+        public ISession ConfigureContainer(Action<IWindsorContainer> containerSetUpAction)
         {
-            kernelSetUpAction(_context.Kernel);
+            containerSetUpAction(_context.Container);
             return this;
         }
 
@@ -64,9 +61,9 @@ namespace TestUnium.Sessioning
             return this;
         }
 
-        public IKernel GetSessionKernel()
+        public IWindsorContainer GetSessionContainer()
         {
-            return _context.Kernel;
+            return _context.Container;
         }
         #endregion
 
@@ -77,11 +74,11 @@ namespace TestUnium.Sessioning
         }
         public ISession Include(Boolean makeReusable, params Type[] moduleTypes)
         {
-            _moduleRegistrationStrategy.RegisterStepModules(_context.Kernel, SessionId.ToString(), makeReusable, moduleTypes); return this;
+            _moduleRegistrationStrategy.RegisterStepModules(_context.Container, SessionId.ToString(), makeReusable, moduleTypes); return this;
         }
         public ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Kernel, SessionId.ToString(), makeReusable); return this;
+            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Container, SessionId.ToString(), makeReusable); return this;
         }
         #endregion
 
@@ -106,6 +103,5 @@ namespace TestUnium.Sessioning
         }
 
         public String GetSessionId() => SessionId.ToString();
-        public IDisposable GetScopeObject() => _scope;
     }
 }

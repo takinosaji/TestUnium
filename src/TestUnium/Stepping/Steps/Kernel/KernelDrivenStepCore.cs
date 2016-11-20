@@ -1,11 +1,10 @@
-﻿using Ninject;
+﻿using Castle.Windsor;
 using TestUnium.Stepping.Steps.Core;
 
 namespace TestUnium.Stepping.Steps.Kernel
 {
     public class KernelDrivenStepCore : ExecutableStepCore
     {
-        [Inject]
-        public IKernel Kernel { get; set; }
+        public IWindsorContainer Container { get; set; }
     }
 }

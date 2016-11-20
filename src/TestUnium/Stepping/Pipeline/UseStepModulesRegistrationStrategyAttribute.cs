@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
 using TestUnium.Sessioning;
@@ -23,7 +24,7 @@ namespace TestUnium.Stepping.Pipeline
 
         public virtual void Customize(IStepDrivenTest context)
         {
-            context.Kernel.Bind<IStepModuleRegistrationStrategy>().To(StepModuleRegistrationStrategyType);
+            context.Container.Register(Component.For<IStepModuleRegistrationStrategy>().ImplementedBy(StepModuleRegistrationStrategyType));
         }
     }
 }

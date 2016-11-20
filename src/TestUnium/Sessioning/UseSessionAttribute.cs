@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
 
@@ -23,7 +24,7 @@ namespace TestUnium.Sessioning
 
         public void Customize(ISessionDrivenTest context)
         {
-            context.Kernel.Bind<ISession>().To(SessionType); 
+            context.Container.Register(Component.For<ISession>().ImplementedBy(SessionType));
         }
     }
 }

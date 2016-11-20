@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
-using Ninject;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
 using TestUnium.Internal.Bootstrapping;
@@ -26,7 +25,7 @@ namespace TestUnium.Settings
             if (!typeof(ISettings).IsAssignableFrom(settingsType))
                 throw new IncorrectInheritanceException(new[] { settingsType.Name }, new[] { nameof(SettingsBase) });
 
-            _reflectionService = Container.Instance.Current.Get<IReflectionService>();
+            _reflectionService = CoreContainer.Instance.Current.Resolve<IReflectionService>();
 
             SettingsType = settingsType;
         }

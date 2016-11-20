@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using Ninject;
 using OpenQA.Selenium;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Selenium.Settings;
@@ -17,12 +16,11 @@ namespace TestUnium.Selenium.Stepping
     {
         private readonly IMakeScreenshotStrategy _makeScreenshotStrategy;
 
-        [Inject]
         public IWebDriver Driver { get; set; }
 
         protected WebDriverDrivenStepCore()
         {
-            _makeScreenshotStrategy = Container.Instance.Current.Get<IMakeScreenshotStrategy>();
+            _makeScreenshotStrategy = CoreContainer.Instance.Current.Resolve<IMakeScreenshotStrategy>();
         }
 
         public String MakeScreenshot([CallerMemberName] String callingMethodName = "")

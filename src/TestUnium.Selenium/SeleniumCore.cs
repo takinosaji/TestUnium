@@ -1,7 +1,4 @@
-﻿using Ninject;
-using TestUnium.Core;
-using TestUnium.Core.Configuration;
-using TestUnium.Selenium.Settings;
+﻿using TestUnium.Selenium.Settings;
 using TestUnium.Selenium.WebDriving;
 using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Sessioning;

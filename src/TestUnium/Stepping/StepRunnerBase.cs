@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
-using Ninject;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Validation.Step;
 using TestUnium.Internal.Validation.StepModules;
@@ -18,23 +19,21 @@ namespace TestUnium.Stepping
     /// </summary>
     public class StepRunnerBase : IStepRunner
     {
-        private readonly IKernel _kernel;
+        private readonly IWindsorContainer _container;
 
         private IEnumerable<IStepModule> _modules;
 
         private readonly IEnumerable<IStepModuleValidator> _moduleValidators;
         private readonly IEnumerable<IStepValidator> _stepValidators;
 
-        public StepRunnerBase(IKernel kernel, String sessionId)
+        public StepRunnerBase(IWindsorContainer container)
         {
-            _kernel = kernel;
+            _container = container;
 
-            _modules = String.IsNullOrEmpty(sessionId)
-                ? kernel.GetAll<IStepModule>()
-                : kernel.GetAll<IStepModule>(sessionId);
+            _modules = _container.ResolveAll<IStepModule>();
 
-            _moduleValidators = Container.Instance.Current.GetAll<IStepModuleValidator>();
-            _stepValidators = Container.Instance.Current.GetAll<IStepValidator>();
+            _moduleValidators = CoreContainer.Instance.Current.ResolveAll<IStepModuleValidator>();
+            _stepValidators = CoreContainer.Instance.Current.ResolveAll<IStepValidator>();
         }
 
         private List<IStepModule> GetValidatedModulesForStep(IStep step)
@@ -68,9 +67,10 @@ namespace TestUnium.Stepping
             var stepModuleTypes = attributes.SelectMany(a => a.GetStepModules()).Where(s => contextualStepModules.All(sm => sm.GetType() != s));
             foreach (var stepModuleType in stepModuleTypes)
             {
-                _kernel.Bind(stepModuleType).ToSelf();
-                modules.Add(_kernel.Get(stepModuleType) as IStepModule);
-                _kernel.Unbind(stepModuleType);
+                var guid = Guid.NewGuid();
+                _container.Register(Component.For(stepModuleType).ImplementedBy(stepModuleType).Named(guid.ToString()));
+                modules.Add(_container.Resolve(stepModuleType, new { name = guid.ToString()}) as IStepModule);
+                //_container.Unbind(stepModuleType);
             }
 
             return modules;

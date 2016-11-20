@@ -1,9 +1,9 @@
-﻿using Ninject;
+﻿using Castle.Windsor;
 
 namespace TestUnium.Sessioning
 {
     public interface ISessionContext
     {
-        IKernel Kernel { get; set; }
+        IWindsorContainer Container { get; set; }
     }
 }

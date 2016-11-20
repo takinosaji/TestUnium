@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Ninject;
+using Castle.MicroKernel.Registration;
 using TestUnium.Sessioning;
 using TestUnium.Stepping.Pipeline;
 using TestUnium.Stepping.Steps;
@@ -14,31 +14,31 @@ namespace TestUnium.Stepping
     {
         public StepDrivenTest()
         {
-            Kernel.Bind<IStepExecutor>().ToConstant(this);
+            Container.Register(Component.For<IStepExecutor>().Instance(this));
         }
 
         public void RegisterStepModule<TStepModule>(Action<TStepModule> stepSetUpAction = null, Boolean makeReusable = false) where TStepModule : IStepModule =>
-            Kernel.Get<IStepModuleRegistrationStrategy>().RegisterStepModules(Kernel, String.Empty, makeReusable, typeof(TStepModule));
+            Container.Resolve<IStepModuleRegistrationStrategy>().RegisterStepModules(Container, String.Empty, makeReusable, typeof(TStepModule));
        
         public void RegisterStepModules(params Type[] moduleTypes) =>
-            Kernel.Get<IStepModuleRegistrationStrategy>().RegisterStepModules(Kernel, String.Empty, false, moduleTypes);
+            Container.Resolve<IStepModuleRegistrationStrategy>().RegisterStepModules(Container, String.Empty, false, moduleTypes);
         
         public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes) =>
-            Kernel.Get<IStepModuleRegistrationStrategy>().RegisterStepModules(Kernel, String.Empty, makeReusable, moduleTypes);
+            Container.Resolve<IStepModuleRegistrationStrategy>().RegisterStepModules(Container, String.Empty, makeReusable, moduleTypes);
       
         public void UnregisterStepModule<T>() where T : IStepModule =>
             UnregisterStepModules(typeof(T));
 
         public void UnregisterStepModules(params Type[] moduleTypes) =>
-            Kernel.Get<IStepModuleRegistrationStrategy>().UnregisterStepModules(Kernel, moduleTypes);
+            Container.Resolve<IStepModuleRegistrationStrategy>().UnregisterStepModules(Container, moduleTypes);
         
         public void Do<TStep>(Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
             where TStep : IExecutableStep
         {
-            Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg())
+            Container.Resolve<IStepRunner>()
                 .Run(this, callingMethodName,
-                Kernel.Get<TStep>(), 
+                Container.Resolve<TStep>(), 
                 stepSetUpAction,
                 exceptionHandlingMode, validateStep);
         }
@@ -54,10 +54,10 @@ namespace TestUnium.Stepping
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
             where TStep : IExecutableStep<TResult>
         {           
-            return Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg())
+            return Container.Resolve<IStepRunner>()
                 .RunWithReturnValue<TStep, TResult>(
                 this, callingMethodName,
-                Kernel.Get<TStep>(), 
+                Container.Resolve<TStep>(), 
                 stepSetUpAction, 
                 exceptionHandlingMode, validateStep);
         }
@@ -71,8 +71,8 @@ namespace TestUnium.Stepping
         public void Do(Action outOfStepOperations, 
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, [CallerMemberName] String callingMethodName = "")
         {
-            var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
-            var step = Kernel.Get<FakeStep>();
+            var runner = Container.Resolve<IStepRunner>();
+            var step = Container.Resolve<FakeStep>();
             step.Operations = outOfStepOperations;
             runner.Run(this, callingMethodName, step, null, exceptionHandlingMode, false);
         }
@@ -80,15 +80,15 @@ namespace TestUnium.Stepping
         public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue, 
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, [CallerMemberName] String callingMethodName = "")
         {
-            var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
-            var step = Kernel.Get<FakeStepWithReturnValue<TResult>>();
+            var runner = Container.Resolve<IStepRunner>();
+            var step = Container.Resolve<FakeStepWithReturnValue<TResult>>();
             step.OperationsWithReturnValue = outOfStepFuncWithReturnValue;
             return runner.RunWithReturnValue<FakeStepWithReturnValue<TResult>, TResult>(this, callingMethodName, step, null, exceptionHandlingMode, false);
         }
 
         public TStep GetStep<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep
         {
-            var step = Kernel.Get<TStep>();
+            var step = Container.Resolve<TStep>();
             stepSetupAction?.Invoke(step);
             return step;
         }
