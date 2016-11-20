@@ -24,7 +24,6 @@ $env:PsModulePath += ";$PsScriptRoot\Modules"
 
 Import-Module Invoke-MsBuild -Verbose
 Import-Module Transform-Nuspec -Verbose
-Import-Module Bump-Version -Verbose
 
 try
 {
@@ -52,8 +51,6 @@ try
     }
     
     & nuget pack $ProjectFilePath -Symbols -Verbose -outputdirectory $NuGetPackageOutputDirectory -Prop Configuration=`"$($BuildConfigurations[0])`"
-
-    Bump-Version -FilePath $BumpVersionFilePath -Version $Version
 }
 catch [Exception]
 {
