@@ -5,7 +5,7 @@ function Transform-Nuspec
 	(
 		[parameter(Mandatory=$true)]
 		[ValidateNotNullOrEmpty()]
-		[string[]] $params,	
+		[string[]] $Params,	
 	    [parameter(Mandatory=$true)]
 		[ValidateNotNullOrEmpty()]
 		[string] $DestinationPath,
@@ -19,7 +19,7 @@ function Transform-Nuspec
 	PROCESS
 	{
         $content = Get-Content $SourcePath
-        for ($i=0; $i -lt $params.Count; $i++)
+        for ($i=0; $i -lt $Params.Count; $i++)
         {
             $content = $content.replace("{$i}", $params[$i])    
         }
