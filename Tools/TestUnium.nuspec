@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>TestUnium</id>
-    <version>${auto.version}</version>
+    <version>{0}</version>
     <authors>TakinosaJi</authors>
     <owners>TakinosaJi</owners>
     <licenseUrl>https://github.com/takinosaji/TestUnium/blob/master/LICENSE</licenseUrl>

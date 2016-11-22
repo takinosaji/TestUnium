@@ -5,7 +5,7 @@ function Transform-Nuspec
 	(
 		[parameter(Mandatory=$true)]
 		[ValidateNotNullOrEmpty()]
-		[string] $Version,	
+		[string[]] $params,	
 	    [parameter(Mandatory=$true)]
 		[ValidateNotNullOrEmpty()]
 		[string] $DestinationPath,
@@ -18,7 +18,12 @@ function Transform-Nuspec
 	END { }
 	PROCESS
 	{
-		(Get-Content $SourcePath).replace('${auto.version}', $Version) | Set-Content $DestinationPath
+        $content = Get-Content $SourcePath
+        for ($i=0; $i -le $params.Count; $i++)
+        {
+            $content.replace("{$i}", $params[$i])    
+        }
+        $content | Set-Content $DestinationPath
 	}
 }
 

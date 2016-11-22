@@ -239,3 +239,6 @@ _Pvt_Extensions
 !/Tools/TestUnium.nuspec
 !/Tools/TestUnium.Selenium.nuspec
 !/demo/drivers/*.exe
+
+# JetBrains
+.idea/

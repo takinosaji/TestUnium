@@ -18,7 +18,9 @@ param (
 	[string] $VersionFilePath = "..\version.txt",
     [switch] $RebuildSolution,
     [parameter(Mandatory=$false)]
-    [string] $NuGetPackageOutputDirectory = "Package"
+    [string] $NuGetPackageOutputDirectory = "Package",
+    [parameter(Mandatory=$false)]
+    [string[]] $NuSpecReplacements = @()
 )
 $env:PsModulePath += ";$PsScriptRoot\Modules"
 
@@ -43,7 +45,7 @@ try
         }
     }
 
-    Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
+    Transform-Nuspec -Params $($Version + $NuSpecReplacements) -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
    
     if(!(Test-Path $NuGetPackageOutputDirectory))
     {

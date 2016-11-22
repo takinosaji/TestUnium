@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>TestUnium.Selenium</id>
-    <version>${auto.version}</version>
+    <version>{0}</version>
     <authors>TakinosaJi</authors>
     <owners>TakinosaJi</owners>
     <licenseUrl>https://github.com/takinosaji/TestUnium/blob/master/LICENSE</licenseUrl>
@@ -37,4 +37,7 @@
     <file src="bin\Release\net45\TestUnium.Selenium.pdb" target="lib\net45\TestUnium.Selenium.pdb" />
     <file src="bin\Release\net45\TestUnium.Selenium.xml" target="lib\net45\TestUnium.Selenium.xml" />
   </files>
+  <dependencies>
+    <dependency id="TestUnium" version="{1}" />
+  </dependencies>
 </package>
