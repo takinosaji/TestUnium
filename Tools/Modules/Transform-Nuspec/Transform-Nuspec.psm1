@@ -21,7 +21,7 @@ function Transform-Nuspec
         $content = Get-Content $SourcePath
         for ($i=0; $i -le $params.Count; $i++)
         {
-            $content.replace("{$i}", $params[$i])    
+            $content = $content.replace("{$i}", $params[$i])    
         }
         $content | Set-Content $DestinationPath
 	}

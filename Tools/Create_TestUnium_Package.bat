@@ -1,2 +1,2 @@
-powershell.exe -file .\CreatePackageFlow.ps1 -RebuildSolution -SolutionFilePath "..\TestUnium.sln" -ProjectFilePath "..\src\TestUnium\TestUnium.csproj" -NuspecSourcePath "TestUnium.nuspec" -NuspecDestinationPath "..\src\TestUnium\TestUnium.nuspec" -VersionFilePath "..\src\TestUnium\version.txt" -BumpVersionFilePath "..\src\TestUnium\.bumpversion"
+powershell.exe -file .\CreatePackageFlow.ps1 -RebuildSolution -SolutionFilePath "..\TestUnium.sln" -ProjectFilePath "..\src\TestUnium\TestUnium.csproj" -NuspecSourcePath "TestUnium.nuspec" -NuspecDestinationPath "..\src\TestUnium\TestUnium.nuspec" -VersionFilePath "..\src\TestUnium\version.txt"
 pause

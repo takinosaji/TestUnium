@@ -12,9 +12,6 @@ param (
 	[string] $NuspecSourcePath,
 	[parameter(Mandatory=$true)]
 	[ValidateNotNullOrEmpty()]
-	[string] $BumpVersionFilePath = "..\.bumpversion",
-	[parameter(Mandatory=$true)]
-	[ValidateNotNullOrEmpty()]
 	[string] $VersionFilePath = "..\version.txt",
     [switch] $RebuildSolution,
     [parameter(Mandatory=$false)]
