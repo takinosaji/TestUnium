@@ -19,7 +19,7 @@ function Transform-Nuspec
 	PROCESS
 	{
         $content = Get-Content $SourcePath
-        for ($i=0; $i -le $params.Count; $i++)
+        for ($i=0; $i -lt $params.Count; $i++)
         {
             $content = $content.replace("{$i}", $($params[$i]))    
         }
