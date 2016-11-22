@@ -42,7 +42,7 @@ try
         }
     }
 
-    Transform-Nuspec -Params $($Version + $NuSpecReplacements) -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
+    Transform-Nuspec -Params $(,$Version + $NuSpecReplacements) -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
    
     if(!(Test-Path $NuGetPackageOutputDirectory))
     {
