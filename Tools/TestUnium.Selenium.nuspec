@@ -12,10 +12,7 @@
     <description>Framework for scalable and productive automated web UI testing.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>testing selenium</tags>
-    <dependencies>
-      <dependency id="TestUnium" version="{1}" />
-    </dependencies>
+    <tags>automation testing selenium</tags>
   </metadata>
   <files>
 	<!--<file src="bin\Release\**" target="lib" />-->
