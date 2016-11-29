@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24D8E66C-6120-494C-86F6-CC5CCD54A067}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnitDemoProject", "demo\xUnitDemoProject\xUnitDemoProject.csproj", "{37D255AC-6EC5-4B65-B7F7-B516621C14D5}"
@@ -27,11 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "drivers", "drivers", "{56D5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nUnitDemoProject", "demo\nUnitDemoProject\nUnitDemoProject.csproj", "{4E154521-3EC2-4F88-A287-7EF3300E4255}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageObjects", "demo\PageObjects\PageObjects.csproj", "{FEDEE2F8-4BEA-4732-B963-6A756D3CB21B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageObjects", "demo\Infrastructure\PageObjects\PageObjects.csproj", "{FEDEE2F8-4BEA-4732-B963-6A756D3CB21B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steps", "demo\Steps\Steps.csproj", "{F563092E-F423-44C4-B00C-68B0D194857D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steps", "demo\Infrastructure\Steps\Steps.csproj", "{F563092E-F423-44C4-B00C-68B0D194857D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionPlugins", "demo\SessionPlugins\SessionPlugins.csproj", "{0537C217-A09F-4885-B8D7-693C54589077}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionPlugins", "demo\Infrastructure\SessionPlugins\SessionPlugins.csproj", "{0537C217-A09F-4885-B8D7-693C54589077}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{915BA235-7C12-4780-B627-B80FAAE698ED}"
 EndProject

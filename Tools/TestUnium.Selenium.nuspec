@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>TestUnium.Selenium</id>
-    <version>${auto.version}</version>
+    <version>{0}</version>
     <authors>TakinosaJi</authors>
     <owners>TakinosaJi</owners>
     <licenseUrl>https://github.com/takinosaji/TestUnium/blob/master/LICENSE</licenseUrl>
@@ -12,7 +12,7 @@
     <description>Framework for scalable and productive automated web UI testing.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>testing selenium</tags>
+    <tags>automation testing selenium</tags>
   </metadata>
   <files>
 	<!--<file src="bin\Release\**" target="lib" />-->

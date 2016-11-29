@@ -10,13 +10,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>xUnitDemoProject</RootNamespace>
     <AssemblyName>xUnitDemoProject</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug 4.6.1|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,6 +26,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release 4.6.1|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\net461</OutputPath>
@@ -34,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.6|AnyCPU'">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <OutputPath>bin\Release\net46</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -43,6 +45,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.5.2|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <OutputPath>bin\Release\net452\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -52,6 +55,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.5.1|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <OutputPath>bin\Release\net451\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -61,6 +65,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.5|AnyCPU'">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>bin\Release\net45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -134,11 +139,11 @@
       <Project>{6BF0FDE8-7B27-4856-91AB-B120A19D6B97}</Project>
       <Name>Cuztomizers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PageObjects\PageObjects.csproj">
+    <ProjectReference Include="..\Infrastructure\PageObjects\PageObjects.csproj">
       <Project>{FEDEE2F8-4BEA-4732-B963-6A756D3CB21B}</Project>
       <Name>PageObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Steps\Steps.csproj">
+    <ProjectReference Include="..\Infrastructure\Steps\Steps.csproj">
       <Project>{F563092E-F423-44C4-B00C-68B0D194857D}</Project>
       <Name>Steps</Name>
     </ProjectReference>

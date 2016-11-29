@@ -12,19 +12,17 @@ param (
 	[string] $NuspecSourcePath,
 	[parameter(Mandatory=$true)]
 	[ValidateNotNullOrEmpty()]
-	[string] $BumpVersionFilePath = "..\.bumpversion",
-	[parameter(Mandatory=$true)]
-	[ValidateNotNullOrEmpty()]
 	[string] $VersionFilePath = "..\version.txt",
     [switch] $RebuildSolution,
     [parameter(Mandatory=$false)]
-    [string] $NuGetPackageOutputDirectory = "Package"
+    [string] $NuGetPackageOutputDirectory = "Package",
+    [parameter(Mandatory=$false)]
+    [string[]] $NuSpecReplacements = @()
 )
 $env:PsModulePath += ";$PsScriptRoot\Modules"
 
 Import-Module Invoke-MsBuild -Verbose
 Import-Module Transform-Nuspec -Verbose
-Import-Module Bump-Version -Verbose
 
 try
 {
@@ -44,7 +42,7 @@ try
         }
     }
 
-    Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
+    Transform-Nuspec -Params $(,$Version + $NuSpecReplacements) -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
    
     if(!(Test-Path $NuGetPackageOutputDirectory))
     {
@@ -52,8 +50,6 @@ try
     }
     
     & nuget pack $ProjectFilePath -Symbols -Verbose -outputdirectory $NuGetPackageOutputDirectory -Prop Configuration=`"$($BuildConfigurations[0])`"
-
-    Bump-Version -FilePath $BumpVersionFilePath -Version $Version
 }
 catch [Exception]
 {

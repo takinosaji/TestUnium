@@ -1,3 +1,3 @@
-Create_TestUnium_Package %1
-Create_TestUnium.Selenium_Package %2
+Create_TestUnium_Package
+Create_TestUnium.Selenium_Package
 pause
