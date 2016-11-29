@@ -16,7 +16,7 @@ namespace TestUnium.Selenium.WebDriving.Paging
         private readonly List<IWebElement> _markers;
 
         [Inject]
-        public ISettings Settings;
+        public ISettings Settings { get; set; }
 
         public Boolean IsLoaded { get; private set; }
         public String Name { get; set; }

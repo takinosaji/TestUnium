@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using PageObjects;
 using Steps;
 using TestUnium.Global;
+using TestUnium.Selenium.Extensions;
 using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Settings;
 using Xunit;
@@ -29,6 +31,8 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
             // Get.Settings<TSettingsType> where TSettingsType : SettingsBase method.
             var settings = Get.Settings<CustomSettings>(); 
             Driver.Manage().Window.Maximize();
+            Driver.Navigate().GoToUrl("http://github.com");
+            var page = Driver.GetPage<GitHubMainPage>();            
             Driver.Navigate().GoToUrl("http://github.com" + settings.GitHubRepoSegment);
         }
     }
