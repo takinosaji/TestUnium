@@ -33,38 +33,38 @@ namespace TestUnium.Stepping.Pipeline
             }
         }
 
-        public void UnregisterStepModule<T>(IWindsorContainer container) where T : IStepModule
-        {
-            UnregisterStepModules(container, typeof(T));
-        }
+        //public void UnregisterStepModule<T>(IWindsorContainer container) where T : IStepModule
+        //{
+        //    UnregisterStepModules(container, typeof(T));
+        //}
 
-        public void UnregisterStepModules(IWindsorContainer container, params Type[] moduleTypes)
-        {
-            //TODO: Somehow deal with this situation
-            //foreach (var moduleType in moduleTypes)
-            //{
-            //    IBinding targetBinding = null;
-            //    container.GetBindings(typeof(IStepModule))
-            //        .ToList()
-            //        .ForEach(
-            //            binding =>
-            //            {
-            //                if (binding.Target != BindingTarget.Type || binding.Target == BindingTarget.Self) return;
-            //                var req = container.CreateRequest(moduleType, metadata => true, new IParameter[0], true, false);
-            //                var cache = container.Components.Get<ICache>();
-            //                var planner = container.Components.Get<IPlanner>();
-            //                var pipeline = container.Components.Get<IPipeline>();
-            //                var provider = binding.GetProvider(new Context(container, req, binding, cache, planner, pipeline));
-            //                if (provider.Type == moduleType)
-            //                {
-            //                    targetBinding = binding;
-            //                }
-            //            });
-            //    if (targetBinding != null)
-            //    {
-            //        container.RemoveBinding(targetBinding);
-            //    }
-            //}
-        }
+        //public void UnregisterStepModules(IWindsorContainer container, params Type[] moduleTypes)
+        //{
+        //    //TODO: Somehow deal with this situation
+        //    //foreach (var moduleType in moduleTypes)
+        //    //{
+        //    //    IBinding targetBinding = null;
+        //    //    container.GetBindings(typeof(IStepModule))
+        //    //        .ToList()
+        //    //        .ForEach(
+        //    //            binding =>
+        //    //            {
+        //    //                if (binding.Target != BindingTarget.Type || binding.Target == BindingTarget.Self) return;
+        //    //                var req = container.CreateRequest(moduleType, metadata => true, new IParameter[0], true, false);
+        //    //                var cache = container.Components.Get<ICache>();
+        //    //                var planner = container.Components.Get<IPlanner>();
+        //    //                var pipeline = container.Components.Get<IPipeline>();
+        //    //                var provider = binding.GetProvider(new Context(container, req, binding, cache, planner, pipeline));
+        //    //                if (provider.Type == moduleType)
+        //    //                {
+        //    //                    targetBinding = binding;
+        //    //                }
+        //    //            });
+        //    //    if (targetBinding != null)
+        //    //    {
+        //    //        container.RemoveBinding(targetBinding);
+        //    //    }
+        //    //}
+        //}
     }
 }

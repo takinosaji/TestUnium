@@ -10,7 +10,7 @@ namespace TestUnium.Settings
         public SettingsDrivenTest()
         {
             Container.Register(Component.For<ISettings>().UsingFactoryMethod(s => Settings));
-            Container.Register(Component.For<ISettingsDrivenTest>().Instance(this));
+            Container.Register(Component.For<ISettingsDrivenTest>().Instance(this).Named("ISettingsDrivenTest"));
         }
 
         public TSettingsBase SettingsOfType<TSettingsBase>() where TSettingsBase : ISettings => (TSettingsBase)Container.Resolve<ISettings>(); 

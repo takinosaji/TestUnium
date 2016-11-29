@@ -12,7 +12,7 @@ namespace TestUnium.Sessioning
         protected SessionDrivenTest()
         {
             Sessions = new ConcurrentDictionary<int, ISession>();
-            Container.Register(Component.For<ISessionDrivenTest>().Instance(this));
+            Container.Register(Component.For<ISessionDrivenTest>().Instance(this).Named("ISessionDrivenTest"));
         }
 
         public ISession Session

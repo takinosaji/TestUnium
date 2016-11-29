@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using Castle.Windsor;
 using Moq;
 using Ninject;
 using TestUnium.Stepping;
@@ -22,7 +23,7 @@ namespace TestUnium.Tests.Stepping.Validation
         public void Required_Members_Step_Validator_Perfomance_Tests()
         {
             var creationAttemptsNumber = 20000;
-            var stepRunner = new StepRunnerBase(new Mock<IKernel>().Object, "111");
+            var stepRunner = new StepRunnerBase(new Mock<IWindsorContainer>().Object);
             var step = new TestStep();
 
             var stopwatch = new Stopwatch();

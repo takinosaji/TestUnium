@@ -28,8 +28,8 @@ namespace TestUnium.Core
             }
             Resolver.Instance.CurrentContainer = Container;
 
-            Container.Register(Component.For<ICustomizationAttributeDrivenTest>().Instance(this));
-            Container.Register(Component.For<IContainerDrivenTest>().Instance(this));
+            Container.Register(Component.For<ICustomizationAttributeDrivenTest>().Instance(this).Named("ICustomizationAttributeDrivenTest"));
+            Container.Register(Component.For<IContainerDrivenTest>().Instance(this).Named("IContainerDrivenTest"));
         }
     }
 }

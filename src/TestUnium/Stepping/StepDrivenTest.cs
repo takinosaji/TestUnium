@@ -26,11 +26,11 @@ namespace TestUnium.Stepping
         public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes) =>
             Container.Resolve<IStepModuleRegistrationStrategy>().RegisterStepModules(Container, String.Empty, makeReusable, moduleTypes);
       
-        public void UnregisterStepModule<T>() where T : IStepModule =>
-            UnregisterStepModules(typeof(T));
+        //public void UnregisterStepModule<T>() where T : IStepModule =>
+        //    UnregisterStepModules(typeof(T));
 
-        public void UnregisterStepModules(params Type[] moduleTypes) =>
-            Container.Resolve<IStepModuleRegistrationStrategy>().UnregisterStepModules(Container, moduleTypes);
+        //public void UnregisterStepModules(params Type[] moduleTypes) =>
+        //    Container.Resolve<IStepModuleRegistrationStrategy>().UnregisterStepModules(Container, moduleTypes);
         
         public void Do<TStep>(Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
