@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using TestUnium.Customization;
 using TestUnium.Customization.Prioritizing;
-using TestUnium.Sessioning;
 
-namespace TestUnium.Stepping.Pipeline
+namespace TestUnium.Stepping.Pipeline.Registration.Customization
 {
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.StepModuleRegistrationStrategy)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class UseStepModulesRegistrationStrategyAttribute : CustomizationAttribute, ICustomizer<IStepDrivenTest>
+    public class UseStepModulesRegistrationStrategyForTestAttribute : CustomizationAttribute, ICustomizer<IStepDrivenTest>
     {
         protected readonly Type StepModuleRegistrationStrategyType;
 
-        public UseStepModulesRegistrationStrategyAttribute(Type stepModuleRegistrationStrategyType)
+        public UseStepModulesRegistrationStrategyForTestAttribute(Type stepModuleRegistrationStrategyType)
         {
             if (!typeof(IStepModuleRegistrationStrategy).IsAssignableFrom(stepModuleRegistrationStrategyType))
                 throw new IncorrectInheritanceException(new List<String> { stepModuleRegistrationStrategyType.Name },
@@ -24,7 +23,9 @@ namespace TestUnium.Stepping.Pipeline
 
         public virtual void Customize(IStepDrivenTest context)
         {
-            context.Container.Register(Component.For<IStepModuleRegistrationStrategy>().ImplementedBy(StepModuleRegistrationStrategyType));
+            context.Container.Register(Component.For<IStepModuleRegistrationStrategy>()
+                .ImplementedBy(StepModuleRegistrationStrategyType)
+                    .Named(Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName));
         }
     }
 }

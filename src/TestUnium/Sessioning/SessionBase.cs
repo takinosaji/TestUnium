@@ -74,11 +74,11 @@ namespace TestUnium.Sessioning
         }
         public ISession Include(Boolean makeReusable, params Type[] moduleTypes)
         {
-            _moduleRegistrationStrategy.RegisterStepModules(_context.Container, SessionId.ToString(), makeReusable, moduleTypes); return this;
+            _moduleRegistrationStrategy.RegisterStepModules(_context.Container, makeReusable, moduleTypes); return this;
         }
         public ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule
         {
-            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Container, SessionId.ToString(), makeReusable); return this;
+            _moduleRegistrationStrategy.RegisterStepModule<TStepModule>(_context.Container, makeReusable); return this;
         }
         #endregion
 

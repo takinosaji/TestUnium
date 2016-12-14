@@ -2,12 +2,14 @@
 using TestUnium.Settings;
 using TestUnium.Stepping;
 using TestUnium.Stepping.Pipeline;
+using TestUnium.Stepping.Pipeline.Registration;
+using TestUnium.Stepping.Pipeline.Registration.Customization;
 
 namespace TestUnium
 {
     [UseSessionWithContext(typeof(SessionBase), typeof(ContextBase))]
     [UseStepRunner(typeof(StepRunnerBase))]
-    [UseStepModulesRegistrationStrategy(typeof(BasicStepModuleRegistrationStrategy))]
+    [UseStepModulesRegistrationStrategyForTest(typeof(InTestStepModuleRegistrationStrategy))]
     [UseAppSettings(typeof(SettingsBase))]
     public class TestCore : SettingsDrivenTest { }
 }

@@ -2,7 +2,6 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using TestUnium.Internal.Validation.Step;
-using TestUnium.Internal.Validation.StepModules;
 
 namespace TestUnium.Internal.Bootstrapping.Modules
 {

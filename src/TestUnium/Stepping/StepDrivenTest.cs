@@ -18,13 +18,13 @@ namespace TestUnium.Stepping
         }
 
         public void RegisterStepModule<TStepModule>(Action<TStepModule> stepSetUpAction = null, Boolean makeReusable = false) where TStepModule : IStepModule =>
-            Container.Resolve<IStepModuleRegistrationStrategy>().RegisterStepModules(Container, String.Empty, makeReusable, typeof(TStepModule));
+            Container.Resolve<IStepModuleRegistrationStrategy>(Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName).RegisterStepModules(Container, makeReusable, typeof(TStepModule));
        
         public void RegisterStepModules(params Type[] moduleTypes) =>
-            Container.Resolve<IStepModuleRegistrationStrategy>().RegisterStepModules(Container, String.Empty, false, moduleTypes);
+            Container.Resolve<IStepModuleRegistrationStrategy>(Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName).RegisterStepModules(Container, false, moduleTypes);
         
         public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes) =>
-            Container.Resolve<IStepModuleRegistrationStrategy>().RegisterStepModules(Container, String.Empty, makeReusable, moduleTypes);
+            Container.Resolve<IStepModuleRegistrationStrategy>(Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName).RegisterStepModules(Container, makeReusable, moduleTypes);
       
         //public void UnregisterStepModule<T>() where T : IStepModule =>
         //    UnregisterStepModules(typeof(T));
