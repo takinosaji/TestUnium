@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-using Ninject;
-using TestUnium.Customization;
-using TestUnium.Customization.Prioritizing;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Domain;
 using TestUnium.Internal.Services;
@@ -19,7 +16,7 @@ namespace TestUnium.Settings
         public UseJsonSettingsAttribute(Type settingsType, bool loadFromFile = true, bool createFileIfNotExist = true)
             : base(settingsType)
         {
-            _shellService = Container.Instance.Current.Get<IShellService>();
+            _shellService = CoreContainer.Instance.Current.Resolve<IShellService>();
 
             LoadFromFile = loadFromFile;
             CreateFileIfNotExist = createFileIfNotExist;

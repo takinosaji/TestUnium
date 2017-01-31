@@ -1,12 +1,12 @@
 ﻿using System;
-using Ninject;
+using Castle.Windsor;
 using TestUnium.Extensions.Ninject;
 using TestUnium.Sessioning.Pipeline;
 using TestUnium.Stepping.Pipeline;
 
 namespace TestUnium.Sessioning
 {
-    public interface ISession : IScope
+    public interface ISession
     {
         ISessionInvoker Invoker { get; set; }
         Guid SessionId { get; set; }
@@ -15,10 +15,10 @@ namespace TestUnium.Sessioning
         ISession Using<TPlugin>() where TPlugin : ISessionPlugin, new();
         #endregion
         #region StepModules
-        IKernel GetSessionKernel();
+        IWindsorContainer GetSessionContainer();
         ISession Include(params Type[] moduleTypes);
         ISession Configure(Action<ISessionContext> contextSetUpAction);
-        ISession ConfigureKernel(Action<IKernel> kernelSetUpAction);
+        ISession ConfigureContainer(Action<IWindsorContainer> containerSetUpAction);
         ISession Include(Boolean makeReusable, params Type[] moduleTypes);
         ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule;
         #endregion

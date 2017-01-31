@@ -1,5 +1,5 @@
 ﻿using System;
-using Ninject;
+using Castle.Windsor;
 using TestUnium.Core;
 using TestUnium.Extensions.Ninject;
 
@@ -7,8 +7,8 @@ namespace TestUnium.Internal.Services
 {
     public interface IInjectionService
     {
-        void Inject(Action<IKernel> injections, params IKernel[] kernels);
+        void Inject(Action<IWindsorContainer> injections, params IWindsorContainer[] kernels);
 
-        IKernel CreateKernel();
+        IWindsorContainer CreateContainer();
     }
 }

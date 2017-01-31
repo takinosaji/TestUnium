@@ -20,7 +20,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
             // Registration and cancelling specific step modules
             RegisterStepModule<MakeScreenshotOnFailure>();
             RegisterStepModule<ThrowsExceptionModule>();
-            UnregisterStepModule<ThrowsExceptionModule>();
+            //UnregisterStepModule<ThrowsExceptionModule>();
         }
 
         [Fact]

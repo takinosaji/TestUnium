@@ -1,20 +1,19 @@
-﻿using Ninject;
-using TestUnium.Core;
-using TestUnium.Core.Configuration;
-using TestUnium.Selenium.Settings;
+﻿using TestUnium.Selenium.Settings;
 using TestUnium.Selenium.WebDriving;
 using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Sessioning;
 using TestUnium.Settings;
 using TestUnium.Stepping;
 using TestUnium.Stepping.Pipeline;
+using TestUnium.Stepping.Pipeline.Registration;
+using TestUnium.Stepping.Pipeline.Registration.Customization;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium
 {
     [UseSessionWithContext(typeof(SessionBase), typeof(ContextBase))]
     [UseStepRunner(typeof(StepRunnerBase))]
-    [UseStepModulesRegistrationStrategy(typeof(BasicStepModuleRegistrationStrategy))]
+    [UseStepModulesRegistrationStrategyForTest(typeof(InTestStepModuleRegistrationStrategy))]
     [UseAppSettings(typeof(WebSettings))]
     [WebDriver]
     [DetectBrowser]

@@ -1,5 +1,4 @@
 ﻿using System;
-using Ninject;
 
 namespace TestUnium.Stepping.Steps
 {

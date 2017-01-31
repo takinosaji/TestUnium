@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
-using System.Drawing.Imaging;
-using System.Globalization;
-using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Ninject;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor.Installer;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Internal.Bootstrapping;
-using TestUnium.Selenium.Extensions;
 using TestUnium.Selenium.Settings;
 using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Selenium.WebDriving.Paging;
@@ -28,27 +25,27 @@ namespace TestUnium.Selenium.WebDriving
         public IWait<IWebDriver> MediumWait { get; set; }
         public IWait<IWebDriver> LongWait { get; set; }
 
-//#if DEBUG
+#if DEBUG
         // This is very ugly. Need to think how to move this out.
         static WebDriverDrivenTest()
         {
-            Container.Instance.Current.Load(Assembly.GetExecutingAssembly());
+            CoreContainer.Instance.Current.Install(FromAssembly.This());
         }
-//#endif
+#endif
 
         public WebDriverDrivenTest()
         {
-            InjectionService.Inject(kernel =>
+            InjectionService.Inject(container =>
             {
-                kernel.Bind<Browser>().ToMethod((ctx) => Browser);
-                kernel.Bind<IWebDriverDrivenTest>().ToConstant(this);
-                kernel.Bind<PageObject>().ToSelf();
-                kernel.Bind<IWebDriver>().ToMethod(ctx => Driver);
-                kernel.Bind<IWait<IWebDriver>>().ToMethod(ctx => SmallWait);
-                kernel.Bind<IWait<IWebDriver>>().ToMethod(ctx => MediumWait);
-                kernel.Bind<IWait<IWebDriver>>().ToMethod(ctx => LongWait);
-            }, Kernel);
-            _makeScreenshotStrategy = Container.Instance.Current.Get<IMakeScreenshotStrategy>();
+                //container.Register(Component.For<Browser>().UsingFactoryMethod((ctx) => Browser));
+                container.Register(Component.For<IWebDriverDrivenTest>().Instance(this).Named("IWebDriverDrivenTest"));
+                container.Register(Component.For<PageObject>().ImplementedBy<PageObject>());
+                container.Register(Component.For<IWebDriver>().UsingFactoryMethod(ctx => Driver));
+                container.Register(Component.For<IWait<IWebDriver>>().UsingFactoryMethod(ctx => SmallWait).Named("IWait<IWebDriver>_SmallWait"));
+                container.Register(Component.For<IWait<IWebDriver>>().UsingFactoryMethod(ctx => MediumWait).Named("IWait<IWebDriver>_MediumWait"));
+                container.Register(Component.For<IWait<IWebDriver>>().UsingFactoryMethod(ctx => LongWait).Named("IWait<IWebDriver>_LongWait"));
+            }, Container);
+            _makeScreenshotStrategy = CoreContainer.Instance.Current.Resolve<IMakeScreenshotStrategy>();
         }
 
         public void ShutDownWebDriver()

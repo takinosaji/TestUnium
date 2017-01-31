@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Ninject;
-using Ninject.Parameters;
+using Castle.MicroKernel.Registration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TestUnium.Global;
@@ -71,13 +70,13 @@ namespace TestUnium.Selenium.Extensions
         //We have to resolve an issue when test will be executed in several threads
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver,
             Action<TPageObject> pageTransformAction = null, Boolean suppressLoading = false, params By[] markerSelectors) 
-            where TPageObject : IPageObject
+            where TPageObject : class, IPageObject
         {
-            if (!Get.TestContextKernel.GetBindings(typeof(TPageObject)).Any())
+            if (!Get.TestContextKernel.Kernel.HasComponent(typeof(TPageObject)))
             {
-                Get.TestContextKernel.Bind<TPageObject>().ToSelf();
+                Get.TestContextKernel.Register(Component.For<TPageObject>().ImplementedBy<TPageObject>());
             }
-            var page = Get.TestContextKernel.Get<TPageObject>(new ConstructorArgument("markerSelectors", markerSelectors));         
+            var page = Get.TestContextKernel.Resolve<TPageObject>(markerSelectors);         
             pageTransformAction?.Invoke(page);
             if(suppressLoading) return page;
             if (!page.CheckMarkerAfterInitialization()) return page;
@@ -86,16 +85,16 @@ namespace TestUnium.Selenium.Extensions
         }
 
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean suppressLoading)
-            where TPageObject : IPageObject =>
+            where TPageObject : class, IPageObject =>
                 GetPage<TPageObject>(driver, null, suppressLoading);
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver, params By[] markerSelectors)
-            where TPageObject : IPageObject =>
+            where TPageObject : class, IPageObject =>
                 GetPage<TPageObject>(driver, null, false, markerSelectors);
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Boolean suppressLoading, params By[] markerSelectors)
-            where TPageObject : IPageObject =>
+            where TPageObject : class, IPageObject =>
                 GetPage<TPageObject>(driver, null, suppressLoading, markerSelectors);
         public static TPageObject GetPage<TPageObject>(this IWebDriver driver, Action<TPageObject> pageTransformAction, params By[] markerSelectors)
-            where TPageObject : IPageObject =>
+            where TPageObject : class, IPageObject =>
                 GetPage(driver, pageTransformAction, false, markerSelectors);
 
         public static Screenshot GetScreenshot(this IWebDriver driver) => ((ITakesScreenshot)driver).GetScreenshot();

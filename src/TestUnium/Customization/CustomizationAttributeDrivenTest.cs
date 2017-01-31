@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Ninject;
 using TestUnium.Core;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
@@ -23,7 +22,7 @@ namespace TestUnium.Customization
             _invokedHiddenAttributes = new List<Type>();
             _invokedVisibleAttributes = new List<Type>();
 
-            ReflectionService = Container.Instance.Current.Get<IReflectionService>();
+            ReflectionService = CoreContainer.Instance.Current.Resolve<IReflectionService>();
         }
 
         /// <summary>
