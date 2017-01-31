@@ -18,9 +18,7 @@ namespace TestUnium.Stepping.Pipeline.Registration.Customization
 
         public override void Customize(IStepDrivenTest context)
         {
-            context.Container.Register(Component.For<IStepModuleRegistrationStrategy>()
-                .ImplementedBy(StepModuleRegistrationStrategyType)
-                    .Named(Internal.Bootstrapping.Castle.Component.Registration.Name.InStepStepModuleRegistrationStrategyName));
+            AddBindings(context, Internal.Bootstrapping.Castle.Component.Registration.Name.InStepStepModuleRegistrationStrategyName);
         }
     }
 }

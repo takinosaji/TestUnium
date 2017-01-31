@@ -23,9 +23,15 @@ namespace TestUnium.Stepping.Pipeline.Registration.Customization
 
         public virtual void Customize(IStepDrivenTest context)
         {
+            AddBindings(context,
+                Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName);
+        }
+
+        protected void AddBindings(IStepDrivenTest context, String bindingName)
+        {
             context.Container.Register(Component.For<IStepModuleRegistrationStrategy>()
-                .ImplementedBy(StepModuleRegistrationStrategyType)
-                    .Named(Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName));
+              .ImplementedBy(StepModuleRegistrationStrategyType)
+                  .Named(bindingName));
         }
     }
 }
