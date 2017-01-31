@@ -29,6 +29,7 @@ namespace TestUnium.Core
             Resolver.Instance.CurrentContainer = Container;
 
             Container.Register(Component.For<ICustomizationAttributeDrivenTest>().Instance(this).Named("ICustomizationAttributeDrivenTest"));
+            Container.Register(Component.For<IWindsorContainer>().Instance(Container).Named("IWindsorContainer"));
             Container.Register(Component.For<IContainerDrivenTest>().Instance(this).Named("IContainerDrivenTest"));
         }
     }

@@ -432,8 +432,8 @@
     <Compile Include="Stepping\StepExceptionHandlingMode.cs" />
     <Compile Include="Stepping\StepSetUpException.cs" />
     <Compile Include="Stepping\Steps\Core\ExecutableStep.cs" />
-    <Compile Include="Stepping\Steps\Kernel\KernelDrivenStepCore.cs" />
-    <Compile Include="Stepping\Steps\Kernel\KernelDrivenStep.cs" />
+    <Compile Include="Stepping\Steps\Kernel\ContainerDrivenStepCore.cs" />
+    <Compile Include="Stepping\Steps\Kernel\ContainerDrivenStep.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStep.cs" />
     <Compile Include="Stepping\UseStepRunnerAttribute.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStepCore.cs" />
