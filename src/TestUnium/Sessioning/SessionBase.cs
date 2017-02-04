@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Castle.Windsor;
-using TestUnium.Extensions.Ninject;
 using TestUnium.Sessioning.Pipeline;
 using TestUnium.Stepping;
 using TestUnium.Stepping.Pipeline;

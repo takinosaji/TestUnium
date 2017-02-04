@@ -19,14 +19,14 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
         {
             // Registration and cancelling specific step modules
             RegisterStepModule<MakeScreenshotOnFailure>();
-            RegisterStepModule<ThrowsExceptionModule>();
+            //RegisterStepModule<ThrowsExceptionModule>();
             //UnregisterStepModule<ThrowsExceptionModule>();
         }
 
         [Fact]
         public void OpenGitHubTestCase()
         {
-            Session.Include<UreusableSessionStepModule>(false).Start(context =>
+            Session.Include<UreusableSessionStepModule>().Start(context =>
             {
                 Do<GoToUrlStep>(s =>
                 {

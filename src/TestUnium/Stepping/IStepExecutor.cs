@@ -10,25 +10,25 @@ namespace TestUnium.Stepping
             (Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, 
             Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
-            where TStep : IExecutableStep;
+            where TStep : class, IExecutableStep;
         void Do<TStep>
             (StepExceptionHandlingMode exceptionHandlingMode, 
             Boolean validateStep = true, [CallerMemberName] String callingMethodName = "")
-            where TStep : IExecutableStep;
+            where TStep : class, IExecutableStep;
         void Do<TStep>(Boolean validateStep, [CallerMemberName] String callingMethodName = "") 
-            where TStep : IExecutableStep;
+            where TStep : class, IExecutableStep;
 
         TResult Do<TStep, TResult>
             (Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow,
             Boolean validateStep = true, [CallerMemberName] String callingMethodName = "")
-            where TStep : IExecutableStep<TResult>;
+            where TStep : class, IExecutableStep<TResult>;
         TResult Do<TStep, TResult>
             (StepExceptionHandlingMode exceptionHandlingMode, 
             Boolean validateStep = true, [CallerMemberName] String callingMethodName = "")
-            where TStep : IExecutableStep<TResult>;
+            where TStep : class, IExecutableStep<TResult>;
         TResult Do<TStep, TResult>(Boolean validateStep, [CallerMemberName] String callingMethodName = "") 
-            where TStep : IExecutableStep<TResult>;
+            where TStep : class, IExecutableStep<TResult>;
 
         void Do(Action outOfStepOperations, StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, [CallerMemberName] String callingMethodName = "");
         TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue,

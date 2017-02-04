@@ -6,7 +6,7 @@ using TestUnium.Core;
 
 namespace TestUnium.Sessioning
 {
-    public class SessionDrivenTest : ContainerDrivenTest, ISessionDrivenTest, ISessionInvoker
+    public class SessionDrivenTest : ContainerDrivenTest, ISessionDrivenTest
     {
         public ConcurrentDictionary<Int32, ISession> Sessions { get; set; }
         protected SessionDrivenTest()

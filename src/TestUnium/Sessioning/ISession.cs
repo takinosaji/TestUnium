@@ -1,6 +1,5 @@
 ﻿using System;
 using Castle.Windsor;
-using TestUnium.Extensions.Ninject;
 using TestUnium.Sessioning.Pipeline;
 using TestUnium.Stepping.Pipeline;
 

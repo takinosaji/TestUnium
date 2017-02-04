@@ -3,7 +3,7 @@ using TestUnium.Stepping.Steps.Core;
 
 namespace TestUnium.Stepping.Steps.Kernel
 {
-    public class KernelDrivenStepCore : ExecutableStepCore
+    public class ContainerDrivenStepCore : ExecutableStepCore
     {
         public IWindsorContainer Container { get; set; }
     }

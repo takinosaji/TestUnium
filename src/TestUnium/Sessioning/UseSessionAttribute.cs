@@ -24,7 +24,7 @@ namespace TestUnium.Sessioning
 
         public void Customize(ISessionDrivenTest context)
         {
-            context.Container.Register(Component.For<ISession>().ImplementedBy(SessionType));
+            context.Container.Register(Component.For<ISession>().ImplementedBy(SessionType).LifestyleTransient());
         }
     }
 }

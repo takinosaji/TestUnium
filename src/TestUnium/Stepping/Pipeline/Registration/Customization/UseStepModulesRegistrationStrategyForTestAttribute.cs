@@ -30,7 +30,7 @@ namespace TestUnium.Stepping.Pipeline.Registration.Customization
         protected void AddBindings(IStepDrivenTest context, String bindingName)
         {
             context.Container.Register(Component.For<IStepModuleRegistrationStrategy>()
-              .ImplementedBy(StepModuleRegistrationStrategyType)
+              .ImplementedBy(StepModuleRegistrationStrategyType).LifestyleTransient()
                   .Named(bindingName));
         }
     }

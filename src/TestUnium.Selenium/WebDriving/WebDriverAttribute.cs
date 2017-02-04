@@ -17,22 +17,24 @@ namespace TestUnium.Selenium.WebDriving
     {
         public virtual void Customize(IWebDriverDrivenTest context)
         {
+            var settings = context.SettingsOfType<IWebSettings>();
+            //Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
+            if (context.Settings == null)
+                throw new InvalidOperationException($"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
+
             switch (context.Browser)
             {
-                case Browser.Firefox:
-                    context.Driver = new FirefoxDriver();
+                case Browser.Firefox:  
+                    var service = FirefoxDriverService.CreateDefaultService(settings.GeckoDriverPath);
+                    context.Driver = new FirefoxDriver(service);       
                     break;
                 case Browser.Chrome:
-                    Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of chromedriver.exe filepath.");
-                    var settings = context.SettingsOfType<IWebSettings>();
                     var options = new ChromeOptions();
                     options.AddArgument("no-sandbox");
                     context.Driver =
                         new ChromeDriver(ChromeDriverService.CreateDefaultService(settings.ChromeDriverPath), options);
                     break;
                 case Browser.InternetExplorer:
-                    Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
-                    settings = context.SettingsOfType<IWebSettings>();
                     context.Driver =
                         new InternetExplorerDriver(
                             InternetExplorerDriverService.CreateDefaultService(settings.IeDriverPath));

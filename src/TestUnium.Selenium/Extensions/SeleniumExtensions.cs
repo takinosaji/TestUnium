@@ -72,11 +72,11 @@ namespace TestUnium.Selenium.Extensions
             Action<TPageObject> pageTransformAction = null, Boolean suppressLoading = false, params By[] markerSelectors) 
             where TPageObject : class, IPageObject
         {
-            if (!Get.TestContextKernel.Kernel.HasComponent(typeof(TPageObject)))
+            if (!Get.TestContextContainer.Kernel.HasComponent(typeof(TPageObject)))
             {
-                Get.TestContextKernel.Register(Component.For<TPageObject>().ImplementedBy<TPageObject>());
+                Get.TestContextContainer.Register(Component.For<TPageObject>().ImplementedBy<TPageObject>().LifestyleTransient());
             }
-            var page = Get.TestContextKernel.Resolve<TPageObject>(markerSelectors);         
+            var page = Get.TestContextContainer.Resolve<TPageObject>(markerSelectors);         
             pageTransformAction?.Invoke(page);
             if(suppressLoading) return page;
             if (!page.CheckMarkerAfterInitialization()) return page;

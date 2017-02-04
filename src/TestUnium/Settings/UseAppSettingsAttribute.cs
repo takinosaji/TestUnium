@@ -43,8 +43,11 @@ namespace TestUnium.Settings
                 var appSettingsValue = $"{context.Settings.GetType().Name}.{property.Name}";
                 if (!ConfigurationManager.AppSettings.AllKeys.Any(k => k.Equals(appSettingsValue))) continue;
                 var method = property.PropertyType.GetMethod("Parse", new []{typeof(String)});
-                Contract.Assert(property.PropertyType == typeof(String) || method != null || property.PropertyType.IsEnum, 
-                    $"Cannot assign string value from AppSettings to a non-string property {property.Name} of type {property.PropertyType}.");
+
+                //Contract.Assert(property.PropertyType == typeof(String) || method != null || property.PropertyType.IsEnum, 
+                //    $"Cannot assign string value from AppSettings to a non-string property {property.Name} of type {property.PropertyType}.");
+                if(property.PropertyType != typeof(String) && method == null && !property.PropertyType.IsEnum)
+                    throw new InvalidCastException($"Cannot assign string value from AppSettings to a non-string property {property.Name} of type {property.PropertyType}.");
                 if (property.PropertyType == typeof(String))
                 {
                     property.SetValue(context.Settings, ConfigurationManager.AppSettings[appSettingsValue]);
