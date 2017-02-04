@@ -10,12 +10,12 @@ namespace TestUnium.Core
 {
     [TheOnly]
     [AttributeUsage(AttributeTargets.Class)]
-    [Priority((UInt16)CustomizationAttributePriorities.Kernel)]
-    public class ConfigureKernelAttribute : CustomizationAttribute, ICustomizer<IContainerDrivenTest>
+    [Priority((UInt16)CustomizationAttributePriorities.Container)]
+    public class ConfigureContainerAttribute : CustomizationAttribute, ICustomizer<IContainerDrivenTest>
     {
         private readonly Type _configurerType;
   
-        public ConfigureKernelAttribute(Type configurerType)
+        public ConfigureContainerAttribute(Type configurerType)
         {  
             if (!typeof(IContainerConfigurer).IsAssignableFrom(configurerType))
                 throw new IncorrectInheritanceException(new List<String> { configurerType.Name },

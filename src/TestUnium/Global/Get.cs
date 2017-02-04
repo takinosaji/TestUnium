@@ -11,7 +11,7 @@ namespace TestUnium.Global
             return (TSettingsBase)Resolver.Instance.CurrentContainer.Resolve<ISettings>();
         }
 
-        public static IWindsorContainer TestContextKernel => Resolver.Instance.CurrentContainer;
+        public static IWindsorContainer TestContextContainer => Resolver.Instance.CurrentContainer;
 
         //public static TTest TestClassInstance<TTest>() where TTest : ICustomizationTarget
         //{

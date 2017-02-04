@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
@@ -68,7 +69,7 @@ namespace TestUnium.Stepping
             foreach (var stepModuleType in stepModuleTypes)
             {
                 var guid = Guid.NewGuid();
-                _container.Register(Component.For(stepModuleType).ImplementedBy(stepModuleType).Named(guid.ToString()));
+                _container.Register(Component.For(stepModuleType).ImplementedBy(stepModuleType).LifestyleTransient().Named(guid.ToString()));
                 modules.Add(_container.Resolve(stepModuleType, new { name = guid.ToString()}) as IStepModule);
                 //_container.Unbind(stepModuleType);
             }
@@ -113,7 +114,9 @@ namespace TestUnium.Stepping
             foreach (var stepValidator in _stepValidators)
             {
                 var validator = stepValidator.Validate(step);
-                Contract.Assert(validator.IsValid, validator.Message);
+                if(!validator.IsValid)
+                    throw new ValidationException(validator.Message);
+                //Contract.Assert(validator.IsValid, validator.Message);
             }         
 
             step.PreExecute();
@@ -159,7 +162,9 @@ namespace TestUnium.Stepping
             foreach (var stepValidator in _stepValidators)
             {
                 var validator = stepValidator.Validate(step);
-                Contract.Assert(validator.IsValid, validator.Message);
+                //Contract.Assert(validator.IsValid, validator.Message);
+                if (!validator.IsValid)
+                    throw new ValidationException(validator.Message);
             }
 
             step.PreExecute();

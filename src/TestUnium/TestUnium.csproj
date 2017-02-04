@@ -367,11 +367,12 @@
     <Compile Include="Annotating\NameAttribute.cs" />
     <Compile Include="Core\Configuration\IContainerConfigurer.cs" />
     <Compile Include="Core\Configuration\StandardContainerConfigurer.cs" />
-    <Compile Include="Core\ConfigureKernelAttribute.cs" />
+    <Compile Include="Core\ConfigureContainerAttribute.cs" />
     <Compile Include="Extensions\Windsor\IScope.cs" />
     <Compile Include="Extensions\Windsor\Scope.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Internal\Bootstrapping\CoreContainer.cs" />
+    <Compile Include="Internal\Settings\NullSettings.cs" />
     <Compile Include="Stepping\Pipeline\StepModuleLifeStyleScopeAccessor.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\ServicesModule.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\StepValidationInstaller.cs" />
@@ -405,7 +406,7 @@
     <Compile Include="Core\IContainerDrivenTest.cs" />
     <Compile Include="Core\ContainerDrivenTest.cs" />
     <Compile Include="Customization\ICustomizationAttribute.cs" />
-    <Compile Include="Customization\IgnoreIfApplied.cs" />
+    <Compile Include="Customization\CancelIfAppliedAttribute.cs" />
     <Compile Include="Customization\VisibilityAttribute.cs" />
     <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Sessioning\Managing\SessionStoreContext.cs" />

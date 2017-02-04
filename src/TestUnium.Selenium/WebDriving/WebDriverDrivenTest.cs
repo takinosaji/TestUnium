@@ -37,9 +37,9 @@ namespace TestUnium.Selenium.WebDriving
         {
             InjectionService.Inject(container =>
             {
-                //container.Register(Component.For<Browser>().UsingFactoryMethod((ctx) => Browser));
+                container.Register(Component.For<IBrowserGetter>().UsingFactoryMethod(ctx => new BrowserGetterBase(this)).LifestyleSingleton());
                 container.Register(Component.For<IWebDriverDrivenTest>().Instance(this).Named("IWebDriverDrivenTest"));
-                container.Register(Component.For<PageObject>().ImplementedBy<PageObject>());
+                container.Register(Component.For<PageObject>().ImplementedBy<PageObject>().LifestyleTransient());
                 container.Register(Component.For<IWebDriver>().UsingFactoryMethod(ctx => Driver));
                 container.Register(Component.For<IWait<IWebDriver>>().UsingFactoryMethod(ctx => SmallWait).Named("IWait<IWebDriver>_SmallWait"));
                 container.Register(Component.For<IWait<IWebDriver>>().UsingFactoryMethod(ctx => MediumWait).Named("IWait<IWebDriver>_MediumWait"));
@@ -55,7 +55,10 @@ namespace TestUnium.Selenium.WebDriving
 
         public String MakeScreenshot([CallerMemberName] String callingMethodName = "")
         {
-            Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
+            //Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
+            if(!(Settings is IWebSettings))
+                throw new InvalidOperationException($"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
+
             return _makeScreenshotStrategy.MakeScreenshot(null, GetType(), callingMethodName, Driver, Settings as IWebSettings);
         }
     }

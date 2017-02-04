@@ -9,11 +9,11 @@ namespace TestUnium.Internal.Bootstrapping.Modules
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IStepModuleValidator >().ImplementedBy<FakeStepOnlyModuleValidator>());
-            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<RealStepOnlyModuleValidator>());
-            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<StepConditionsModuleValidator>());
-            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<TargetStepsModuleValidator>());
-            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<ExcludedStepModuleValidator>());
+            container.Register(Component.For<IStepModuleValidator >().ImplementedBy<FakeStepOnlyModuleValidator>().LifestyleSingleton());
+            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<RealStepOnlyModuleValidator>().LifestyleSingleton());
+            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<StepConditionsModuleValidator>().LifestyleSingleton());
+            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<TargetStepsModuleValidator>().LifestyleSingleton());
+            container.Register(Component.For<IStepModuleValidator>().ImplementedBy<ExcludedStepModuleValidator>().LifestyleSingleton());
         }
     }
 }

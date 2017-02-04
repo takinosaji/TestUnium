@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestUnium.Extensions.Ninject
+namespace TestUnium.Extensions.Windsor
 {
     public interface IScope
     {

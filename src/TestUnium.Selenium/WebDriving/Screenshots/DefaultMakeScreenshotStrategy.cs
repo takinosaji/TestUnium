@@ -18,7 +18,10 @@ namespace TestUnium.Selenium.WebDriving.Screenshots
     {
         public String MakeScreenshot(IStep step, Type testClassType, String callingMethodName, IWebDriver driver, IWebSettings settings)
         {
-            Contract.Requires(!String.IsNullOrEmpty(settings.ScreenshotSystemPath), $"ScreenshotSystemPath can not be empty!");
+            //Contract.Requires(!String.IsNullOrEmpty(settings.ScreenshotSystemPath), $"ScreenshotSystemPath can not be empty!");
+            if(String.IsNullOrEmpty(settings.ScreenshotSystemPath))
+                throw new ArgumentException($"ScreenshotSystemPath can not be empty!");
+
             if (driver == null) throw new WebDriverHasNotBeenProperlyInitializedException();
             var ss = driver.GetScreenshot();
             var screenshotName = (step?.GetType().Name ?? callingMethodName) + "_" + 

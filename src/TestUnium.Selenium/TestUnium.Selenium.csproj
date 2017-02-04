@@ -373,10 +373,12 @@
     <Compile Include="WebDriving\Browsing\AllowedBrowsersAttribute.cs" />
     <Compile Include="WebDriving\Browsing\Browser.cs" />
     <Compile Include="WebDriving\Browsing\BrowserNotAllowedException.cs" />
+    <Compile Include="WebDriving\Browsing\BrowserGetterBase.cs" />
     <Compile Include="WebDriving\Browsing\DefaultBrowserAttribute.cs" />
     <Compile Include="WebDriving\Browsing\DetectBrowserAttribute.cs" />
     <Compile Include="WebDriving\Browsing\ForbiddenBrowsersAttribute.cs" />
     <Compile Include="WebDriving\Browsing\IBrowserContext.cs" />
+    <Compile Include="WebDriving\Browsing\IBrowserGetter.cs" />
     <Compile Include="WebDriving\Browsing\InternetExplorer.cs" />
     <Compile Include="WebDriving\Browsing\NoAllowedBrowsersException.cs" />
     <Compile Include="Extensions\SeleniumExtensions.cs" />

@@ -23,7 +23,7 @@ namespace TestUnium.Stepping
 
         public void Customize(IStepDrivenTest context)
         {
-            context.Container.Register(Component.For<IStepRunner>().ImplementedBy(_stepRunnerType));
+            context.Container.Register(Component.For<IStepRunner>().ImplementedBy(_stepRunnerType).LifestyleTransient());
         }
     }
 }

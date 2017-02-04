@@ -9,7 +9,7 @@ namespace TestUnium.Internal.Bootstrapping.Modules
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IStepValidator>().ImplementedBy<RequiredMembersStepValidator>());
+            container.Register(Component.For<IStepValidator>().ImplementedBy<RequiredMembersStepValidator>().LifestyleSingleton());
         }
     }
 }

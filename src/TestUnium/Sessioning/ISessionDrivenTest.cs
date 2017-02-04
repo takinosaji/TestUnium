@@ -5,7 +5,7 @@ using TestUnium.Customization;
 
 namespace TestUnium.Sessioning
 {
-    public interface ISessionDrivenTest : IContainerDrivenTest
+    public interface ISessionDrivenTest : ISessionInvoker, IContainerDrivenTest
     {
         ConcurrentDictionary<Int32, ISession> Sessions { get; set; }
         String GetCurrentSessionId();

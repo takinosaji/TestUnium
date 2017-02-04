@@ -2,7 +2,7 @@
 {
     public enum CustomizationAttributePriorities
     {
-        Kernel = 1,
+        Container = 1,
         StepRunner = 1,
         StepModuleRegistrationStrategy = 2,
         SessionWithContext = 1,
