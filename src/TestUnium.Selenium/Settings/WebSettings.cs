@@ -16,7 +16,7 @@ namespace TestUnium.Selenium.Settings
         public String WebAppUrl { get; set; }
         public String ChromeDriverPath { get; set; }
         public String IeDriverPath { get; set; }
-        public string GeckoDriverPath { get; set; }
+        public String GeckoDriverPath { get; set; }
         public Browser Browser { get; set; }
 
 

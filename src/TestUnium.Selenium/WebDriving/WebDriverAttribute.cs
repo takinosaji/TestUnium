@@ -24,10 +24,6 @@ namespace TestUnium.Selenium.WebDriving
 
             switch (context.Browser)
             {
-                case Browser.Firefox:  
-                    var service = FirefoxDriverService.CreateDefaultService(settings.GeckoDriverPath);
-                    context.Driver = new FirefoxDriver(service);       
-                    break;
                 case Browser.Chrome:
                     var options = new ChromeOptions();
                     options.AddArgument("no-sandbox");
@@ -39,14 +35,21 @@ namespace TestUnium.Selenium.WebDriving
                         new InternetExplorerDriver(
                             InternetExplorerDriverService.CreateDefaultService(settings.IeDriverPath));
                     break;
+                case Browser.Firefox:
                 default:
-                    context.Driver = new FirefoxDriver();
+                    InitFirefoxDriver(context, settings);
                     break;
             }
 
             context.SmallWait = new WebDriverWait(context.Driver, TimeSpan.FromSeconds(3));
             context.MediumWait = new WebDriverWait(context.Driver, TimeSpan.FromSeconds(10));
             context.LongWait = new WebDriverWait(context.Driver, TimeSpan.FromSeconds(30));
+        }
+
+        private void InitFirefoxDriver(IWebDriverDrivenTest context, IWebSettings settings)
+        {
+            var service = FirefoxDriverService.CreateDefaultService(settings.GeckoDriverPath);
+            context.Driver = new FirefoxDriver(service);
         }
     }
 }
