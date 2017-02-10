@@ -49,7 +49,7 @@ try
         New-Item -Path $NuGetPackageOutputDirectory -Type directory
     }
     
-    & nuget pack $ProjectFilePath -Symbols -Verbose -outputdirectory $NuGetPackageOutputDirectory -Prop Configuration=`"$($BuildConfigurations[0])`"
+    & nuget pack $ProjectFilePath -Symbols -outputdirectory $NuGetPackageOutputDirectory -Prop Configuration=`"$($BuildConfigurations[0])`"
 }
 catch [Exception]
 {
