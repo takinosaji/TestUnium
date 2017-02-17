@@ -3,6 +3,7 @@ using Steps;
 using Steps.Modules;
 using TestUnium.Selenium.Extensions;
 using TestUnium.Selenium.Stepping.Modules;
+using TestUnium.Selenium.WebDriving.Browsing;
 using Xunit;
 
 namespace xUnitDemoProject.Tests.ContextIndependentTests
@@ -11,8 +12,8 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
     /// TestSuite with default WebDriver initialization parameters.
     /// Pathes to InternetExplorerDriver and ChromeDriver and other settings are taken from defaults of SettingsBaseClass.
     /// </summary>
-    // [DefaultBrowser(Browser.Chrome)] // Stating default browser to Chrome if applicable one hasn't been passed as command line argument.
-    // [ForbiddenBrowsers(Browser.InternetExplorer)] // Filling up forbidden browsers for this test suite. If you try to run tests with forbidden browser, exception will be arised.  
+    [DefaultBrowser(Browser.Chrome)] // Stating default browser to Chrome if applicable one hasn't been passed as command line argument.
+    [ForbiddenBrowsers(Browser.InternetExplorer)] // Filling up forbidden browsers for this test suite. If you try to run tests with forbidden browser, exception will be arised.  
     public class AllDefaultStatelessTestSuite : TestBase
     {
         public AllDefaultStatelessTestSuite()

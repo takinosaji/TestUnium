@@ -20,7 +20,10 @@ namespace TestUnium.Selenium.WebDriving
             var settings = context.SettingsOfType<IWebSettings>();
             //Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
             if (context.Settings == null)
-                throw new InvalidOperationException($"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
+            {
+                throw new InvalidOperationException(
+                    $"Cannot initialize {context.Browser} in settingless test because WebDriver executable filepath is missing.");
+            }
 
             switch (context.Browser)
             {

@@ -9,7 +9,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     [NoSettings]
     public class NoSettingsTestSuite : TestBase
     {
-       [Fact]
+        //[Fact] //Doesnt make sense to execute this test since with Selenium 3 all browsers are accessible via driver executable.
         public void OpenGitHubTestCase()
         {
             // Settings field equals null in this case
