@@ -7,7 +7,7 @@ function Fix-Nuget-References
         $FilePath,
 		[Parameter(Mandatory=$True, HelpMessage="Name of package which requires version fix.")]
         $PackageName,
-		Parameter(Mandatory=$True, HelpMessage="Version of package which is to be set.")]
+		[Parameter(Mandatory=$True, HelpMessage="Version of package which is to be set.")]
         $PackageVersion
 	)
 	BEGIN { }

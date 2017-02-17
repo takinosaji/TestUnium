@@ -6,8 +6,8 @@ namespace TestUnium.Settings
 {   
     [Priority((UInt16)CustomizationAttributePriorities.NoSettings)]
     [AttributeUsage(AttributeTargets.Class)]
-    public class NoSettingsAttribute : CustomizationAttribute, ICustomizer<SettingsDrivenTest>
+    public class NoSettingsAttribute : CustomizationAttribute, ICustomizer<ISettingsDrivenTest>
     {       
-        public void Customize(SettingsDrivenTest context) { }
+        public void Customize(ISettingsDrivenTest context) { }
     }
 }

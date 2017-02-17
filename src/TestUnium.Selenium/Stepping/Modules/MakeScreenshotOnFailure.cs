@@ -1,7 +1,9 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System;
+using System.Diagnostics.Contracts;
 using TestUnium.Selenium.WebDriving;
+using TestUnium.Selenium.WebDriving.Screenshots;
 using TestUnium.Stepping;
-using TestUnium.Stepping.Modules;
+using TestUnium.Stepping.Pipeline;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium.Stepping.Modules
@@ -15,11 +17,16 @@ namespace TestUnium.Selenium.Stepping.Modules
         {
             var executorMaker = step.Executor as IScreenshotMaker;
             var stepMaker = step as IScreenshotMaker;
-            Contract.Assert(step != null || step.Executor != null, $"Type which is representing Step in your test doesnt implement interface IScreenshotMaker.");
+           
+            //Contract.Assert(step != null || step.Executor != null, $"Type which is representing Step in your test doesnt implement interface IScreenshotMaker.");
+            if(step == null && step.Executor == null)
+                throw new InvalidOperationException($"Type which is representing Step in your test doesnt implement interface IScreenshotMaker.");
+
             if (state != StepState.Failed) return;
             if (stepMaker != null)
             {
-                stepMaker.MakeScreenshot(step.CallingMethodName);
+                var screenshotPath = stepMaker.MakeScreenshot(step.CallingMethodName);
+                step.LastException = new ScreenshotCreatedException(screenshotPath, step.LastException);
                 return;
             }
             executorMaker?.MakeScreenshot(step.CallingMethodName);

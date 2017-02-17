@@ -1,37 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
-using Ninject;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Validation.Step;
 using TestUnium.Internal.Validation.StepModules;
-using TestUnium.Stepping.Modules;
-using TestUnium.Stepping.Modules.Conditions;
+using TestUnium.Stepping.Pipeline;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
 {
+    /// <summary>
+    /// In default implementation of StepDrivenTest instance of IStepRunner 
+    /// will be recreated by DI container for running each separate step.
+    /// </summary>
     public class StepRunnerBase : IStepRunner
     {
+        private readonly IWindsorContainer _container;
+
         private IEnumerable<IStepModule> _modules;
 
         private readonly IEnumerable<IStepModuleValidator> _moduleValidators;
         private readonly IEnumerable<IStepValidator> _stepValidators;
 
-        public StepRunnerBase(IKernel kernel, String sessionId)
+        public StepRunnerBase(IWindsorContainer container)
         {
-            _modules = String.IsNullOrEmpty(sessionId)
-                ? kernel.GetAll<IStepModule>()
-                : kernel.GetAll<IStepModule>(sessionId);
+            _container = container;
 
-            _moduleValidators = Container.Instance.Kernel.GetAll<IStepModuleValidator>();
-            _stepValidators = Container.Instance.Kernel.GetAll<IStepValidator>();
+            _modules = _container.ResolveAll<IStepModule>();
+
+            _moduleValidators = CoreContainer.Instance.Current.ResolveAll<IStepModuleValidator>();
+            _stepValidators = CoreContainer.Instance.Current.ResolveAll<IStepValidator>();
         }
 
-        public void BeforeExecution(IStep step)
+        private List<IStepModule> GetValidatedModulesForStep(IStep step)
         {
+            var validatedModules = new List<IStepModule>();
+
             foreach (var module in _modules)
             {
                 var isValid = true;
@@ -45,28 +54,42 @@ namespace TestUnium.Stepping
                 }
                 if (isValid)
                 {
-                    module.BeforeExecution(step);
+                    validatedModules.Add(module);
                 }
+            }
+
+            return validatedModules;
+        }
+
+        private List<IStepModule> GetAbsendStepDefinedModules(IStep step, IEnumerable<IStepModule> contextualStepModules)
+        {
+            var modules = new List<IStepModule>();
+            var attributes = step.GetType().GetCustomAttributes<UseWithStepModuleAttribute>().ToArray();
+            var stepModuleTypes = attributes.SelectMany(a => a.GetStepModules()).Where(s => contextualStepModules.All(sm => sm.GetType() != s));
+            foreach (var stepModuleType in stepModuleTypes)
+            {
+                var guid = Guid.NewGuid();
+                _container.Register(Component.For(stepModuleType).ImplementedBy(stepModuleType).LifestyleTransient().Named(guid.ToString()));
+                modules.Add(_container.Resolve(stepModuleType, new { name = guid.ToString()}) as IStepModule);
+                //_container.Unbind(stepModuleType);
+            }
+
+            return modules;
+        }
+
+        private void BeforeExecution(IStep step, IEnumerable<IStepModule> stepModules)
+        {
+            foreach (var module in stepModules)
+            {
+                module.BeforeExecution(step);
             }
         }
 
-        public void AfterExecution(IStep step, StepState state)
+        private void AfterExecution(IStep step, StepState state, IEnumerable<IStepModule> stepModules)
         {
-            foreach (var module in _modules)
+            foreach (var module in stepModules)
             {
-                var isValid = true;
-                var moduleType = module.GetType();
-                foreach (var stepModuleValidator in _moduleValidators)
-                {
-                    if (!stepModuleValidator.Validate(moduleType, step))
-                    {
-                        isValid = false;
-                    }
-                }
-                if (isValid)
-                {
-                    module.AfterExecution(step, state);
-                }
+                module.AfterExecution(step, state);
             }
         }
 
@@ -91,12 +114,17 @@ namespace TestUnium.Stepping
             foreach (var stepValidator in _stepValidators)
             {
                 var validator = stepValidator.Validate(step);
-                Contract.Assert(validator.IsValid, validator.Message);
+                if(!validator.IsValid)
+                    throw new ValidationException(validator.Message);
+                //Contract.Assert(validator.IsValid, validator.Message);
             }         
 
             step.PreExecute();
 
-            BeforeExecution(step);
+            var modules = GetValidatedModulesForStep(step);
+            modules.AddRange(GetAbsendStepDefinedModules(step, modules));
+
+            BeforeExecution(step, modules);
             try
             {
                 step.Execute();
@@ -106,15 +134,12 @@ namespace TestUnium.Stepping
             {
                 step.LastException = excp;
                 step.State = StepState.Failed;
-                AfterExecution(step, StepState.Failed);
-                if (step.ExceptionHandlingMode == StepExceptionHandlingMode.Rethrow)
-                {
-                    throw;
-                }
-                return;
+                AfterExecution(step, StepState.Failed, modules);
+                if (step.ExceptionHandlingMode != StepExceptionHandlingMode.Rethrow) return;
+                throw step.LastException;
             }
 
-            AfterExecution(step, StepState.Executed);
+            AfterExecution(step, StepState.Executed, modules);
         }
 
         public TResult RunWithReturnValue<TStep, TResult>(IStepExecutor executor, String callingMethodName, TStep step,
@@ -137,13 +162,18 @@ namespace TestUnium.Stepping
             foreach (var stepValidator in _stepValidators)
             {
                 var validator = stepValidator.Validate(step);
-                Contract.Assert(validator.IsValid, validator.Message);
+                //Contract.Assert(validator.IsValid, validator.Message);
+                if (!validator.IsValid)
+                    throw new ValidationException(validator.Message);
             }
 
             step.PreExecute();
 
+            var modules = GetValidatedModulesForStep(step);
+            modules.AddRange(GetAbsendStepDefinedModules(step, modules));
+
             var value = default(TResult);
-            BeforeExecution(step);
+            BeforeExecution(step, modules);
             try
             {
                 value = step.Execute();
@@ -153,14 +183,11 @@ namespace TestUnium.Stepping
             {
                 step.LastException = excp;
                 step.State = StepState.Failed;
-                AfterExecution(step, StepState.Failed);
-                if (step.ExceptionHandlingMode == StepExceptionHandlingMode.Rethrow)
-                {
-                    throw;
-                }
-                return value;
+                AfterExecution(step, StepState.Failed, modules);
+                if (step.ExceptionHandlingMode != StepExceptionHandlingMode.Rethrow) return value;
+                throw step.LastException;
             }
-            AfterExecution(step, StepState.Executed);
+            AfterExecution(step, StepState.Executed, modules);
             return value;
         }
 

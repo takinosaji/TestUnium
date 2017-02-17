@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Settings;
 
 namespace TestUnium.Selenium.Settings
@@ -14,7 +16,10 @@ namespace TestUnium.Selenium.Settings
         public String WebAppUrl { get; set; }
         public String ChromeDriverPath { get; set; }
         public String IeDriverPath { get; set; }
-       
+        public String GeckoDriverPath { get; set; }
+        public Browser Browser { get; set; }
+
+
         public WebSettings()
         {
             ScreenshotFolderCapacity = 50;
@@ -25,6 +30,17 @@ namespace TestUnium.Selenium.Settings
             WebAppUrl = "localhost";
             ChromeDriverPath = @"drivers";
             IeDriverPath = @"drivers";
+            GeckoDriverPath = @"drivers";
+            Browser = Browser.Firefox;
+        }
+
+        public override void PostInitializeAction()
+        {
+            var browserContext = Context as IBrowserContext;
+            if (browserContext == null)
+                throw new IncorrectInheritanceException(new List<String> {nameof(Context.GetType)},
+                    new List<String> {nameof(IBrowserContext)});
+            browserContext.Browser = Browser;
         }
     }
 }

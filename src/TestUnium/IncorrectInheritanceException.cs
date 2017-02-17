@@ -5,7 +5,7 @@ using System.Linq;
 namespace TestUnium
 {
     [Serializable]
-    class IncorrectInheritanceException : ApplicationException
+    public class IncorrectInheritanceException : ApplicationException
     {
         public IncorrectInheritanceException(IEnumerable<String> derivedTypeNames, IEnumerable<String> baseTypeNames) 
             : base($"{derivedTypeNames.Aggregate((tn1, tn2) => tn1 + ", " + tn2)} doesn't inherit or implement {baseTypeNames.Aggregate((in1, in2) => in1 + ", " + in2)} interface(s)!") { }

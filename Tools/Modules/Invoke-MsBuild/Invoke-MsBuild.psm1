@@ -488,4 +488,32 @@ function Get-MsBuildPath
 	return $msBuildPath
 }
 
+function Build-Solution
+{
+    [CmdletBinding()]
+    param(
+    	[parameter(Mandatory=$true, HelpMessage="Specify destination path for solution file.")]
+        [ValidateNotNullOrEmpty()]
+	    [string] $SolutionFilePath,
+        [Parameter(Mandatory=$false)] 
+        [string] $BuildConfiguration = 'Release'
+    )
+
+    & nuget restore $SolutionFilePath
+    $buildResult = Invoke-MsBuild -Path $SolutionFilePath -Verbose -Params "/target:Clean;Build /property:Configuration=`"$BuildConfiguration`""
+    if ($buildResult.BuildSucceeded -eq $true)
+    { 
+        Write-Host "Build completed successfully." 
+    }
+    ElseIf (!$buildResult.BuildSucceeded -eq $false)
+    { 
+        throw [System.IO.Exception] "Build failed. Check the build log file $($buildResult.BuildLogFilePath) for errors." 
+    }
+    ElseIf ($buildResult.BuildSucceeded -eq $null)
+    { 
+        throw [System.IO.Exception] "Unsure if build passed or failed: $($buildResult.Message)" 
+    }
+}
+
 Export-ModuleMember -Function Invoke-MsBuild
+Export-ModuleMember -Function Build-Solution

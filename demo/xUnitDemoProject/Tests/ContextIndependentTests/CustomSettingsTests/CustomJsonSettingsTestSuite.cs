@@ -10,9 +10,9 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests.CustomSettingsTests
     /// Browser may be configured via DefaultBrowser attributes.
     /// Path to ChromeDriver is overriden and is taken from known 'Settings' field fo CustomSettings type.
     /// </summary>
-    [DefaultBrowser(Browser.Chrome)]
-    [ForbiddenBrowsers(Browser.InternetExplorer)]
-    [JsonSettings(typeof(CustomSettings))]
+    [DefaultBrowser(Browser.InternetExplorer)]
+    [ForbiddenBrowsers(Browser.Chrome)]
+    [UseJsonSettings(typeof(CustomSettings))]
     public class CustomJsonSettingsTestSuite : TestBase
     {
         /// <summary>

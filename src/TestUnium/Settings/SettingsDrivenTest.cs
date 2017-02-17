@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using Castle.MicroKernel.Registration;
+using TestUnium.Internal.Settings;
 using TestUnium.Stepping;
 
 namespace TestUnium.Settings
@@ -9,10 +10,17 @@ namespace TestUnium.Settings
 
         public SettingsDrivenTest()
         {
-            Kernel.Bind<ISettings>().ToMethod(ctx => Settings);
-            Kernel.Bind<ISettingsDrivenTest>().ToConstant(this);
+            Container.Register(Component.For<ISettings>().UsingFactoryMethod(s => Settings ?? new NullSettings()));
+            Container.Register(Component.For<ISettingsDrivenTest>().Instance(this).Named("ISettingsDrivenTest"));
         }
 
-        public TSettingsBase SettingsOfType<TSettingsBase>() where TSettingsBase : ISettings => (TSettingsBase)Kernel.Get<ISettings>(); 
+        public TSettingsBase SettingsOfType<TSettingsBase>() 
+            where TSettingsBase : class, ISettings
+        {
+            var settings = Container.Resolve<ISettings>();
+            return settings.GetType().Name.Equals(nameof(NullSettings))
+                ? null 
+                :(TSettingsBase) settings;
+        }
     }
 }

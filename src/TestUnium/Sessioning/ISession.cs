@@ -1,22 +1,25 @@
 ﻿using System;
-using Ninject;
-using TestUnium.Stepping.Modules;
+using Castle.Windsor;
+using TestUnium.Sessioning.Pipeline;
+using TestUnium.Stepping.Pipeline;
 
 namespace TestUnium.Sessioning
 {
     public interface ISession
     {
+        ISessionInvoker Invoker { get; set; }
         Guid SessionId { get; set; }
         #region Contexts
         ISession Using(params ISessionPlugin[] plugins);
         ISession Using<TPlugin>() where TPlugin : ISessionPlugin, new();
         #endregion
         #region StepModules
-        IKernel GetSessionKernel();
+        IWindsorContainer GetSessionContainer();
         ISession Include(params Type[] moduleTypes);
+        ISession Configure(Action<ISessionContext> contextSetUpAction);
+        ISession ConfigureContainer(Action<IWindsorContainer> containerSetUpAction);
         ISession Include(Boolean makeReusable, params Type[] moduleTypes);
-        ISession Include<TStepModule>() where TStepModule : IStepModule;
-        ISession Include<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule;
+        ISession Include<TStepModule>(Boolean makeReusable = false) where TStepModule : IStepModule;
         #endregion
         //ISessionDrivenTest GetTestContext();
         String GetSessionId();

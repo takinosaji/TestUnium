@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using Ninject;
-using Ninject.Parameters;
-using TestUnium.Customization;
+using Castle.MicroKernel.Registration;
+using TestUnium.Core;
 
 namespace TestUnium.Sessioning
 {
-    public class SessionDrivenTest : CustomizationAttributeDrivenTest, ISessionDrivenTest
+    public class SessionDrivenTest : ContainerDrivenTest, ISessionDrivenTest
     {
         public ConcurrentDictionary<Int32, ISession> Sessions { get; set; }
         protected SessionDrivenTest()
         {
             Sessions = new ConcurrentDictionary<int, ISession>();
-            Kernel.Bind<ISessionDrivenTest>().ToConstant(this);
+            Container.Register(Component.For<ISessionDrivenTest>().Instance(this).Named("ISessionDrivenTest"));
         }
 
         public ISession Session
         {
             get
             {
-                var session = Kernel.Get<ISession>();
+                var session = Container.Resolve<ISession>();
+                session.Invoker = this;
                 Sessions.AddOrUpdate(Thread.CurrentThread.ManagedThreadId, 
                     session, (i, s) => session);
                 return session;
@@ -32,11 +32,6 @@ namespace TestUnium.Sessioning
             ISession currentSession;
             Sessions.TryGetValue(Thread.CurrentThread.ManagedThreadId, out currentSession);
             return currentSession?.GetSessionId();
-        }
-
-        public IParameter GetCurrentSessionIdConstructorArg()
-        {
-            return new ConstructorArgument("sessionId", GetCurrentSessionId());
         }
     }
 }

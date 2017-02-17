@@ -9,16 +9,16 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestUnium</RootNamespace>
     <AssemblyName>TestUnium</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug 4.6.1|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\net461</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -65,11 +65,14 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>bin\Debug\net461\TestUnium.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release 4.6.1|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\Release\net461</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -116,14 +119,236 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>bin\Release\net461\TestUnium.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release 4.6|AnyCPU' ">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net46\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>bin\Release\net46\TestUnium.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release 4.5|AnyCPU' ">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net45</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>bin\Release\net45\TestUnium.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.5.1|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net451</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>bin\Release\net451\TestUnium.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.5.2|AnyCPU'">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net452</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>bin\Release\net461\TestUnium.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -140,11 +365,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotating\NameAttribute.cs" />
+    <Compile Include="Core\Configuration\IContainerConfigurer.cs" />
+    <Compile Include="Core\Configuration\StandardContainerConfigurer.cs" />
+    <Compile Include="Core\ConfigureContainerAttribute.cs" />
+    <Compile Include="Extensions\Windsor\IScope.cs" />
+    <Compile Include="Extensions\Windsor\Scope.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Internal\Bootstrapping\Container.cs" />
+    <Compile Include="Internal\Bootstrapping\CoreContainer.cs" />
+    <Compile Include="Internal\Settings\NullSettings.cs" />
+    <Compile Include="Stepping\Pipeline\StepModuleLifeStyleScopeAccessor.cs" />
     <Compile Include="Internal\Bootstrapping\Modules\ServicesModule.cs" />
-    <Compile Include="Internal\Bootstrapping\Modules\StepValidationModule.cs" />
-    <Compile Include="Internal\Bootstrapping\Modules\StepModuleValidationModule.cs" />
+    <Compile Include="Internal\Bootstrapping\Modules\StepValidationInstaller.cs" />
+    <Compile Include="Internal\Bootstrapping\Modules\StepModuleValidationInstaller.cs" />
+    <Compile Include="Internal\Bootstrapping\TransientScopeAccessor.cs" />
+    <Compile Include="Internal\Bootstrapping\Castle\Component.cs" />
     <Compile Include="Internal\Services\Implementations\ReflectionService.cs" />
     <Compile Include="Internal\Services\IReflectionService.cs" />
     <Compile Include="Internal\Validation\StepModules\ExcludedStepModuleValidator.cs" />
@@ -169,38 +403,45 @@
     <Compile Include="Internal\Domain\Singleton.cs" />
     <Compile Include="Internal\Domain\CommandLineArgsConstants.cs" />
     <Compile Include="Internal\Services\Implementations\NinjectionService.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Extensions\NinjectExtensions.cs" />
-    <Compile Include="Core\IKernelDrivenTest.cs" />
-    <Compile Include="Core\KernelDrivenTest.cs" />
+    <Compile Include="Core\IContainerDrivenTest.cs" />
+    <Compile Include="Core\ContainerDrivenTest.cs" />
     <Compile Include="Customization\ICustomizationAttribute.cs" />
-    <Compile Include="Customization\IgnoreIfApplied.cs" />
+    <Compile Include="Customization\CancelIfAppliedAttribute.cs" />
     <Compile Include="Customization\VisibilityAttribute.cs" />
     <Compile Include="Customization\TheOnlyAttribute.cs" />
     <Compile Include="Sessioning\Managing\SessionStoreContext.cs" />
-    <Compile Include="Settings\AppSettingsAttribute.cs" />
-    <Compile Include="Stepping\Modules\Conditions\ExcludedStepAttribute.cs" />
-    <Compile Include="Stepping\Modules\Conditions\IStepChecker.cs" />
+    <Compile Include="Sessioning\UseSessionAttribute.cs" />
+    <Compile Include="Settings\ISettingsContext.cs" />
+    <Compile Include="Settings\UseAppSettingsAttribute.cs" />
+    <Compile Include="Settings\UseSettingsAttribute.cs" />
+    <Compile Include="Stepping\IStepDrivenTest.cs" />
+    <Compile Include="Stepping\Pipeline\Conditions\ExcludedStepAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\Conditions\IStepChecker.cs" />
     <Compile Include="IChecker.cs" />
-    <Compile Include="Stepping\Modules\Conditions\FakeStepOnlyAttribute.cs" />
-    <Compile Include="Stepping\Modules\Conditions\RealStepOnlyAttribute.cs" />
-    <Compile Include="Stepping\Modules\IStepModuleRegistrationStrategy.cs" />
-    <Compile Include="Stepping\Modules\BasicStepModuleRegistrationStrategy.cs" />
-    <Compile Include="Stepping\Modules\IStepModuleRegistrator.cs" />
-    <Compile Include="Stepping\Modules\Conditions\StepConditionsAttribute.cs" />
-    <Compile Include="Stepping\Modules\Conditions\TargetStepAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\Conditions\FakeStepOnlyAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\Conditions\RealStepOnlyAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\IStepModuleRegistrationStrategy.cs" />
+    <Compile Include="Stepping\Pipeline\Registration\InSessionStepModuleRegistrationStrategy.cs" />
+    <Compile Include="Stepping\Pipeline\Registration\InTestStepModuleRegistrationStrategy.cs" />
+    <Compile Include="Stepping\Pipeline\IStepModuleRegistrator.cs" />
+    <Compile Include="Stepping\Pipeline\Conditions\StepConditionsAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\Conditions\TargetStepAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\Registration\Customization\UseStepModulesRegistrationStrategyForStepAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\Registration\Customization\UseStepModulesRegistrationStrategyForSessionAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\Registration\Customization\UseStepModulesRegistrationStrategyForTestAttribute.cs" />
+    <Compile Include="Stepping\Steps\UseWithStepModuleAttribute.cs" />
     <Compile Include="Stepping\StepExceptionHandlingMode.cs" />
     <Compile Include="Stepping\StepSetUpException.cs" />
-    <Compile Include="Stepping\Steps\Kernel\KernelDrivenStepCore.cs" />
-    <Compile Include="Stepping\Steps\Kernel\KernelDrivenStep.cs" />
+    <Compile Include="Stepping\Steps\Core\ExecutableStep.cs" />
+    <Compile Include="Stepping\Steps\Kernel\ContainerDrivenStepCore.cs" />
+    <Compile Include="Stepping\Steps\Kernel\ContainerDrivenStep.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStep.cs" />
-    <Compile Include="Stepping\Steps\StepRunnerAttribute.cs" />
+    <Compile Include="Stepping\UseStepRunnerAttribute.cs" />
     <Compile Include="Stepping\Steps\Settings\SettingsDrivenStepCore.cs" />
     <Compile Include="Customization\CustomizationAttribute.cs" />
     <Compile Include="Customization\CustomizationAttributeFamily.cs" />
     <Compile Include="Customization\ICancellable.cs" />
     <Compile Include="Customization\ICustomizer.cs" />
-    <Compile Include="Customization\ICustomizationSource.cs" />
     <Compile Include="Customization\ICustomizationTarget.cs" />
     <Compile Include="IncorrectInheritanceException.cs" />
     <Compile Include="Customization\Prioritizing\AbsentPriorityException.cs" />
@@ -212,30 +453,30 @@
     <Compile Include="Sessioning\ISessionContext.cs" />
     <Compile Include="Sessioning\ISession.cs" />
     <Compile Include="Sessioning\ISessionDrivenTest.cs" />
-    <Compile Include="Sessioning\SessionContextAttribute.cs" />
+    <Compile Include="Sessioning\UseSessionContextAttribute.cs" />
     <Compile Include="Sessioning\SessionDrivenTest.cs" />
     <Compile Include="Sessioning\SessionBase.cs" />
-    <Compile Include="Sessioning\ISessionPlugin.cs" />
-    <Compile Include="Sessioning\SessionAttribute.cs" />
+    <Compile Include="Sessioning\Pipeline\ISessionPlugin.cs" />
+    <Compile Include="Sessioning\UseSessionWithContextAttribute.cs" />
     <Compile Include="Settings\ISettingsDrivenTest.cs" />
     <Compile Include="Stepping\IStepExecutor.cs" />
     <Compile Include="Stepping\IStepRunner.cs" />
     <Compile Include="Stepping\Steps\FakeStep.cs" />
-    <Compile Include="Stepping\Modules\ReusableAttribute.cs" />
+    <Compile Include="Stepping\Pipeline\ReusableAttribute.cs" />
     <Compile Include="Stepping\Steps\FakeStepAttribute.cs" />
     <Compile Include="Stepping\Steps\FakeStepWithReturnValue.cs" />
     <Compile Include="Stepping\Steps\IStep.cs" />
-    <Compile Include="Stepping\Modules\IStepModule.cs" />
+    <Compile Include="Stepping\Pipeline\IStepModule.cs" />
     <Compile Include="Stepping\StepRunnerBase.cs" />
     <Compile Include="Stepping\StepDrivenTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\NoSettingsAttribute.cs" />
-    <Compile Include="Settings\JsonSettingsAttribute.cs" />
+    <Compile Include="Settings\UseJsonSettingsAttribute.cs" />
     <Compile Include="Settings\SettingsBase.cs" />
     <Compile Include="Settings\SettingsDrivenTest.cs" />
     <Compile Include="Stepping\Steps\IExecutableStep.cs" />
-    <Compile Include="Stepping\Steps\ExecutableStepCore.cs" />
+    <Compile Include="Stepping\Steps\Core\ExecutableStepCore.cs" />
     <Compile Include="Stepping\StepState.cs" />
     <Compile Include="Internal\Validation\Step\StepValidationResult.cs" />
     <Compile Include="TestCore.cs" />

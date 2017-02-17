@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
-using Ninject;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
 using TestUnium.Stepping.Steps;
@@ -16,7 +15,7 @@ namespace TestUnium.Internal.Validation.Step
 
         public RequiredMembersStepValidator()
         {
-            _reflectionService = Container.Instance.Kernel.Get<IReflectionService>();
+            _reflectionService = CoreContainer.Instance.Current.Resolve<IReflectionService>();
         }
 
         public IValidationResult Validate(IStep step)

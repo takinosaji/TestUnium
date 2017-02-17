@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using TestUnium.Annotating;
@@ -15,8 +14,7 @@ namespace TestUnium.Selenium.WebDriving.Paging
         protected readonly By[] MarkerSelectors;
         private readonly List<IWebElement> _markers;
 
-        [Inject]
-        public ISettings Settings;
+        public ISettings Settings { get; set; }
 
         public Boolean IsLoaded { get; private set; }
         public String Name { get; set; }

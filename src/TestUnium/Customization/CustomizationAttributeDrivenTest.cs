@@ -3,58 +3,60 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Ninject;
 using TestUnium.Core;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Services;
 
 namespace TestUnium.Customization
 {
-    public class CustomizationAttributeDrivenTest : KernelDrivenTest, ICustomizationAttributeDrivenTest
+    public class CustomizationAttributeDrivenTest : ICustomizationAttributeDrivenTest
     {
         //Improve algorithm of avoiding initialization of customization attributes second and next times.
-        private readonly List<Type> _invokedAttributes;
-        private readonly List<Type> _hiddenAttributes;
+        private readonly List<Type> _invokedVisibleAttributes;
+        private readonly List<Type> _invokedHiddenAttributes;
 
         protected readonly IReflectionService ReflectionService;
 
         protected CustomizationAttributeDrivenTest()
         {
-            _hiddenAttributes = new List<Type>();
-            _invokedAttributes = new List<Type>();
-            Kernel.Bind<ICustomizationAttributeDrivenTest>().ToConstant(this);
+            _invokedHiddenAttributes = new List<Type>();
+            _invokedVisibleAttributes = new List<Type>();
 
-            ReflectionService = Container.Instance.Kernel.Get<IReflectionService>();
+            ReflectionService = CoreContainer.Instance.Current.Resolve<IReflectionService>();
         }
 
         /// <summary>
         /// Use this method in each derived class which contains members that could
         /// be configured via customization attributes.
         /// </summary>
-        public void ApplyCustomization()
+        public void ApplyCustomization(Type targetType = null)
         {
-            var frame = new StackFrame(1);
-            var callingMethod = frame.GetMethod();
-            var targetType = callingMethod.DeclaringType ?? GetType();
+            if (targetType == null)
+            {
+                targetType = GetType();
+            }
+
             var attributeList = new List<CustomizationAttribute>(GetType().GetCustomAttributes<CustomizationAttribute>()
                 .Where(a => a.GetType().GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ICustomizer<>)))
-                    .Where(a => targetType == a.GetCustomizationTargetType() || targetType.IsSubclassOf(a.GetCustomizationTargetType())));
+                .Where(a => a.GetCustomizationTargetType().IsAssignableFrom(targetType))
+                .Where(a => _invokedVisibleAttributes.All(i => i != a.GetType()) && _invokedHiddenAttributes.All(i => i != a.GetType())));
+            if(attributeList.Count == 0) return;
+
+            attributeList.Reverse();
             attributeList.Sort((f, s) => f.CompareTo(s));
             attributeList = ApplyTheOnlyPolicy(attributeList);
             attributeList.ForEach(a =>
             {
-                if (_invokedAttributes.Any(i => i == a.GetType()) ||
-                    _hiddenAttributes.Any(i => i == a.GetType())) return;
-                if (a.HasToBeCanceled(_invokedAttributes)) return;
+                if (a.HasToBeCanceled(_invokedVisibleAttributes)) return;
                 ReflectionService.InvokeMethod(a, "Customize", this);
                 ReflectionService.InvokeMethod(a, "PostCustomize", this);
                 var visibilityAttr = a.GetType().GetCustomAttribute<VisibilityAttribute>();
                 if (visibilityAttr == null || visibilityAttr.Visible || a.Visible)
                 {
-                    _invokedAttributes.Add(a.GetType());
+                    _invokedVisibleAttributes.Add(a.GetType());
                     return;
                 }
-                _hiddenAttributes.Add(a.GetType());
+                _invokedHiddenAttributes.Add(a.GetType());
             });
         }
 
@@ -75,6 +77,6 @@ namespace TestUnium.Customization
             return attributeList;
         }
 
-        public List<Type> GetAppliedCustomizations() => _hiddenAttributes; 
+        public List<Type> GetAppliedCustomizations() => _invokedHiddenAttributes; 
     }
 }

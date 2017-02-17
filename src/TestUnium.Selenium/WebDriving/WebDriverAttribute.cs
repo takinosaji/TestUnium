@@ -13,38 +13,43 @@ namespace TestUnium.Selenium.WebDriving
 {
     [TheOnly]
     [Priority((UInt16)CustomizationAttributePriorities.DefaultWebDriver)]
-    public class WebDriverAttribute : CustomizationAttribute, ICustomizer<WebDriverDrivenTest>
+    public class WebDriverAttribute : CustomizationAttribute, ICustomizer<IWebDriverDrivenTest>
     {
-        public virtual void Customize(WebDriverDrivenTest context)
+        public virtual void Customize(IWebDriverDrivenTest context)
         {
+            var settings = context.SettingsOfType<IWebSettings>();
+            //Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
+            if (context.Settings == null)
+                throw new InvalidOperationException($"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
+
             switch (context.Browser)
             {
-                case Browser.Firefox:
-                    context.Driver = new FirefoxDriver();
-                    break;
                 case Browser.Chrome:
-                    Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of chromedriver.exe filepath.");
-                    var settings = context.SettingsOfType<IWebSettings>();
                     var options = new ChromeOptions();
                     options.AddArgument("no-sandbox");
                     context.Driver =
                         new ChromeDriver(ChromeDriverService.CreateDefaultService(settings.ChromeDriverPath), options);
                     break;
                 case Browser.InternetExplorer:
-                    Contract.Assert(context.Settings != null, $"Cannot initialize Chrome WebDriver in settingless test because of absence of IEDriverServer.exe filepath.");
-                    settings = context.SettingsOfType<IWebSettings>();
                     context.Driver =
                         new InternetExplorerDriver(
                             InternetExplorerDriverService.CreateDefaultService(settings.IeDriverPath));
                     break;
+                case Browser.Firefox:
                 default:
-                    context.Driver = new FirefoxDriver();
+                    InitFirefoxDriver(context, settings);
                     break;
             }
 
             context.SmallWait = new WebDriverWait(context.Driver, TimeSpan.FromSeconds(3));
             context.MediumWait = new WebDriverWait(context.Driver, TimeSpan.FromSeconds(10));
             context.LongWait = new WebDriverWait(context.Driver, TimeSpan.FromSeconds(30));
+        }
+
+        private void InitFirefoxDriver(IWebDriverDrivenTest context, IWebSettings settings)
+        {
+            var service = FirefoxDriverService.CreateDefaultService(settings.GeckoDriverPath);
+            context.Driver = new FirefoxDriver(service);
         }
     }
 }

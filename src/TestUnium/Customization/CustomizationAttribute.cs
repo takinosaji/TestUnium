@@ -5,6 +5,7 @@ using System.Reflection;
 using TestUnium.Customization.Prioritizing;
 using TestUnium.Extensions;
 using TestUnium.Internal.Domain;
+using TestUnium.Settings;
 
 namespace TestUnium.Customization
 {
@@ -39,12 +40,11 @@ namespace TestUnium.Customization
         protected CustomizationAttribute(IEnumerable<Type> cancellationCollection, UInt16 priority = 0)
         {
             Visible = true;
-            CancellationCollectionInit(cancellationCollection);
-            PriorityInit(priority);
-
+            InitializeCancellationCollection(cancellationCollection);
+            InitializePriority(priority);
         }
 
-        private void CancellationCollectionInit(IEnumerable<Type> cancellationCollection)
+        private void InitializeCancellationCollection(IEnumerable<Type> cancellationCollection)
         {
             CancellationList = new List<Type>();
             var cancellationAttrs = GetType().GetCustomAttributes<CancelIfAppliedAttribute>();
@@ -61,7 +61,7 @@ namespace TestUnium.Customization
             }
         }
 
-        private void PriorityInit(UInt16 priority)
+        private void InitializePriority(UInt16 priority)
         {
             var attr = GetType().GetCustomAttribute<PriorityAttribute>();
             if (attr != null)
@@ -93,16 +93,28 @@ namespace TestUnium.Customization
         public int CompareTo(CustomizationAttribute other)
         {
             var mineType = GetType();
-            var othersTType = other.GetType();
+            var othersType = other.GetType();
             var mineTargetType = GetCustomizationTargetType();
-            var othersTargetType = other.GetCustomizationTargetType();           
-            if (mineTargetType.IsSubclassOf(othersTargetType)) return Move.ToTheEnd.GetValue();
-            if (othersTargetType.IsSubclassOf(mineTargetType)) return Move.ToTheHead.GetValue();
-            if (mineType.IsSubclassOf(othersTType)) return Move.ToTheEnd.GetValue();
-            if (othersTType.IsSubclassOf(mineType)) return Move.ToTheHead.GetValue();
-            return Priority == 0 ? Move.ToTheEnd.GetValue() : other.Priority == 0 ? Move.ToTheHead.GetValue() : Priority - other.Priority;
+            var othersTargetType = other.GetCustomizationTargetType();
+            if (othersTargetType != mineTargetType)
+            {
+                if (othersTargetType.IsAssignableFrom(mineTargetType)) return 1;
+                if (mineTargetType.IsAssignableFrom(othersTargetType)) return -1;
+            }
+            if (mineType != othersType)
+            {
+                if (mineType.IsAssignableFrom(othersType)) return -1;
+                if (othersType.IsAssignableFrom(mineType)) return 1;
+            }
+            if (Priority == 0 && other.Priority != 0) return 1;
+            if (Priority != 0 && other.Priority == 0) return -1;
+            return Priority - other.Priority;
         }
 
+        /// <summary>
+        /// Use this method to place any logic which should not be overriden by derived classes.
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void PostCustomize(Object context) { }
 
         public Type GetCustomizationTargetType()

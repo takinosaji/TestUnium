@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cuztomizers;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Support.UI;
-using PageObjects;
-using StepModules;
+﻿using PageObjects;
 using Steps;
+using Steps.Modules;
 using TestUnium.Selenium.Extensions;
 using TestUnium.Selenium.Stepping.Modules;
 using Xunit;
@@ -31,14 +19,14 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
         {
             // Registration and cancelling specific step modules
             RegisterStepModule<MakeScreenshotOnFailure>();
-            RegisterStepModule<ThrowsExceptionModule>();
-            UnregisterStepModule<ThrowsExceptionModule>();
+            //RegisterStepModule<ThrowsExceptionModule>();
+            //UnregisterStepModule<ThrowsExceptionModule>();
         }
 
         [Fact]
         public void OpenGitHubTestCase()
         {
-            Session.Include<UreusableSessionStepModule>(false).Start(context =>
+            Session.Include<UreusableSessionStepModule>().Start(context =>
             {
                 Do<GoToUrlStep>(s =>
                 {
@@ -48,7 +36,7 @@ namespace xUnitDemoProject.Tests.ContextIndependentTests
                 {
                     Driver.Navigate().GoToUrl("http://github.com");
                     var gitHubPage = Driver.GetPage<GitHubMainPage>();
-                    if(!gitHubPage.IsLoaded) gitHubPage.Load(); //in case if our GitHubMainPage is lazy.
+                    if (!gitHubPage.IsLoaded) gitHubPage.Load(); //in case if our GitHubMainPage is lazy.
                     var stickyButton = gitHubPage.StickySignUpBtn();
                     stickyButton.Click();
                     Driver.Navigate().GoToUrl("http://github.com");

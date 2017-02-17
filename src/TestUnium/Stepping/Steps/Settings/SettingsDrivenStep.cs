@@ -1,6 +1,6 @@
 ﻿namespace TestUnium.Stepping.Steps.Settings
 {
-    public abstract class SettingsStep<T> : SettingsDrivenStepCore, IExecutableStep<T>
+    public abstract class SettingsDrivenStep<T> : SettingsDrivenStepCore, IExecutableStep<T>
     {
         public abstract T Execute();
     }

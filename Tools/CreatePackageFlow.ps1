@@ -1,9 +1,6 @@
 param (
-    [Parameter(Mandatory=$false)] 
-    [string] $BuildConfiguration = 'Release',
-    [parameter(Mandatory=$true, HelpMessage="Specify package version.")]
-	[ValidateNotNullOrEmpty()]
-	[string] $Version,	
+	[parameter(Mandatory=$false, HelpMessage="Specify path to target solution file.")]
+	[string] $SolutionFilePath,
 	[parameter(Mandatory=$true, HelpMessage="Specify path to target project file.")]
 	[ValidateNotNullOrEmpty()]
 	[string] $ProjectFilePath,
@@ -13,41 +10,51 @@ param (
 	[parameter(Mandatory=$true, HelpMessage="Specify source path for nuspec file.")]
 	[ValidateNotNullOrEmpty()]
 	[string] $NuspecSourcePath,
-	[parameter(Mandatory=$false)]
+	[parameter(Mandatory=$true)]
 	[ValidateNotNullOrEmpty()]
-	[string] $VersionFilePath = "..\.version"
+	[string] $VersionFilePath = "..\version.txt",
+    [switch] $RebuildSolution,
+    [parameter(Mandatory=$false)]
+    [string] $NuGetPackageOutputDirectory = "Package",
+    [parameter(Mandatory=$false)]
+    [string[]] $NuSpecReplacements = @()
 )
 $env:PsModulePath += ";$PsScriptRoot\Modules"
 
 Import-Module Invoke-MsBuild -Verbose
 Import-Module Transform-Nuspec -Verbose
-Import-Module Bump-Version -Verbose
 
 try
 {
-    Transform-Nuspec -Version $Version -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
+    $Version = Get-Content -Path $VersionFilePath
+    if(!($Version -match "^(\d+\.)?(\d+\.)?(\*|\d+)$"))
+    {
+        throw [System.Exception] "Invalid version number. Check your version.txt file." 
+    }
+
+    $BuildConfigurations = @("Release 4.6.1", "Release 4.6", "Release 4.5.2", "Release 4.5.1", "Release 4.5") 
+    if($RebuildSolution)
+    {   
+        foreach ($conf in $BuildConfigurations)
+        {
+            Write-Host "Rebuilding project in $conf configuration."
+            Build-Solution -SolutionFilePath $SolutionFilePath -BuildConfiguration $conf
+        }
+    }
+
+    Transform-Nuspec -Params $(,$Version + $NuSpecReplacements) -SourcePath $NuspecSourcePath -DestinationPath $NuspecDestinationPath
    
-    $buildResult = Invoke-MsBuild -Path "..\TestUnium.sln" -Verbose -Params "/target:Clean;Build /property:Configuration=Release"
-    if ($buildResult.BuildSucceeded -eq $true)
-    { 
-        Write-Host "Build completed successfully." 
+    if(!(Test-Path $NuGetPackageOutputDirectory))
+    {
+        New-Item -Path $NuGetPackageOutputDirectory -Type directory
     }
-    ElseIf (!$buildResult.BuildSucceeded -eq $false)
-    { 
-        Write-Host "Build failed. Check the build log file $($buildResult.BuildLogFilePath) for errors." 
-    }
-    ElseIf ($buildResult.BuildSucceeded -eq $null)
-    { 
-        Write-Host "Unsure if build passed or failed: $($buildResult.Message)" 
-    }
-
-    Start-Process -FilePath $PSScriptRoot\nuget.exe -ArgumentList "pack $ProjectFilePath -IncludeReferencedProjects -Verbose -Prop Configuration=$BuildConfiguration"
-
-    Bump-Version -FilePath $VersionFilePath -Version $Version
+    
+    & nuget pack $ProjectFilePath -Symbols -outputdirectory $NuGetPackageOutputDirectory -Prop Configuration=`"$($BuildConfigurations[0])`" -Verbosity detailed
 }
 catch [Exception]
 {
     Write-Host $_.Exception.Message
+    throw $_
 }
 
 

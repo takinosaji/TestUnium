@@ -11,11 +11,17 @@ using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Selenium.WebDriving.Screenshots
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DefaultMakeScreenshotStrategy : IMakeScreenshotStrategy
     {
-        public void MakeScreenshot(IStep step, Type testClassType, String callingMethodName, IWebDriver driver, IWebSettings settings)
+        public String MakeScreenshot(IStep step, Type testClassType, String callingMethodName, IWebDriver driver, IWebSettings settings)
         {
-            Contract.Requires(!String.IsNullOrEmpty(settings.ScreenshotSystemPath), $"ScreenshotSystemPath can not be empty!");
+            //Contract.Requires(!String.IsNullOrEmpty(settings.ScreenshotSystemPath), $"ScreenshotSystemPath can not be empty!");
+            if(String.IsNullOrEmpty(settings.ScreenshotSystemPath))
+                throw new ArgumentException($"ScreenshotSystemPath can not be empty!");
+
             if (driver == null) throw new WebDriverHasNotBeenProperlyInitializedException();
             var ss = driver.GetScreenshot();
             var screenshotName = (step?.GetType().Name ?? callingMethodName) + "_" + 
@@ -32,6 +38,8 @@ namespace TestUnium.Selenium.WebDriving.Screenshots
                 Directory.CreateDirectory(dir);
             }
             ss.SaveAsFile(path, ImageFormat.Png);
+
+            return path;
         }
     }
 }

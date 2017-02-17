@@ -1,15 +1,14 @@
 ﻿using System;
-using Ninject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
 namespace TestUnium.Selenium.WebDriving
 {
-    public class WebDriverContainer
+    public class WebDriverContainer : IWebDriverContext
     {
-        [Inject] public IWebDriver Driver { get; set; }
+        public IWebDriver Driver { get; set; }
 
-        [Inject] public IWait<IWebDriver>[] Waits { get; set; }
+        public IWait<IWebDriver>[] Waits { get; set; }
 
         public IWait<IWebDriver> SmallWait
         {

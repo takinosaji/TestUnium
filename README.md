@@ -2,4 +2,6 @@
 
 Framework for scalable and productive automated testing.
 
-Built on .NET Framework 4.6.
+Built for .NET Framework 4.5.
+
+Start acquaintance with TestUnium in our **[Wiki](https://github.com/takinosaji/TestUnium/wiki)**!

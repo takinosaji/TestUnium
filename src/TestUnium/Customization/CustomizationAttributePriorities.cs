@@ -2,9 +2,12 @@
 {
     public enum CustomizationAttributePriorities
     {
+        Container = 1,
         StepRunner = 1,
-        Session = 1,
-        SessionContext = 2,
+        StepModuleRegistrationStrategy = 2,
+        SessionWithContext = 1,
+        Session = 2,
+        SessionContext = 3,
         NoSettings = 1,
         Settings = 2,
         DefaultBrowser = 1,

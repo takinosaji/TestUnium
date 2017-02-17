@@ -1,80 +1,140 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using Ninject;
+using Castle.MicroKernel.Registration;
 using TestUnium.Sessioning;
-using TestUnium.Stepping.Modules;
+using TestUnium.Stepping.Pipeline;
 using TestUnium.Stepping.Steps;
 
 namespace TestUnium.Stepping
 {
-    public class StepDrivenTest : SessionDrivenTest, IStepExecutor, IStepModuleRegistrator
+    /// <summary>
+    /// 
+    /// </summary>
+    public class StepDrivenTest : SessionDrivenTest, IStepDrivenTest
     {
-        private readonly IStepModuleRegistrationStrategy _moduleRegistrationStrategy;
         public StepDrivenTest()
         {
-            _moduleRegistrationStrategy = Kernel.Get<IStepModuleRegistrationStrategy>();
-            Kernel.Bind<IStepExecutor>().ToConstant(this);
+            Container.Register(Component.For<IStepExecutor>().Instance(this));
         }
 
-        public void RegisterStepModule<TStepModule>(Boolean makeReusable) where TStepModule : IStepModule =>
-            _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, makeReusable, typeof(TStepModule));
-       
-        public void RegisterStepModule<TStepModule>() where TStepModule : IStepModule =>
-            RegisterStepModule<TStepModule>(false);
+        public void RegisterStepModule<TStepModule>(String stepModuleAlias, Action<TStepModule> stepModuleSetUpAction = null, bool makeReusable = false) where TStepModule : IStepModule =>
+            Container.Resolve<IStepModuleRegistrationStrategy>(Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName)
+                .RegisterStepModules(Container, makeReusable, new KeyValuePair<String, Type>(stepModuleAlias, typeof(TStepModule)));
 
-        public void RegisterStepModules(params Type[] moduleTypes) =>
-            _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, false, moduleTypes);
-        
-        public void RegisterStepModules(Boolean makeReusable, params Type[] moduleTypes) =>
-            _moduleRegistrationStrategy.RegisterStepModules(Kernel, String.Empty, makeReusable, moduleTypes);
-      
-        public void UnregisterStepModule<T>() where T : IStepModule =>
-            UnregisterStepModules(typeof(T));
+        public void RegisterStepModule<TStepModule>(Action<TStepModule> stepModuleSetUpAction = null, bool makeReusable = false) where TStepModule : IStepModule
+        {
+            Container.Resolve<IStepModuleRegistrationStrategy>(Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName)
+               .RegisterStepModules(Container, makeReusable, typeof(TStepModule));
+        }
 
-        public void UnregisterStepModules(params Type[] moduleTypes) =>
-            _moduleRegistrationStrategy.UnregisterStepModules(Kernel, moduleTypes);
-        
+        public void RegisterStepModules(params Type[] stepModules)
+        {
+            //Contract.Requires<ArgumentException>(stepModules != null && stepModules.Length > 0, "StepModules argument is null or empty!");
+            if(stepModules == null || stepModules.Length == 0)
+                throw new ArgumentException("StepModules argument is null or empty!");
+
+            Container.Resolve<IStepModuleRegistrationStrategy>(
+                    Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName)
+                .RegisterStepModules(Container, false, stepModules);
+        }
+
+        public void RegisterStepModules(params KeyValuePair<String, Type>[] stepModules)
+        {
+            //Contract.Requires<ArgumentException>(stepModules != null && stepModules.Length > 0, "StepModules argument is null or empty!");
+            if (stepModules == null || stepModules.Length == 0)
+                throw new ArgumentException("StepModules argument is null or empty!");
+
+            Container.Resolve<IStepModuleRegistrationStrategy>(
+                    Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName)
+                .RegisterStepModules(Container, false, stepModules);
+        }
+
+        public void RegisterStepModules(Boolean makeReusable, params Type[] stepModules)
+        {
+            //Contract.Requires<ArgumentException>(stepModules != null && stepModules.Length > 0, "StepModules argument is null or empty!");
+            if (stepModules == null || stepModules.Length == 0)
+                throw new ArgumentException("StepModules argument is null or empty!");
+
+            Container.Resolve<IStepModuleRegistrationStrategy>(
+                    Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName)
+                .RegisterStepModules(Container, makeReusable, stepModules);
+        }
+
+        public void RegisterStepModules(Boolean makeReusable, params KeyValuePair<string, Type>[] stepModules)
+        {
+            //Contract.Requires<ArgumentException>(stepModules != null && stepModules.Length > 0, "StepModules argument is null or empty!");
+            if (stepModules == null || stepModules.Length == 0)
+                throw new ArgumentException("StepModules argument is null or empty!");
+
+            Container.Resolve<IStepModuleRegistrationStrategy>(
+                    Internal.Bootstrapping.Castle.Component.Registration.Name.InTestStepModuleRegistrationStrategyName)
+                .RegisterStepModules(Container, makeReusable, stepModules);
+        }
+
+        public void UnregisterStepModules(params String[] stepModuleAliases)
+        {
+            //Contract.Requires<ArgumentException>(stepModuleAliases != null && stepModuleAliases.Length > 0, "StepModuleAliases argument is null or empty!");
+            if (stepModuleAliases == null || stepModuleAliases.Length == 0)
+                throw new ArgumentException("StepModuleAliases argument is null or empty!");
+
+            Container.Resolve<IStepModuleRegistrationStrategy>().UnregisterStepModules(Container, stepModuleAliases);
+        }
+  
         public void Do<TStep>(Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
-            where TStep : IExecutableStep
+            where TStep : class, IExecutableStep
         {
-            Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg())
+            if (!Container.Kernel.HasComponent(typeof(TStep)))
+            {
+                Container.Kernel.Register(Component.For<TStep>().ImplementedBy<TStep>().LifestyleTransient());
+            }
+            Container.Resolve<IStepRunner>()
                 .Run(this, callingMethodName,
-                Kernel.Get<TStep>(), 
+                Container.Resolve<TStep>(), 
                 stepSetUpAction,
                 exceptionHandlingMode, validateStep);
         }
         public void Do<TStep>(StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
-            where TStep : IExecutableStep =>
+            where TStep : class, IExecutableStep =>
             Do((Action<TStep>)null, exceptionHandlingMode, validateStep);
         public void Do<TStep>(Boolean validateStep, [CallerMemberName] String callingMethodName = "")
-            where TStep : IExecutableStep =>
+            where TStep : class, IExecutableStep =>
             Do((Action<TStep>)null, StepExceptionHandlingMode.Rethrow, validateStep);
 
 
         public TResult Do<TStep, TResult>(Action<TStep> stepSetUpAction = null,
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "") 
-            where TStep : IExecutableStep<TResult>
-        {           
-            return Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg())
+            where TStep : class, IExecutableStep<TResult>
+        {
+            if (!Container.Kernel.HasComponent(typeof(TStep)))
+            {
+                Container.Kernel.Register(Component.For<TStep>().ImplementedBy<TStep>().LifestyleTransient());
+            }
+            return Container.Resolve<IStepRunner>()
                 .RunWithReturnValue<TStep, TResult>(
                 this, callingMethodName,
-                Kernel.Get<TStep>(), 
+                Container.Resolve<TStep>(), 
                 stepSetUpAction, 
                 exceptionHandlingMode, validateStep);
         }
         public TResult Do<TStep, TResult>(StepExceptionHandlingMode exceptionHandlingMode, Boolean validateStep = true, [CallerMemberName] String callingMethodName = "")
-            where TStep : IExecutableStep<TResult> =>
+            where TStep : class, IExecutableStep<TResult> =>
             Do<TStep, TResult>(null, exceptionHandlingMode, validateStep);
         public TResult Do<TStep, TResult>(Boolean validateStep, [CallerMemberName] String callingMethodName = "")
-            where TStep : IExecutableStep<TResult> =>
+            where TStep : class, IExecutableStep<TResult> =>
             Do<TStep, TResult>(null, StepExceptionHandlingMode.Rethrow, validateStep);
 
         public void Do(Action outOfStepOperations, 
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, [CallerMemberName] String callingMethodName = "")
         {
-            var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
-            var step = Kernel.Get<FakeStep>();
+            var runner = Container.Resolve<IStepRunner>();
+            if (!Container.Kernel.HasComponent(typeof(FakeStep)))
+            {
+                Container.Kernel.Register(Component.For<FakeStep>().ImplementedBy<FakeStep>());
+            }
+            var step = Container.Resolve<FakeStep>();
             step.Operations = outOfStepOperations;
             runner.Run(this, callingMethodName, step, null, exceptionHandlingMode, false);
         }
@@ -82,17 +142,21 @@ namespace TestUnium.Stepping
         public TResult Do<TResult>(Func<TResult> outOfStepFuncWithReturnValue, 
             StepExceptionHandlingMode exceptionHandlingMode = StepExceptionHandlingMode.Rethrow, [CallerMemberName] String callingMethodName = "")
         {
-            var runner = Kernel.Get<IStepRunner>(GetKernelConstructorArg(), GetCurrentSessionIdConstructorArg());
-            var step = Kernel.Get<FakeStepWithReturnValue<TResult>>();
+            var runner = Container.Resolve<IStepRunner>();
+            if (!Container.Kernel.HasComponent(typeof(FakeStepWithReturnValue<TResult>)))
+            {
+                Container.Kernel.Register(Component.For<FakeStepWithReturnValue<TResult>>().ImplementedBy<FakeStepWithReturnValue<TResult>>().LifestyleTransient());
+            }
+            var step = Container.Resolve<FakeStepWithReturnValue<TResult>>();
             step.OperationsWithReturnValue = outOfStepFuncWithReturnValue;
             return runner.RunWithReturnValue<FakeStepWithReturnValue<TResult>, TResult>(this, callingMethodName, step, null, exceptionHandlingMode, false);
         }
 
         public TStep GetStep<TStep>(Action<TStep> stepSetupAction = null) where TStep : IStep
         {
-            var step = Kernel.Get<TStep>();
+            var step = Container.Resolve<TStep>();
             stepSetupAction?.Invoke(step);
             return step;
-        }
+        }  
     }
 }

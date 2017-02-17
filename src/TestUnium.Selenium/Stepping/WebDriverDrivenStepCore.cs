@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using Ninject;
 using OpenQA.Selenium;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Selenium.Settings;
@@ -17,18 +16,20 @@ namespace TestUnium.Selenium.Stepping
     {
         private readonly IMakeScreenshotStrategy _makeScreenshotStrategy;
 
-        [Inject]
         public IWebDriver Driver { get; set; }
 
         protected WebDriverDrivenStepCore()
         {
-            _makeScreenshotStrategy = Container.Instance.Kernel.Get<IMakeScreenshotStrategy>();
+            _makeScreenshotStrategy = CoreContainer.Instance.Current.Resolve<IMakeScreenshotStrategy>();
         }
 
-        public void MakeScreenshot([CallerMemberName] String callingMethodName = "")
+        public String MakeScreenshot([CallerMemberName] String callingMethodName = "")
         {
-            Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
-            _makeScreenshotStrategy.MakeScreenshot(this as IStep, GetTestClassType(Executor), GetCallingMethodName(Executor, callingMethodName), Driver, Settings as IWebSettings);
+            //Contract.Requires(Settings is IWebSettings, $"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
+            if(!(Settings is IWebSettings))
+                throw new ArgumentException($"Type which is representing Settings in your test doesnt implement interface IWebSettings.");
+
+            return _makeScreenshotStrategy.MakeScreenshot(this as IStep, GetTestClassType(Executor), GetCallingMethodName(Executor, callingMethodName), Driver, Settings as IWebSettings);
         }
 
         private String GetCallingMethodName(IStepExecutor executor, String callingMethodName)

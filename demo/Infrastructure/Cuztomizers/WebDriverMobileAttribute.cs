@@ -14,7 +14,7 @@ namespace Cuztomizers
 {
     public class WebDriverMobileAttribute : WebDriverAttribute
     {
-        public override void Customize(WebDriverDrivenTest context)
+        public override void Customize(IWebDriverDrivenTest context)
         {
             var settings = context.SettingsOfType<IWebSettings>();
             switch (context.Browser)

@@ -1,7 +1,9 @@
-﻿namespace TestUnium.Settings
+﻿using TestUnium.Stepping;
+
+namespace TestUnium.Settings
 {
-    public interface ISettingsDrivenTest
+    public interface ISettingsDrivenTest : IStepDrivenTest, ISettingsContext
     {
-        TSettingsBase SettingsOfType<TSettingsBase>() where TSettingsBase : ISettings;
+        TSettingsBase SettingsOfType<TSettingsBase>() where TSettingsBase : class, ISettings;
     }
 }

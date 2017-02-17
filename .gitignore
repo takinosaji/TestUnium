@@ -236,5 +236,10 @@ _Pvt_Extensions
 .fake/
 
 *.nuspec
+!/Tools/nuget.exe
 !/Tools/TestUnium.nuspec
+!/Tools/TestUnium.Selenium.nuspec
 !/demo/drivers/*.exe
+
+# JetBrains
+.idea/

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using Ninject;
+using Castle.Windsor;
 using TestUnium.Internal.Bootstrapping;
 using TestUnium.Internal.Domain;
 using TestUnium.Internal.Services;
@@ -10,13 +10,13 @@ namespace TestUnium.Internal
 {
     public class Resolver : Singleton<Resolver>
     {
-        private readonly ConcurrentDictionary<Int32, IKernel> _kernels;
+        private readonly ConcurrentDictionary<Int32, IWindsorContainer> _kernels;
         private readonly IInjectionService _injectionService;
-        public IKernel Kernel
+        public IWindsorContainer CurrentContainer
         {
             get
             {
-                return _kernels.GetOrAdd(Thread.CurrentThread.ManagedThreadId, _injectionService.CreateKernel());
+                return _kernels.GetOrAdd(Thread.CurrentThread.ManagedThreadId, _injectionService.CreateContainer());
             }
             set
             {
@@ -26,8 +26,8 @@ namespace TestUnium.Internal
 
         private Resolver()
         {
-            _injectionService = Container.Instance.Kernel.Get<IInjectionService>();
-            _kernels = new ConcurrentDictionary<Int32, IKernel>();
+            _injectionService = CoreContainer.Instance.Current.Resolve<IInjectionService>();
+            _kernels = new ConcurrentDictionary<Int32, IWindsorContainer>();
         }
     }
 }

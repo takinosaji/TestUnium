@@ -1,4 +1,5 @@
 ﻿using System;
+using TestUnium.Selenium.WebDriving.Browsing;
 using TestUnium.Settings;
 
 namespace TestUnium.Selenium.Settings
@@ -11,7 +12,9 @@ namespace TestUnium.Selenium.Settings
         Boolean MakeScreenshotOnError { get; set; }
         String MainUrl { get; set; }
         String WebAppUrl { get; set; }
+        String GeckoDriverPath { get; set; }
         String ChromeDriverPath { get; set; }
         String IeDriverPath { get; set; }
+        Browser Browser { get; set; }
     }
 }
