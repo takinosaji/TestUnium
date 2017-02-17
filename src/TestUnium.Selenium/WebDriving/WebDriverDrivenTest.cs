@@ -25,13 +25,12 @@ namespace TestUnium.Selenium.WebDriving
         public IWait<IWebDriver> MediumWait { get; set; }
         public IWait<IWebDriver> LongWait { get; set; }
 
-#if DEBUG
+
         // This is very ugly. Need to think how to move this out.
         static WebDriverDrivenTest()
         {
             CoreContainer.Instance.Current.Install(FromAssembly.This());
         }
-#endif
 
         public WebDriverDrivenTest()
         {

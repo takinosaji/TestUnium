@@ -20,11 +20,7 @@ namespace TestUnium.Internal.Bootstrapping
             _processedInstallers = new List<Type>();
             Current = new WindsorContainer();
             Current.Register(Component.For<IWindsorContainer>().Instance(Current));
-#if DEBUG
-            Current.Install(FromAssembly.InThisApplication());
-#else
-            Current.Install(FromAssembly.InDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)));
-#endif
+            Current.Install(FromAssembly.This());
         }
 
         public void Install(params IWindsorInstaller[] installers)
